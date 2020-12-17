@@ -1,12 +1,14 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf -f docs && rimraf -f dist && mkdir docs && cd docs && mkdir docs && cd ..",
     "dist": "cp -r src/html/* docs/",
-    "build": "npm run clean && npm run dist",
+    "version": "node ./src/build_js/write_version_file.js",
+    "typescript": "tsc --build tsconfig.json",
+    "build": "npm run clean && npm run version && npm run typescript && npm run dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +34,7 @@
   },
   "homepage": "https://github.com/StoneCypher/circular_buffer_js#readme",
   "devDependencies": {
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
   }
 }
