@@ -1,0 +1,31 @@
+{
+  "name": "circular_buffer_js",
+  "version": "0.1.0",
+  "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StoneCypher/circular_buffer_js.git"
+  },
+  "keywords": [
+    "circular",
+    "buffer",
+    "circular-buffer",
+    "ring",
+    "buffer",
+    "ring-buffer",
+    "queue",
+    "circular-queue",
+    "ring-queue",
+    "stonecypher"
+  ],
+  "author": "John Haugeland <stonecypher@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StoneCypher/circular_buffer_js/issues"
+  },
+  "homepage": "https://github.com/StoneCypher/circular_buffer_js#readme"
+}
