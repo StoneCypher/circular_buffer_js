@@ -68,7 +68,9 @@ class circular_buffer<T> {
 
     if (this._length <= 0) { throw new RangeError(`Cannot pop, structure is empty`); }
 
-    return this._values[((this._cursor++) + (this._length--) -1) % this._capacity];
+    --this._length;
+
+    return this._values[(this._cursor++) % this._capacity];
 
   }
 
@@ -78,8 +80,11 @@ class circular_buffer<T> {
 
   at(i: number): T | undefined {
 
-    if (i >= this._capacity) { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
-    if (i >= this._length)   { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
+    if (i >= this._capacity)      { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
+    if (i >= this._length)        { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
+
+    if (!( Number.isInteger(i) )) { throw new RangeError(`Accessors must be non-negative integers; called at(${i})`); }
+    if (i < 0)                    { throw new RangeError(`circular_buffer does not support negative traversals; called at(${i})`); }
 
     return this._values[(this._cursor + i) % this._capacity];
 
