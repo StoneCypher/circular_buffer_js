@@ -58,6 +58,18 @@ class circular_buffer<T> {
 
 
 
+  pop(): T | undefined {
+
+    if (this._length <= 0) { throw new RangeError(`Cannot pop, structure is empty`); }
+
+    return this._values[((this._cursor++) + (this._length--) -1) % this._capacity];
+
+  }
+
+
+
+
+
   at(i: number): T | undefined {
 
     if (i >= this._capacity) { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
