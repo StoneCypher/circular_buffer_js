@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "make": "npm run typescript && npm run bundle",
     "finalize": "npm run minify && npm run docs && npm run dist",
     "build": "npm run prep && npm run make && npm run finalize",
+    "ci": "npm run build && echo TODO archive docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
