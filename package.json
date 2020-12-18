@@ -1,12 +1,12 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf -f dist && mkdir dist && cd docs && cd docs && rimraf -f current && mkdir current && cd .. && cd ..",
+    "clean": "rimraf -f dist && mkdir dist && cd docs && cd ..",
     "dist": "cp build/es6/circular_buffer.d.ts dist/ && cp build/circular_buffer.iife.js dist/",
-    "docs": "typedoc --out docs/docs/current src/ts && node src/build_js/archive_docs_by_version.js",
+    "docs": "typedoc --out docs/docs src/ts",
     "site": "cp -r src/html/* docs/",
     "version": "node ./src/build_js/write_version_file.js",
     "bundle": "rollup -c",
