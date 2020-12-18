@@ -27,10 +27,12 @@ class circular_buffer<T> {
 
 
   constructor(uCapacity: number) {
-    this._capacity = uCapacity;
+
     this._values   = new Array(uCapacity);
+    this._capacity = uCapacity;
     this._cursor   = 0;
     this._length   = 0;
+
   }
 
 
