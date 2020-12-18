@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "index.js",
   "scripts": {
@@ -45,6 +45,7 @@
   },
   "homepage": "https://github.com/StoneCypher/circular_buffer_js#readme",
   "devDependencies": {
+    "fast-check": "^2.10.0",
     "jest": "^26.6.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.35.1",
