@@ -28,6 +28,9 @@ class circular_buffer<T> {
 
   constructor(uCapacity: number) {
 
+    if (!( Number.isInteger(uCapacity) )) { throw new RangeError(`Capacity must be an integer, received ${uCapacity}`); }
+    if (uCapacity < 1)                    { throw new RangeError(`Capacity must be a positive integer, received ${uCapacity}`); }
+
     this._values   = new Array(uCapacity);
     this._capacity = uCapacity;
     this._cursor   = 0;
@@ -39,8 +42,9 @@ class circular_buffer<T> {
 
 
 
-  capacity() : number { return this._capacity; }
-  length()   : number { return this._length; }
+  capacity()  : number { return this._capacity; }
+  length()    : number { return this._length; }
+  available() : number { return this._capacity - this._length; }
 
 
 
