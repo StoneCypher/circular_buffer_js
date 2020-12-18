@@ -4,7 +4,7 @@ const es6_config = {
   input   : 'build/es6/circular_buffer.js',
 
   output  : {
-    file   : 'dist/circular_buffer.esm.js',
+    file   : 'build/circular_buffer.esm.js',
     format : 'es',
     name   : 'circular_buffer'
   }
@@ -20,7 +20,7 @@ const cjs_config = {
   input   : 'build/es6/circular_buffer.js',
 
   output  : {
-    file   : 'dist/circular_buffer.cjs.js',
+    file   : 'build/circular_buffer.cjs.js',
     format : 'cjs',
     name   : 'circular_buffer'
   }
@@ -36,7 +36,7 @@ const iife_config = {
   input   : 'build/es6/circular_buffer.js',
 
   output  : {
-    file   : 'dist/circular_buffer.iife.js',
+    file   : 'build/circular_buffer.iife.js',
     format : 'iife',
     name   : 'circular_buffer'
   }
