@@ -1,7 +1,7 @@
 
-import * as assert         from 'assert';
-import * as fc             from 'fast-check';
-import { circular_buffer } from '../circular_buffer';
+import * as assert                  from 'assert';
+import * as fc                      from 'fast-check';
+import { version, circular_buffer } from '../circular_buffer';
 
 
 
@@ -24,8 +24,7 @@ class PushCommand implements cb_command {
 
   constructor(readonly value: number) {}
 
-  check = (model: Readonly<CbModel>): boolean =>
-    model.length < model.capacity;  // constrained: should not push into a full cb
+  check = (_m: Readonly<CbModel>): boolean => true;  // allowed to push into a full cb because we test overflows
 
   run(m: CbModel, r: num_cb): void {
 
@@ -42,11 +41,10 @@ class PushCommand implements cb_command {
 
     if (m.length < m.capacity) {  // cb isn't full, so should work
       r.push( newValue );
+      ++m.length;
     } else { // cb _is_ full, so should fail
       assert.throws( () => r.push( newValue ) );
     }
-
-    ++m.length;
 
   }
 
@@ -59,12 +57,17 @@ class PushCommand implements cb_command {
 
 class PopCommand implements cb_command {
 
-  check = (m: Readonly<CbModel>): boolean =>
-    m.length > 0;    // constrained: should not call pop on an empty cb
+  check = (_m: Readonly<CbModel>): boolean => true;  // allowed to pop from an empty cb because we test underflows
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    r.pop();
-    --m.length;
+
+    if (m.length > 0) {
+      r.pop();
+      --m.length;
+    } else {
+      assert.throws( () => r.pop() );
+    }
+
   }
 
   toString = () => 'pop';
@@ -154,15 +157,126 @@ class CapacityCommand implements cb_command {
 
 
 
+describe('[STOCH] Bad constructor harassment', () => {
+
+  test('Floats', () => {
+    fc.assert(
+      fc.property(
+        fc.nat(),
+        sz => assert.throws(
+          () => new circular_buffer( Number.isInteger(sz)? sz+0.1 : sz )  // if an int, non-int it
+        )
+      )
+    );
+  });
+
+  test('Non-positive', () => {
+    fc.assert(
+      fc.property(
+        fc.nat(),
+        sz => {
+          assert.throws( () => new circular_buffer( sz * -1 ) );
+        }
+      )
+    );
+  });
+
+  test('Inf, NInf, 0, NaN', () => {
+    assert.throws( () => new circular_buffer( Number.POSITIVE_INFINITY ) );
+    assert.throws( () => new circular_buffer( Number.NEGATIVE_INFINITY ) );
+    assert.throws( () => new circular_buffer( 0 )                        );
+    assert.throws( () => new circular_buffer( NaN )                      );
+  });
+
+});
+
+
+
+
+
+describe('[STOCH] at/1 good calls', () => {
+  test('Check position <=5000 in container size <= 5000', () => {
+
+    fc.assert(
+      fc.property(
+        fc.integer(1, 5000),
+        fc.integer(0, 5000),
+        (sz, at) => {
+          const cb = new circular_buffer<number>(sz);
+          for (let i=0; i<sz; ++i) { cb.push(i); }
+
+          assert.equal(cb.at(Math.min(sz-1,at)), Math.min(sz-1,at));
+        }
+      )
+    );
+
+  });
+});
+
+
+
+
+
+describe('[STOCH] at/1 bad calls', () => {
+
+  const cb = new circular_buffer<number>(3);
+  cb.push(1);
+
+  test('Floats', () => {
+    fc.assert(
+      fc.property(
+        fc.float(),
+        sz => {
+          fc.pre( !( Number.isInteger(sz) ) );
+          assert.throws( () => cb.at( sz ) );
+        }
+      )
+    )
+  });
+
+  test('Non-positive', () => {
+    fc.assert(
+      fc.property(
+        fc.nat(),
+        sz => {
+          fc.pre(sz !== 0);
+          assert.throws( () => cb.at( sz * -1 ) );
+        }
+      )
+    );
+  });
+
+  test('Over-capacity lookup', () => {
+    assert.throws( () => cb.at( 4 ) );
+  });
+
+  test('Over-length lookup', () => {
+    assert.throws( () => cb.at( 2 ) );
+  });
+
+  test('Inf, NInf, 0, NaN', () => {
+    assert.throws( () => cb.at( Number.POSITIVE_INFINITY ) );
+    assert.throws( () => cb.at( Number.NEGATIVE_INFINITY ) );
+    assert.throws( () => cb.at( NaN )                      );
+  });
+
+});
+
+
+
+
+
 describe('[STOCH] Circular buffer', () => {
 
-  const MaxCommandCount      = 1000,
+  const MaxCommandCount      = 100,
         MinBufferSize        = 1,
 
+        TinyRunCount         = 1000,
         SmallRunCount        = 200,
         RegularRunCount      = 40,
         LargeRunCount        = 8,
 
+        TinyMaxBufferSize    = 1,
         SmallMaxBufferSize   = 5,
         RegularMaxBufferSize = 50,
         LargeMaxBufferSize   = 500;
@@ -179,8 +293,9 @@ describe('[STOCH] Circular buffer', () => {
 
     // define the possible commands and their inputs
 
-  const SmallSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, LargeMaxBufferSize),
-        RegularSizeGenerator :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, LargeMaxBufferSize),
+  const TinySizeGenerator    :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, TinyMaxBufferSize),
+        SmallSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, SmallMaxBufferSize),
+        RegularSizeGenerator :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, RegularMaxBufferSize),
         LargeSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, LargeMaxBufferSize),
 
         CommandGenerator = fc.commands(AllCommands, MaxCommandCount);
@@ -188,6 +303,7 @@ describe('[STOCH] Circular buffer', () => {
   type guideSize = [ fc.ArbitraryWithShrink<number>, number, number ];
 
   const Sizes: guideSize[] = [
+    [ TinySizeGenerator,    TinyRunCount,    TinyMaxBufferSize    ],
     [ SmallSizeGenerator,   SmallRunCount,   SmallMaxBufferSize   ],
     [ RegularSizeGenerator, RegularRunCount, RegularMaxBufferSize ],
     [ LargeSizeGenerator,   LargeRunCount,   LargeMaxBufferSize   ]
@@ -204,6 +320,7 @@ describe('[STOCH] Circular buffer', () => {
     fc.modelRun(s, cmds);
 
   };
+
 
 
   describe(`Push Pop Len Avl Cap Full Empty`, () => {
@@ -229,4 +346,14 @@ describe('[STOCH] Circular buffer', () => {
   });
 
 
+});
+
+
+
+
+
+
+describe('[STOCH] version', () => {
+  test('Version is present',   () => expect(typeof version).toBe('string'));
+  test('Version is non-empty', () => expect(version.length > 0).toBe(true));
 });
