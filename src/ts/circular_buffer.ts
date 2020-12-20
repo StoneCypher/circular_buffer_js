@@ -42,8 +42,8 @@ class circular_buffer<T> {
 
 
 
-  capacity()  : number { return this._capacity; }
-  length()    : number { return this._length; }
+  capacity() : number { return this._capacity; }
+  length() : number { return this._length; }
   available() : number { return this._capacity - this._length; }
 
 
@@ -66,9 +66,23 @@ class circular_buffer<T> {
 
   pop(): T | undefined {
 
-    if (this._length <= 0) { throw new RangeError(`Cannot pop, structure is empty`); }
+    if (this._length <= 0) {
+      throw new RangeError(`Cannot pop, structure is empty`);
+    }
 
     --this._length;
+
+    // admittedly it's odd to put this here rather than to cache and return the
+    // _cursor increment.  however logically it makes no difference: this could
+    // be unculled entirely, and indeed would be but for the vain hope that
+    // someone would actually use this so long that we'd lose ieee double on
+    // safe ints (lol,) so, whatever, do it here, because in code where we use
+    // modulo we're gonna pretend to care about the efficiency of an allocate
+    //
+    // bridges, $30.  get your bridges right here, $30.
+    if (this._cursor >= this._capacity) {
+      this._cursor -= this._capacity;
+    }
 
     return this._values[(this._cursor++) % this._capacity];
 
@@ -80,11 +94,11 @@ class circular_buffer<T> {
 
   at(i: number): T | undefined {
 
+    if (i < 0)                    { throw new RangeError(`circular_buffer does not support negative traversals; called at(${i})`); }
+    if (!( Number.isInteger(i) )) { throw new RangeError(`Accessors must be non-negative integers; called at(${i})`); }
+
     if (i >= this._capacity)      { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
     if (i >= this._length)        { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
-
-    if (!( Number.isInteger(i) )) { throw new RangeError(`Accessors must be non-negative integers; called at(${i})`); }
-    if (i < 0)                    { throw new RangeError(`circular_buffer does not support negative traversals; called at(${i})`); }
 
     return this._values[(this._cursor + i) % this._capacity];
 
