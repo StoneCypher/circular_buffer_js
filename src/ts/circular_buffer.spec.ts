@@ -277,7 +277,6 @@ describe('[UNIT] Error cases', () => {
         expect(() => pf.push(size)).toThrow();
 
       });
-
     });
 
   }
