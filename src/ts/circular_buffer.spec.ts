@@ -206,6 +206,64 @@ test('[UNIT] pop/0', () => {
 
 
 
+test('[UNIT] available/0', () => {
+
+  const popper = new circular_buffer<number>(3);
+
+  expect( popper.available() ).toBe(3);
+
+  popper.push(1);
+  expect( popper.available() ).toBe(2);
+
+  popper.push(2);
+  expect( popper.available() ).toBe(1);
+
+  popper.push(3);
+  expect( popper.available() ).toBe(0);
+
+  popper.pop();
+  expect( popper.available() ).toBe(1);
+
+});
+
+
+
+
+
+test('[UNIT] empty/0', () => {
+
+  const popper = new circular_buffer<number>(3);
+  expect( popper.empty() ).toBe(true);
+
+  popper.push(1);
+  expect( popper.empty() ).toBe(false);
+
+  popper.pop();
+  expect( popper.empty() ).toBe(true);
+
+});
+
+
+
+
+
+test('[UNIT] empty/0', () => {
+
+  const popper = new circular_buffer<number>(1);
+  expect( popper.full() ).toBe(false);
+
+  popper.push(1);
+  expect( popper.full() ).toBe(true);
+
+  popper.pop();
+  expect( popper.full() ).toBe(false);
+
+});
+
+
+
+
+
 describe('[UNIT] Error cases', () => {
 
   const overflow = (size: number) => {
