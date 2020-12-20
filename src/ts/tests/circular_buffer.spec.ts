@@ -1,5 +1,5 @@
 
-import { version, circular_buffer } from './circular_buffer';
+import { version, circular_buffer } from '../circular_buffer';
 
 
 
