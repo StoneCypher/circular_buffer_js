@@ -44,11 +44,21 @@ function copyFolderSync(from, to) {
 
 
 
+const logline = `Currently targeting:
+  docsdir : ${docsdir}
+  tempdir : ${tempdir}
+  currdir : ${currdir}
+  versdir : ${versdir}
+  pkg_f   : ${pkg_f}
+`;
+
 if (process.env['STEP'] === 'TEMPORARY') {       // Are we at the pre-other-checkout step?
+  console.log(logline);
   copyFolderSync(docsdir, tempdir);                // Put the generated docs somewhere they can be re-gotten
   fs.copyFileSync('./package.json', pkg_f);        // cache package.json
 
 } else if (process.env['STEP'] === 'ARCHIVE') {  // Are we at the store the post-checkout docs step?
+  console.log(logline);
   rimraf.sync(currdir);                            // destroy the previous `current` directory
   fs.copyFileSync(pkg_f, './package.json');        // restore baseline package.json
   copyFolderSync(tempdir, currdir);                // clone into `current` (clone remakes dir)
