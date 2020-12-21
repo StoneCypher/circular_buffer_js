@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.14.4",
+  "version": "0.14.5",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "finalize": "npm run minify && npm run docs && npm run dist",
     "test": "jest --color --verbose && jest -c jest-stoch.config.js --color --verbose",
     "build": "npm run prep && npm run make && npm run test && npm run finalize",
-    "ci": "npm run build && STEP=TEMPORARY node src/build_js/archive_docs_by_version.js"
+    "ci": "npm run build && STEP=TEMPORARY node archive_docs_by_version.js"
   },
   "repository": {
     "type": "git",
