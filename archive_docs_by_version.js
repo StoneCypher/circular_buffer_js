@@ -2,7 +2,7 @@
 const fs      = require('fs'),
       path    = require('path');
 
-const base    = require('./base-package.json');
+const base    = JSON.parse(`${ fs.readFileSync('./package.json') }`);
 
 
 
@@ -30,7 +30,7 @@ function copyFolderSync(from, to) {
 
 
 
-rimraf.sync(`./docs/docs/${base.version}/`);
-copyFolderSync('./docs/docs/current/', `./docs/docs/${base.version}/`)
+rimraf.sync(`./docs/docs/v${base.version}/`);
+copyFolderSync('./docs/docs/current/', `./docs/docs/v${base.version}/`)
 
 console.log(`# Cloned current docs to archival directory for ${package.version}; finished`);
