@@ -2,6 +2,16 @@
 const fs      = require('fs'),
       path    = require('path');
 
+console.log( '\n\n' + process.cwd() + '\n\n' );
+
+fs.readdir('.', (err, files) => {
+  files.forEach(file => {
+    console.log(file);
+  });
+});
+
+// /home/runner/work/circular_buffer_js/circular_buffer_js/base-package.json
+
 const base    = JSON.parse(`${ fs.readFileSync('./base-package.json') }`);
 
 
