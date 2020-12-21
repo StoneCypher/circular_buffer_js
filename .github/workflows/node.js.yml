@@ -25,14 +25,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install && npm run ci
-    - uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-    - run: |
-        STEP=TEMPORARY node src/build_js/archive_docs_by_version.js
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "auto-bump docs"
-        git push
+    - run: npm install && npm run build
+
+  # docs:
+  #   runs-on: ubuntu-latest
+  #   node-version: 14.x
+  #   - uses: actions/checkout@v2
+  #   - run: npm install && npm run build
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       ref: gh-pages
+  #   - run: |
+  #       STEP=TEMPORARY node src/build_js/archive_docs_by_version.js
+  #       git config user.name github-actions
+  #       git config user.email github-actions@github.com
+  #       git add .
+  #       git commit -m "auto-bump docs"
+  #       git push
