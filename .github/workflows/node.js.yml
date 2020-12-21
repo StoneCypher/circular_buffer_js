@@ -28,11 +28,11 @@ jobs:
     - run: npm install && npm run ci
     - uses: actions/checkout@v2
       with:
-        ref: "gh-pages"
-      - run: |
-          npm run archive
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "auto-bump docs"
-          git push
+        ref: gh-pages
+    - run: |
+        npm run archive
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "auto-bump docs"
+        git push
