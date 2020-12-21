@@ -71,6 +71,7 @@ There're also two `iife` builds - both regular and minified - so that you can us
 
 If this doesn't meet your needs, please try:
 
+* [ring-buffer-ts](https://www.npmjs.com/package/ring-buffer-ts)
 * [CBuffer](https://www.npmjs.com/package/CBuffer)
 * [ringbuffer.js](https://www.npmjs.com/package/ringbufferjs)
 * [circular-buffer](https://www.npmjs.com/package/circular-buffer)
