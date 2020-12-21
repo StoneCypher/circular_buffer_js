@@ -34,7 +34,7 @@ function copyFolderSync(from, to) {
 
 
 
-rimraf.sync(`./docs/${base.version}/`);
-copyFolderSync('./docs/current/', `./docs/${base.version}/`)
+rimraf.sync(`./docs/docs/${base.version}/`);
+copyFolderSync('./docs/docs/current/', `./docs/docs/${base.version}/`)
 
 console.log(`# Cloned current docs to archival directory for ${package.version}; finished`);
