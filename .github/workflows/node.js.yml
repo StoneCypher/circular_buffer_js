@@ -14,8 +14,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10.x, 12.x, 14.x] # slowest first
+        os: [macos-latest, windows-latest, ubuntu-latest] # slowest first
 
     runs-on: ${{ matrix.os }}
 
@@ -36,13 +36,32 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    - run: npm install && npm run ci
+    - run: npm install && npm run build
+    - uses: actions/upload-artifact@v2
+      with:
+        name: docs-dir
+        path: docs/docs/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: base-package
+        path: package.json
     - uses: actions/checkout@v2
       with:
         ref: gh-pages
     - run: |
         npm install rimraf
-        STEP=TEMPORARY node archive_docs_by_version.js
+        rimraf -f docs/current/
+    - uses: actions/download-artifact@v2
+      with:
+        name: docs-dir
+        path: docs/docs/current/
+    - uses: actions/download-artifact@v2
+      with:
+        name: base-package
+        path: base-package.json
+    - run: |
+        npm install rimraf
+        node archive_docs_by_version.js
         git config user.name "DocBot (github-actions, see node workflow)"
         git config user.email github-actions@github.com
         git add .

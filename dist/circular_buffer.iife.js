@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.15.1';
+    const version = '0.15.6';
 
     class circular_buffer {
         constructor(uCapacity) {
