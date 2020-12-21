@@ -49,10 +49,7 @@ jobs:
       with:
         ref: gh-pages
     - run: |
-        npm init -y
-        npm install
-        npm install rimraf
-        rimraf -f docs/current/
+        rm -rf docs/current/
     - uses: actions/download-artifact@v2
       with:
         name: docs-dir
