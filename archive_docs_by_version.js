@@ -13,7 +13,8 @@ const package = require('../../package.json');
 const docsdir = './docs/docs/',
       tempdir = '../cbjs_docs_temp/',
       currdir = './docs/current/',
-      versdir = `./docs/v${package.version}/`;
+      versdir = `./docs/v${package.version}/`,
+      pkg_f   = `${tempdir}package.json`;
 
 
 
@@ -45,9 +46,11 @@ function copyFolderSync(from, to) {
 
 if (process.env['STEP'] === 'TEMPORARY') {       // Are we at the pre-other-checkout step?
   copyFolderSync(docsdir, tempdir);                // Put the generated docs somewhere they can be re-gotten
+  fs.copyFileSync('./package.json', pkg_f);        // cache package.json
 
 } else if (process.env['STEP'] === 'ARCHIVE') {  // Are we at the store the post-checkout docs step?
   rimraf.sync(currdir);                            // destroy the previous `current` directory
+  fs.copyFileSync(pkg_f, './package.json');        // restore baseline package.json
   copyFolderSync(tempdir, currdir);                // clone into `current` (clone remakes dir)
   copyFolderSync(tempdir, versdir);                // clone into version directory also
 
