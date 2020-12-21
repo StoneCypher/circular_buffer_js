@@ -2,7 +2,7 @@
 const fs      = require('fs'),
       path    = require('path');
 
-const base    = JSON.parse(`${ fs.readFileSync('./package.json') }`);
+const base    = JSON.parse(`${ fs.readFileSync('./base-package.json') }`);
 
 
 
