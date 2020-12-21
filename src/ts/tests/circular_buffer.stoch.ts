@@ -12,8 +12,7 @@ type CbModel = {
   capacity : number
 };
 
-type num_cb = circular_buffer<unknown>;
-
+type num_cb     = circular_buffer<unknown>;
 type cb_command = fc.Command<CbModel, num_cb>;
 
 
@@ -289,16 +288,15 @@ describe('[STOCH] Circular buffer', () => {
         Full               = fc.constant(new FullCommand()),
         Empty              = fc.constant(new EmptyCommand());
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Full, Empty ];
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Full, Empty ],
+        CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
 
   const TinySizeGenerator    :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, TinyMaxBufferSize),
         SmallSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, SmallMaxBufferSize),
         RegularSizeGenerator :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, RegularMaxBufferSize),
-        LargeSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, LargeMaxBufferSize),
-
-        CommandGenerator = fc.commands(AllCommands, MaxCommandCount);
+        LargeSizeGenerator   :  fc.ArbitraryWithShrink<number> = fc.integer(MinBufferSize, LargeMaxBufferSize);
 
   type guideSize = [ fc.ArbitraryWithShrink<number>, number, number ];
 
