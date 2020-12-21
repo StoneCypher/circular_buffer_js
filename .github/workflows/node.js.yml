@@ -29,6 +29,7 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
     - uses: actions/checkout@v2
     - name: Build docs on node 14.x
@@ -40,7 +41,7 @@ jobs:
       with:
         ref: gh-pages
     - run: |
-        STEP=TEMPORARY node src/build_js/archive_docs_by_version.js
+        STEP=TEMPORARY node archive_docs_by_version.js
         git config user.name "DocBot (github-actions, see node workflow)"
         git config user.email github-actions@github.com
         git add .
