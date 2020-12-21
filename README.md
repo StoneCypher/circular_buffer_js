@@ -12,21 +12,21 @@ Well tested (which is the point.)  100% coverage, 100% property coverage.
 
 ## API
 
-You should consider viewing the [real documentation], but:
+You should consider viewing the [real documentation](#todo), but:
 
 ```typescript
 const cb = new circular_buffer<type>(size);   // yields a buffer of fixed size `size`
+
 cb.push(item);                                // inserts `item` at end of `cb`, then returns `item`
 cb.pop();                                     // removes and returns first element
 cb.at(location);                              // shows the element at 0-indexed offset `location`
+
 cb.full();                                    // returns `true` if no space left, `false` otherwise
 cb.empty();                                   // returns `true` if no space used, `false` otherwise
 cb.available();                               // returns the number of spaces remaining currently
 cb.capacity();                                // returns the total `size` allocated
 cb.length();                                  // returns the amount of space currently used
 ```
-
-
 
 
 
@@ -86,3 +86,23 @@ There're also two `iife` builds - both regular and minified - so that you can us
 ```html
 <script type="text/javascript" src="circular_buffer_js.min.js"></script>
 ```
+
+
+
+<br/><br/>
+
+## Alternatives
+
+If this doesn't meet your needs, please try:
+
+* [ring-buffer-ts](https://www.npmjs.com/package/ring-buffer-ts)
+* [CBuffer](https://www.npmjs.com/package/CBuffer)
+* [ringbuffer.js](https://www.npmjs.com/package/ringbufferjs)
+* [qlist](https://www.npmjs.com/package/qlist)
+* [fixed-size-list](https://www.npmjs.com/package/fixed-size-list)
+* [circular-buffer](https://www.npmjs.com/package/circular-buffer)
+* [cyclist](https://www.npmjs.com/package/cyclist)
+* [cyclic-buffer](https://www.npmjs.com/package/cyclic-buffer)
+* [bsh-circular-buffer](https://www.npmjs.com/package/bsh-circular-buffer)
+* [cbarrick-circular-buffer](https://www.npmjs.com/package/cbarrick-circular-buffer)
+* [limited-cache](https://www.npmjs.com/package/limited-cache)
