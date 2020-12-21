@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.15.7",
+  "version": "0.15.8",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "dist/circular_buffer.cjs.min.js",
   "module": "circular_buffer.esm.min.js",
