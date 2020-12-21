@@ -74,6 +74,8 @@ If this doesn't meet your needs, please try:
 * [ring-buffer-ts](https://www.npmjs.com/package/ring-buffer-ts)
 * [CBuffer](https://www.npmjs.com/package/CBuffer)
 * [ringbuffer.js](https://www.npmjs.com/package/ringbufferjs)
+* [qlist](https://www.npmjs.com/package/qlist)
+* [fixed-size-list](https://www.npmjs.com/package/fixed-size-list)
 * [circular-buffer](https://www.npmjs.com/package/circular-buffer)
 * [cyclist](https://www.npmjs.com/package/cyclist)
 * [cyclic-buffer](https://www.npmjs.com/package/cyclic-buffer)
