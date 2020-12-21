@@ -62,3 +62,20 @@ There're also two `iife` builds - both regular and minified - so that you can us
 ```html
 <script type="text/javascript" src="circular_buffer_js.min.js"></script>
 ```
+
+
+
+<br/><br/>
+
+## Alternatives
+
+If this doesn't meet your needs, please try:
+
+* [CBuffer](https://www.npmjs.com/package/CBuffer)
+* [ringbuffer.js](https://www.npmjs.com/package/ringbufferjs)
+* [circular-buffer](https://www.npmjs.com/package/circular-buffer)
+* [cyclist](https://www.npmjs.com/package/cyclist)
+* [cyclic-buffer](https://www.npmjs.com/package/cyclic-buffer)
+* [bsh-circular-buffer](https://www.npmjs.com/package/bsh-circular-buffer)
+* [cbarrick-circular-buffer](https://www.npmjs.com/package/cbarrick-circular-buffer)
+* [limited-cache](https://www.npmjs.com/package/limited-cache)
