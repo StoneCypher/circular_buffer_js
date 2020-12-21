@@ -28,7 +28,7 @@ jobs:
     - run: npm install && npm run ci
     - uses: actions/checkout@v2
       with:
-        ref: gh-pages
+        ref: "gh-pages"
       - run: |
           npm run archive
           git config user.name github-actions
