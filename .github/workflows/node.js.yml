@@ -41,6 +41,7 @@ jobs:
       with:
         ref: gh-pages
     - run: |
+        npm install rimraf
         STEP=TEMPORARY node archive_docs_by_version.js
         git config user.name "DocBot (github-actions, see node workflow)"
         git config user.email github-actions@github.com
