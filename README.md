@@ -10,6 +10,30 @@ Well tested (which is the point.)  100% coverage, 100% property coverage.
 
 <br/><br/>
 
+## API
+
+You should consider viewing the [real documentation], but:
+
+```typescript
+const cb = new circular_buffer<type>(size);   // yields a buffer of fixed size `size`
+cb.push(item);                                // inserts `item` at end of `cb`, then returns `item`
+cb.pop();                                     // removes and returns first element
+cb.at(location);                              // shows the element at 0-indexed offset `location`
+cb.full();                                    // returns `true` if no space left, `false` otherwise
+cb.empty();                                   // returns `true` if no space used, `false` otherwise
+cb.available();                               // returns the number of spaces remaining currently
+cb.capacity();                                // returns the total `size` allocated
+cb.length();                                  // returns the amount of space currently used
+```
+
+
+
+
+
+
+
+<br/><br/>
+
 ## What is this?
 
 This is a circular buffer (or ring buffer, ring queue, etc.)  It was written because a library I wanted
