@@ -29,8 +29,12 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    node-version: 14.x
+    steps:
     - uses: actions/checkout@v2
+    - name: Build docs on node 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
     - run: npm install && npm run ci
     - uses: actions/checkout@v2
       with:
