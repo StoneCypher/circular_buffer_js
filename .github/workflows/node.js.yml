@@ -25,4 +25,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install && npm run ci && git checkout gh-pages && npm run archive && git add . && git commit -m "auto-bump docs" && git push origin
+    - run: npm install && npm run ci
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+      - run: |
+          npm run archive
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "auto-bump docs"
+          git push
