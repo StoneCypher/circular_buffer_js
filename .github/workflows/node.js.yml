@@ -59,7 +59,7 @@ jobs:
         name: base-package
         path: base-package.json
     - run: |
-        node archive_docs_by_version.js
+        node ./archive_docs_by_version.js
         git config user.name "DocBot (github-actions, see node workflow)"
         git config user.email github-actions@github.com
         git add .
