@@ -28,12 +28,10 @@ var circular_buffer = (function (exports) {
             this._values[(this._cursor + this._length++) % this._capacity] = v;
             return v;
         }
-        fill(x){ 
-            var z;
+        fill(x) {
             for (var i = 0; i < this._capacity; i++) {
                 this._values[i] = x;
             }
-    
             return this;
         }
         pop() {
