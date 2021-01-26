@@ -1,8 +1,16 @@
 # circular_buffer_js
 
-TS implementation of a circular buffer and also a JS compile-down.
+`Typescript` implementation of a circular buffer, and JS compiles to a es6
+module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.
 
-Well tested (which is the point.)  100% coverage, 100% property coverage.
+1. Well tested.
+    * 100% coverage, 100% property coverage.
+1. Tiny.
+    * The `es6` minified module build is currently 1.4k.
+1. Dependency-free.
+    * Only dev-time deps like `typescript` are involved.
+* Well tested.  100% coverage, 100% property coverage.
+* Well tested.  100% coverage, 100% property coverage.
 
 
 
