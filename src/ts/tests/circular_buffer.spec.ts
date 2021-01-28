@@ -165,6 +165,20 @@ test('[UNIT] at/1', () => {
 
 
 
+test('[UNIT] fill/5', () => {
+
+  // declare a three item cb
+  const filler = new circular_buffer<number>(5);
+
+  // can accept three items
+  filler.fill(`hello`);
+
+  expect(filler.fill('hello')).toStrictEqual(["hello","hello","hello","hello","hello"]);
+});
+
+
+
+
 
 test('[UNIT] pop/0', () => {
 

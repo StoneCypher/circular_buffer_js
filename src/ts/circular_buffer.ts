@@ -64,10 +64,6 @@ class circular_buffer<T> {
 
 
   fill(x:any): T[] {
-    if(this._length === this._capacity){
-      throw new RangeError(`array already full`);
-    }
-
     for (var i = 0; i < this._capacity; i++) {
       this._values[i] = x;
       this._length = i;
