@@ -31,8 +31,8 @@ var circular_buffer = (function (exports) {
         fill(x) {
             for (var i = 0; i < this._capacity; i++) {
                 this._values[i] = x;
-                this._length = i;
             }
+            this._length = i;
             return this._values;
         }
         pop() {
