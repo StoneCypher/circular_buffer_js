@@ -69,6 +69,7 @@ class circular_buffer<T> {
       
     }
     this._length = i;
+    this._cursor = i;
     return this._values;
   }
 

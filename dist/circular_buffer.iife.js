@@ -33,6 +33,7 @@ var circular_buffer = (function (exports) {
                 this._values[i] = x;
             }
             this._length = i;
+            this._cursor = i;
             return this._values;
         }
         pop() {
