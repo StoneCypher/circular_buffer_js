@@ -167,43 +167,38 @@ test('[UNIT] at/1', () => {
 
 test('[UNIT] fill/5', () => {
 
-  // declare a three item cb
+  // declare a five item cb
   const filler = new circular_buffer<any>(5);
+
+  // can accept five items
+  expect(filler.fill(1)).toStrictEqual([1,1,1,1,1]);
+});
+
+
+
+
+test('[UNIT] fill/full/5', () => {
+  // declare a five item cb
+  const filler = new circular_buffer<any>(5);
+
+  expect(filler.fill(1)).toStrictEqual([1,1,1,1,1]);
+  expect(filler.fill(2)).toStrictEqual([2,2,2,2,2]);
+  expect(filler.fill(3)).toStrictEqual([3,3,3,3,3]);
+});
+
+
+
+
+
+test('[UNIT] fill/partial/3', () => {
+  // declare a three item cb
+  const filler = new circular_buffer<any>(3);
 
   // can accept three items
-  filler.fill(`hello`);
+  filler.push(1);
+  filler.push(2);
 
-  expect(filler.fill('hello')).toStrictEqual(["hello","hello","hello","hello","hello"]);
-});
-
-
-
-
-test('[UNIT] fill/full', () => {
-
-  // declare a three item cb
-  const filler = new circular_buffer<any>(5);
-
-  filler.fill(`pizza`);
-
-  filler.fill('world')
-
-  expect(filler.fill('world')).toStrictEqual(["world","world","world","world","world"]);
-});
-
-
-
-
-
-test('[UNIT] fill/partial', () => {
-
-  // declare a three item cb
-  const filler = new circular_buffer<any>(5);
-  
-  filler.push('teller');
-  filler.push('teller');
-
-  expect(filler.push('teller')).toStrictEqual(["teller", "teller","teller"]);
+  expect(filler.fill(3)).toStrictEqual([3,3,3]);
 });
 
 
