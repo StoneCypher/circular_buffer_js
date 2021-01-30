@@ -171,7 +171,7 @@ test('[UNIT] fill/5', () => {
   const filler = new circular_buffer<any>(5);
 
   // can accept five items
-  expect(filler.fill(1)).toStrictEqual([1,1,1,1,1]);
+  expect(filler.fill(1)).toEqual([1,1,1,1,1]);
 });
 
 
@@ -181,9 +181,9 @@ test('[UNIT] fill/full/5', () => {
   // declare a five item cb
   const filler = new circular_buffer<any>(5);
 
-  expect(filler.fill(1)).toStrictEqual([1,1,1,1,1]);
-  expect(filler.fill(2)).toStrictEqual([2,2,2,2,2]);
-  expect(filler.fill(3)).toStrictEqual([3,3,3,3,3]);
+  expect(filler.fill(1)).toEqual([1,1,1,1,1]);
+  expect(filler.fill(2)).toEqual([2,2,2,2,2]);
+  expect(filler.fill(3)).toEqual([3,3,3,3,3]);
 });
 
 
@@ -198,7 +198,7 @@ test('[UNIT] fill/partial/3', () => {
   filler.push(1);
   filler.push(2);
 
-  expect(filler.fill(3)).toStrictEqual([3,3,3]);
+  expect(filler.fill(3)).toEqual([3,3,3]);
 });
 
 
