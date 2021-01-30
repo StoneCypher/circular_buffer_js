@@ -184,7 +184,7 @@ test('[UNIT] fill/full', () => {
   // declare a three item cb
   const filler = new circular_buffer<any>(5);
 
-  filler.fill(`piza`);
+  filler.fill(`pizza`);
 
   filler.fill('world')
 
@@ -195,7 +195,16 @@ test('[UNIT] fill/full', () => {
 
 
 
+test('[UNIT] fill/partial', () => {
 
+  // declare a three item cb
+  const filler = new circular_buffer<any>(5);
+  
+  filler.push('teller');
+  filler.push('teller');
+
+  expect(filler.push('teller')).toStrictEqual(["teller", "teller","teller"]);
+});
 
 
 
