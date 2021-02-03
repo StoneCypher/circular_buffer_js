@@ -264,6 +264,50 @@ test('[UNIT] empty/0', () => {
 
 
 
+
+describe('[UNIT] rotateRight/0', () => {
+  //init cb & add 3 item 
+  const rotator = new circular_buffer<number>(3);
+  
+  //TODO: rotate empty buffer == no-op
+
+  //rotate single element buffer also basically does nothing
+
+
+  rotator.push(1);
+
+  rotator.rotateRight();
+
+
+
+
+  //setup a 3-elem buffer, rotate &
+  //make sure rotates work,
+  //
+
+  rotator.push(1);
+  rotator.push(2);
+  rotator.push(3);
+  
+  //start condition is ok
+  expect(rotator.at(2)).toBe(3);
+  
+  //do the operation once & confirm
+  
+  rotator.rotateRight();
+
+  expect(rotator.at(2)).toBe(2);
+
+
+  //TODO: n rotates on a n-size buffer should
+  //basically be a no-op
+  
+});
+
+
+
+
+
 describe('[UNIT] Error cases', () => {
 
   const overflow = (size: number) => {
