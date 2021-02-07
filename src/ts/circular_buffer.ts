@@ -91,6 +91,13 @@ class circular_buffer<T> {
   }
 
 
+  // TODO Someone yell at me for variable names and for probably getting this implementation
+    // all the way wrong. I will probably look back at this tommorow
+  find(lamb: (v:T) => boolean): T | undefined {
+
+   return this._values.filter(lamb)[0];
+
+  }
 
 
 
