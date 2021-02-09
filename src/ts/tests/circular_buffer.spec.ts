@@ -165,6 +165,7 @@ test('[UNIT] at/1', () => {
 
 
 
+
 test('[UNIT] fill/5', () => {
 
   // declare a five item cb
@@ -177,13 +178,30 @@ test('[UNIT] fill/5', () => {
 
 
 
+
 test('[UNIT] fill/full/5', () => {
   // declare a five item cb
   const filler = new circular_buffer<any>(5);
 
-  expect(filler.fill(1)).toEqual([1,1,1,1,1]);
-  expect(filler.fill(2)).toEqual([2,2,2,2,2]);
-  expect(filler.fill(3)).toEqual([3,3,3,3,3]);
+  filler.push(1);
+  filler.push(1);
+  filler.push(1);
+  filler.push(1);
+  filler.push(1); 
+  /*we're full*/
+
+  expect(filler.at(0)).toEqual(1);
+
+  expect(filler.at(4)).toEqual(1);
+
+  filler.fill(2);
+  /*fill() will overwrite*/
+
+  expect(filler.at(0)).toEqual(2);
+
+  expect(filler.at(4)).toEqual(2);
+  /*arcaic, but tests ok*/
+
 });
 
 
@@ -192,13 +210,19 @@ test('[UNIT] fill/full/5', () => {
 
 test('[UNIT] fill/partial/3', () => {
   // declare a three item cb
-  const filler = new circular_buffer<any>(3);
+  const filler = new circular_buffer<any>(5);
 
-  // can accept three items
   filler.push(1);
-  filler.push(2);
+  /*we're full*/
 
-  expect(filler.fill(3)).toEqual([3,3,3]);
+  expect(filler.at(0)).toEqual(1);
+
+  filler.fill(2);
+  /*fill() will overwrite*/
+  
+  expect(filler.at(0)).toEqual(2);
+
+  expect(filler.at(3)).toEqual(2);
 });
 
 
