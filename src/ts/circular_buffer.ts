@@ -63,7 +63,7 @@ class circular_buffer<T> {
   }
 
 
-  fill(x:any): T[] {
+  fill(x:T): T[] {
     for (var i = 0; i < this._capacity; i++) {
       this._values[i] = x;
       
