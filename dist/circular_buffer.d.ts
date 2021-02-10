@@ -11,7 +11,7 @@ declare class circular_buffer<T> {
     empty(): boolean;
     full(): boolean;
     push(v: T): T;
-    fill(x: any): T[];
+    fill(x: T): T[];
     pop(): T | undefined;
     at(i: number): T | undefined;
 }
