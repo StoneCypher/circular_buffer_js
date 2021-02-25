@@ -166,6 +166,69 @@ test('[UNIT] at/1', () => {
 
 
 
+test('[UNIT] fill/5', () => {
+
+  // declare a five item cb
+  const filler = new circular_buffer<number>(5);
+
+  // can accept five items
+  expect(filler.fill(1)).toEqual([1,1,1,1,1]);
+});
+
+
+
+
+
+test('[UNIT] fill/full/5', () => {
+  // declare a five item cb
+  const filler = new circular_buffer<number>(5);
+
+  filler.push(1);
+  filler.push(1);
+  filler.push(1);
+  filler.push(1);
+  filler.push(1); 
+  /*we're full*/
+
+  expect(filler.at(0)).toEqual(1);
+
+  expect(filler.at(4)).toEqual(1);
+
+  filler.fill(2);
+  /*fill() will overwrite*/
+
+  expect(filler.at(0)).toEqual(2);
+
+  expect(filler.at(4)).toEqual(2);
+  /*archaic, but tests ok*/
+
+});
+
+
+
+
+
+test('[UNIT] fill/partial/3', () => {
+  // declare a three item cb
+  const filler = new circular_buffer<number>(3);
+
+  filler.push(1);
+  /*we have one item present*/
+
+  expect(filler.at(0)).toEqual(1);
+
+  filler.fill(2);
+  /*fill() will overwrite*/
+  
+  expect(filler.at(0)).toEqual(2);
+  expect(filler.at(1)).toEqual(2);
+  expect(filler.at(2)).toEqual(2);
+});
+
+
+
+
+
 test('[UNIT] pop/0', () => {
 
   const popper = new circular_buffer<number>(3);

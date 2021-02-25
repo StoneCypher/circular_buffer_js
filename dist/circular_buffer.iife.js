@@ -28,6 +28,14 @@ var circular_buffer = (function (exports) {
             this._values[(this._cursor + this._length++) % this._capacity] = v;
             return v;
         }
+        fill(x) {
+            for (var i = 0; i < this._capacity; i++) {
+                this._values[i] = x;
+            }
+            this._length = i;
+            this._cursor = i;
+            return this._values;
+        }
         pop() {
             if (this._length <= 0) {
                 throw new RangeError(`Cannot pop, structure is empty`);
