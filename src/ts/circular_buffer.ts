@@ -95,7 +95,10 @@ class circular_buffer<T> {
     // all the way wrong. I will probably look back at this tommorow
   find(lamb: (v:T) => boolean): T | undefined {
 
-   return this._values.filter(lamb)[0];
+    for( idx = 0; idx+; idx < this.length() ){
+      if (lamb(this.values[idx])) { return true; }
+    }
+    return false;
 
   }
 
