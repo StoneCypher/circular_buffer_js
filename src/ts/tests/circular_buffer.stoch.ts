@@ -19,6 +19,23 @@ type cb_command = fc.Command<CbModel, num_cb>;
 
 
 
+function whatever(): unknown {
+  return fc.anything({
+    withBigInt        : true,
+    withBoxedValues   : true,
+    withDate          : true,
+    withMap           : true,
+    withNullPrototype : true,
+    withObjectString  : true,
+    withSet           : true,
+    withTypedArray    : true
+  });
+}
+
+
+
+
+
 class PushCommand implements cb_command {
 
   constructor(readonly value: number) {}
@@ -27,16 +44,7 @@ class PushCommand implements cb_command {
 
   run(m: CbModel, r: num_cb): void {
 
-    const newValue = fc.anything({
-      withBigInt        : true,
-      withBoxedValues   : true,
-      withDate          : true,
-      withMap           : true,
-      withNullPrototype : true,
-      withObjectString  : true,
-      withSet           : true,
-      withTypedArray    : true
-    });
+    const newValue = whatever();
 
     if (m.length < m.capacity) {  // cb isn't full, so should work
       r.push( newValue );
@@ -56,7 +64,8 @@ class PushCommand implements cb_command {
 
 class PopCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>): boolean => true;  // allowed to pop from an empty cb because we test underflows
+  toString = () => 'pop';
+  check    = (_m: Readonly<CbModel>): boolean => true;  // allowed to pop from an empty cb because we test underflows
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
 
@@ -69,7 +78,6 @@ class PopCommand implements cb_command {
 
   }
 
-  toString = () => 'pop';
 }
 
 
@@ -78,13 +86,12 @@ class PopCommand implements cb_command {
 
 class LengthCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+  toString = () => 'length';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.length, r.length());
   }
-
-  toString = () => 'length';
 
 }
 
@@ -94,13 +101,12 @@ class LengthCommand implements cb_command {
 
 class AvailableCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call available
+  toString = () => 'available';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call available
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.capacity - m.length, r.available());
   }
-
-  toString = () => 'available';
 
 }
 
@@ -110,13 +116,12 @@ class AvailableCommand implements cb_command {
 
 class FullCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call full
+  toString = () => 'full';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call full
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.length === m.capacity, r.full());
   }
-
-  toString = () => 'full';
 
 }
 
@@ -126,13 +131,12 @@ class FullCommand implements cb_command {
 
 class EmptyCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call empty
+  toString = () => 'empty';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call empty
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.length === 0, r.empty());
   }
-
-  toString = () => 'empty';
 
 }
 
@@ -142,13 +146,30 @@ class EmptyCommand implements cb_command {
 
 class CapacityCommand implements cb_command {
 
-  check = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+  toString = () => 'capacity';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.capacity, r.capacity());
   }
 
+}
+
+
+
+
+
+class FillCommand implements cb_command {
+
   toString = () => 'capacity';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+    r.fill( whatever() );
+    m.length = r.length();
+    assert.equal(r.length(), r.capacity());
+    assert.equal(m.length, m.capacity);
+  }
 
 }
 
@@ -285,10 +306,11 @@ describe('[STOCH] Circular buffer', () => {
         Length             = fc.constant(new LengthCommand()),
         Available          = fc.constant(new AvailableCommand()),
         Capacity           = fc.constant(new CapacityCommand()),
+        Fill               = fc.constant(new FillCommand()),
         Full               = fc.constant(new FullCommand()),
         Empty              = fc.constant(new EmptyCommand());
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Full, Empty ],
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Full, Empty ],
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
