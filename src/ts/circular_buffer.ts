@@ -51,6 +51,21 @@ class circular_buffer<T> {
 
 
 
+  //n = # of times to rotate
+  rotateRight(n: number = 1): void {
+    //if empty, do nothing
+    if (this._length <= 0) {
+      return;
+    } 
+    
+    for(let rot = 0; rot < n; rot++) {
+      this._values.unshift(this.pop());
+    }
+  }
+
+
+
+
 
   push(v: T): T {
 
