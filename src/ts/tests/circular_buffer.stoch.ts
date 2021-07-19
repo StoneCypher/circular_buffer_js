@@ -161,14 +161,32 @@ class CapacityCommand implements cb_command {
 
 class FillCommand implements cb_command {
 
-  toString = () => 'capacity';
+  toString = () => 'fill';
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     r.fill( whatever() );
     m.length = r.length();
     assert.equal(r.length(), r.capacity());
-    assert.equal(m.length, m.capacity);
+    assert.equal(m.length,   m.capacity);
+  }
+
+}
+
+
+
+
+
+class ClearCommand implements cb_command {
+
+  toString = () => 'clear';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call clear
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+    r.clear();
+    m.length = r.length();
+    assert.equal(r.length(), 0);
+    assert.equal(m.length,   0);
   }
 
 }
@@ -302,15 +320,27 @@ describe('[STOCH] Circular buffer', () => {
         LargeMaxBufferSize   = 500;
 
   const PushARandomInteger = fc.integer().map(v => new PushCommand(v)),
-        Pop                = fc.constant(new PopCommand()),
-        Length             = fc.constant(new LengthCommand()),
-        Available          = fc.constant(new AvailableCommand()),
-        Capacity           = fc.constant(new CapacityCommand()),
-        Fill               = fc.constant(new FillCommand()),
-        Full               = fc.constant(new FullCommand()),
-        Empty              = fc.constant(new EmptyCommand());
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Full, Empty ],
+        Pop                = new PopCommand(),
+        Length             = new LengthCommand(),
+        Available          = new AvailableCommand(),
+        Capacity           = new CapacityCommand(),
+        Fill               = new FillCommand(),
+        Clear              = new ClearCommand(),
+        Full               = new FullCommand(),
+        Empty              = new EmptyCommand(),
+        ConstableVals      = [Pop, Length, Available, Capacity, Fill, Clear, Full, Empty].map(cmd => fc.constant(cmd));
+        // Pop                = fc.constant(new PopCommand()),
+        // Length             = fc.constant(new LengthCommand()),
+        // Available          = fc.constant(new AvailableCommand()),
+        // Capacity           = fc.constant(new CapacityCommand()),
+        // Fill               = fc.constant(new FillCommand()),
+        // Clear              = fc.constant(new ClearCommand()),
+        // Full               = fc.constant(new FullCommand()),
+        // Empty              = fc.constant(new EmptyCommand());
+
+  const AllCommands        = [ PushARandomInteger, ... ConstableVals ],
+        AllCommandNames    = [ 'Push', ... ConstableVals.map(ec => ec.toString()) ].join(' '),
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
@@ -343,7 +373,7 @@ describe('[STOCH] Circular buffer', () => {
 
 
 
-  describe(`Push Pop Len Avl Cap Full Empty`, () => {
+  describe(AllCommandNames, () => {
 
     function test_generator(SizeGenerator: fc.ArbitraryWithShrink<number>, RunCount: number, MaxBufferSize: number) {
 
