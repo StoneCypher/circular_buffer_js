@@ -36,11 +36,11 @@ cb.at(location);                              // shows the element at 0-indexed 
 cb.fill(item);                                // maxes `length` and sets every element to `item`
 cb.clear();                                   // empties the container
 
-cb.full();                                    // returns `true` if no space left, `false` otherwise
-cb.empty();                                   // returns `true` if no space used, `false` otherwise
-cb.available();                               // returns the number of spaces remaining currently
-cb.capacity();                                // returns the total `size` allocated
-cb.length();                                  // returns the amount of space currently used
+cb.isFull;                                    // returns `true` if no space left, `false` otherwise
+cb.isEmpty;                                   // returns `true` if no space used, `false` otherwise
+cb.available;                                 // returns the number of spaces remaining currently
+cb.capacity;                                  // returns the total `size` allocated
+cb.length;                                    // returns the amount of space currently used
 ```
 
 

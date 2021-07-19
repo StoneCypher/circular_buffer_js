@@ -320,14 +320,14 @@ describe('[STOCH] Circular buffer', () => {
         LargeMaxBufferSize   = 500;
 
   const PushARandomInteger = fc.integer().map(v => new PushCommand(v)),
-        Pop                = fc.constant(new PopCommand()),
-        Length             = fc.constant(new LengthCommand()),
-        Available          = fc.constant(new AvailableCommand()),
-        Capacity           = fc.constant(new CapacityCommand()),
-        Fill               = fc.constant(new FillCommand()),
-        Clear              = fc.constant(new ClearCommand()),
-        Full               = fc.constant(new FullCommand()),
-        Empty              = fc.constant(new EmptyCommand());
+        Pop                = fc.constant( new PopCommand()       ),
+        Length             = fc.constant( new LengthCommand()    ),
+        Available          = fc.constant( new AvailableCommand() ),
+        Capacity           = fc.constant( new CapacityCommand()  ),
+        Fill               = fc.constant( new FillCommand()      ),
+        Clear              = fc.constant( new ClearCommand()     ),
+        Full               = fc.constant( new FullCommand()      ),
+        Empty              = fc.constant( new EmptyCommand()     );
 
   const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty ],
         AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty`,
