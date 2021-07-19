@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. Dates are d
 #### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.22.0...HEAD)
 
 - eslint [`#44`](https://github.com/StoneCypher/circular_buffer_js/pull/44)
+- Setting up coveralls [`20d395a`](https://github.com/StoneCypher/circular_buffer_js/commit/20d395a0390afc15873ac15a731055c58397a4e3)
 
 #### [v0.22.0](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.3...v0.22.0)
 
