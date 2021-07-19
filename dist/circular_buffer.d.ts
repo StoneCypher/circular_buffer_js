@@ -14,7 +14,7 @@ declare class circular_buffer<T> {
     get last(): T;
     push(v: T): T;
     fill(x: T): T[];
-    clear(): void;
+    clear(): T[];
     pop(): T | undefined;
     at(i: number): T;
     toArray(): T[];

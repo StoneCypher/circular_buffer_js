@@ -329,7 +329,7 @@ class circular_buffer<T> {
 
   /*********
    *
-   *  Empties a container.
+   *  Empties a container.  Returns the previous contents.
    *
    *  ```typescript
    *  const cb = new circular_buffer(3);
@@ -341,16 +341,18 @@ class circular_buffer<T> {
    *  cb.last;      // 30
    *  cb.length;    // 3
    *
-   *  cb.clear();   // ok, container now empty
+   *  cb.clear();   // ok, returns [10,20,30]; container now empty
    *  cb.last;      // throws RangeError, because the container is empty
    *  cb.length;    // 0
    *  ```
    */
 
-  clear(): void {
+  clear(): T[] {
 
+    let old      = this.toArray();
     this._length = 0;
-    return;
+
+    return old;
 
   }
 

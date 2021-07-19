@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.20.0';
+    const version = '0.20.1';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -58,8 +58,9 @@ var circular_buffer = (function (exports) {
             return this._values;
         }
         clear() {
+            let old = this.toArray();
             this._length = 0;
-            return;
+            return old;
         }
         pop() {
             if (this._length <= 0) {

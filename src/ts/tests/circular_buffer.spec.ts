@@ -227,10 +227,16 @@ test('[UNIT] clear/0', () => {
   // declare a five item cb
   const filler = new circular_buffer<number>(5);
 
-  filler.fill(1);
-  filler.clear();
+  filler.push(1);
+  filler.push(2);
+  filler.push(3);
+  filler.push(4);
+  filler.push(5);
+
+  const was = filler.clear();
 
   expect(filler.length).toEqual(0);
+  expect(was).toStrictEqual([1,2,3,4,5]);
 
 });
 

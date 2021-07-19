@@ -221,10 +221,16 @@ class ClearCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call clear
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    r.clear();
+
+    const wlen = r.length,
+          was  = r.clear();
+
     m.length = r.length;
-    assert.equal(r.length, 0);
+
+    assert.equal(r.length,   0);
     assert.equal(m.length,   0);
+    assert.equal(was.length, wlen);
+
   }
 
 }
