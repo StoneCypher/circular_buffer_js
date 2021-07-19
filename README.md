@@ -1,8 +1,8 @@
 # circular_buffer_js
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/StoneCypher/circular_buffer_js/blob/master/LICENSEs)
-[![GitHub Release](https://img.shields.io/github/release/StoneCypher/circular_buffer_js.svg?style=flat)]()
-[![Github All Releases](https://img.shields.io/github/downloads/StoneCypher/circular_buffer_js/total.svg?style=flat)]()
+[![NPM Version](https://img.shields.io/npm/v/circular_queue_js.svg?style=flat)]()
+[![Coveralls](https://img.shields.io/coveralls/StoneCypher/circular_queue_js.svg?style=flat)]()
 [![Issues](https://img.shields.io/github/issues-raw/StoneCypher/circular_buffer_js.svg?maxAge=25000)](https://github.com/StoneCypher/circular_buffer_js/issues)
 [![GitHub contributors](https://img.shields.io/github/contributors/StoneCypher/circular_buffer_js.svg?style=flat)]()
 

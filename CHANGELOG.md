@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.24.0...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.24.1...HEAD)
+
+#### [v0.24.1](https://github.com/StoneCypher/circular_buffer_js/compare/v0.24.0...v0.24.1)
+
+> 19 July 2021
+
+- we do need a few steenking badges [`6f3cbe0`](https://github.com/StoneCypher/circular_buffer_js/commit/6f3cbe023bd75c20bdb5bff0a19b1af356c66c0a)
 
 #### [v0.24.0](https://github.com/StoneCypher/circular_buffer_js/compare/v0.23.1...v0.24.0)
 
