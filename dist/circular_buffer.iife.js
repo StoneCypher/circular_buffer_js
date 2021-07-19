@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.17.2';
+    const version = '0.18.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -21,6 +21,18 @@ var circular_buffer = (function (exports) {
         get available() { return this._capacity - this._length; }
         get isEmpty() { return this._length === 0; }
         get isFull() { return this._length === this._capacity; }
+        get first() {
+            if (this.isEmpty) {
+                throw new RangeError('Cannot return first element of an empty container');
+            }
+            return this.at(0);
+        }
+        get last() {
+            if (this.isEmpty) {
+                throw new RangeError('Cannot return last element of an empty container');
+            }
+            return this.at(this.length - 1);
+        }
         push(v) {
             if (this._length >= this._capacity) {
                 throw new RangeError(`Cannot push, structure is full to capacity`);

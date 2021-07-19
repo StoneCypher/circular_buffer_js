@@ -52,6 +52,34 @@ class circular_buffer<T> {
 
 
 
+  get first() : T {
+
+    if (this.isEmpty) {
+      throw new RangeError('Cannot return first element of an empty container');
+    }
+
+    return this.at(0);
+
+  }
+
+
+
+
+
+  get last() : T {
+
+    if (this.isEmpty) {
+      throw new RangeError('Cannot return last element of an empty container');
+    }
+
+    return this.at(this.length - 1);
+
+  }
+
+
+
+
+
   push(v: T): T {
 
     if (this._length >= this._capacity) { throw new RangeError(`Cannot push, structure is full to capacity`); }
@@ -122,7 +150,7 @@ class circular_buffer<T> {
 
 
 
-  at(i: number): T | undefined {
+  at(i: number): T {
 
     if (i < 0)                    { throw new RangeError(`circular_buffer does not support negative traversals; called at(${i})`); }
     if (!( Number.isInteger(i) )) { throw new RangeError(`Accessors must be non-negative integers; called at(${i})`); }
@@ -130,7 +158,7 @@ class circular_buffer<T> {
     if (i >= this._capacity)      { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
     if (i >= this._length)        { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
 
-    return this._values[(this._cursor + i) % this._capacity];
+    return this._values[(this._cursor + i) % this._capacity]!;
 
   }
 

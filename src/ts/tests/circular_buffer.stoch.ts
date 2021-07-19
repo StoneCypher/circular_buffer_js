@@ -99,6 +99,44 @@ class LengthCommand implements cb_command {
 
 
 
+class FirstCommand implements cb_command {
+
+  toString = () => 'first';
+  check    = (_m: Readonly<CbModel>) => true;  // we test underflows, so, allowed at any time
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+    if (r.isEmpty) {
+      assert.throws( () => r.first );
+    } else {
+      assert.doesNotThrow( () => r.first );
+    }
+  }
+
+}
+
+
+
+
+
+class LastCommand implements cb_command {
+
+  toString = () => 'last';
+  check    = (_m: Readonly<CbModel>) => true;  // we test underflows, so, allowed at any time
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+    if (r.isEmpty) {
+      assert.throws( () => r.last );
+    } else {
+      assert.doesNotThrow( () => r.last );
+    }
+  }
+
+}
+
+
+
+
+
 class AvailableCommand implements cb_command {
 
   toString = () => 'available';
@@ -327,10 +365,12 @@ describe('[STOCH] Circular buffer', () => {
         Fill               = fc.constant( new FillCommand()      ),
         Clear              = fc.constant( new ClearCommand()     ),
         Full               = fc.constant( new FullCommand()      ),
-        Empty              = fc.constant( new EmptyCommand()     );
+        Empty              = fc.constant( new EmptyCommand()     ),
+        First              = fc.constant( new FirstCommand()     ),
+        Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty`,
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

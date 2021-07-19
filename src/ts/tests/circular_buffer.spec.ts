@@ -31,16 +31,22 @@ describe('[UNIT] Circular buffer', () => {
         expect(cb.capacity).toBe(size);
         expect(cb.length).toBe(0);
         expect(cb.available).toBe(size);
+        expect(() => cb.first).toThrow();
+        expect(() => cb.last).toThrow();
 
         expect(cb.push(1)).toBe(1);
         expect(cb.capacity).toBe(size);
         expect(cb.length).toBe(1);
         expect(cb.available).toBe(size-1);
+        expect(cb.first).toBe(1);
+        expect(cb.last).toBe(1);
 
         expect(cb.pop()).toBe(1);
         expect(cb.capacity).toBe(size);
         expect(cb.length).toBe(0);
         expect(cb.available).toBe(size);
+        expect(() => cb.first).toThrow();
+        expect(() => cb.last).toThrow();
 
       });
 
@@ -83,6 +89,39 @@ describe('[UNIT] Circular buffer', () => {
 });
 
 
+
+test('[UNIT] first and last', () => {
+
+  let cb = new circular_buffer(5);
+
+  expect(cb.capacity).toBe(5);
+  expect(cb.length).toBe(0);
+  expect(cb.available).toBe(5);
+  expect(() => cb.first).toThrow();
+  expect(() => cb.last).toThrow();
+
+  expect(cb.push(1)).toBe(1);
+  expect(cb.capacity).toBe(5);
+  expect(cb.length).toBe(1);
+  expect(cb.available).toBe(5-1);
+  expect(cb.first).toBe(1);
+  expect(cb.last).toBe(1);
+  expect(cb.push(2)).toBe(2);
+  expect(cb.first).toBe(1);
+  expect(cb.last).toBe(2);
+
+  expect(cb.pop()).toBe(1);
+  expect(cb.first).toBe(2);
+  expect(cb.last).toBe(2);
+
+  expect(cb.pop()).toBe(2);
+  expect(cb.capacity).toBe(5);
+  expect(cb.length).toBe(0);
+  expect(cb.available).toBe(5);
+  expect(() => cb.first).toThrow();
+  expect(() => cb.last).toThrow();
+
+});
 
 
 
