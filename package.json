@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.15.12",
+  "version": "0.15.14",
   "description": "TS implementation of a circular buffer and also a JS compile-down. Well tested (which is the point)",
   "main": "dist/circular_buffer.cjs.min.js",
   "module": "dist/circular_buffer.esm.min.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rimraf -f dist && mkdir dist && cd dist && mkdir generated && cd ..",
     "dist": "cp build/circular_buffer.iife.js dist/ && cp build/es6/circular_buffer.d.ts dist/ && cp build/es6/generated/package_version.d.ts dist/generated/ ",
-    "docs": "typedoc --out docs/docs src/ts && cp src/html/.nojekyll docs && cp src/html/.nojekyll docs/docs",
+    "docs": "typedoc --out docs/docs src/ts && cp src/html/.nojekyll docs && cp src/html/.nojekyll docs/docs && cp src/html/.nojekyll docs/docs/assets && cp src/html/.nojekyll docs/docs/modules && cp src/html/.nojekyll docs/docs/classes",
     "site": "cp -r src/html/* docs/",
     "version": "node ./src/build_js/write_version_file.js",
     "bundle": "rollup -c",
