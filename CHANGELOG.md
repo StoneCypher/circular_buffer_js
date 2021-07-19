@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.23.1...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.24.0...HEAD)
+
+#### [v0.24.0](https://github.com/StoneCypher/circular_buffer_js/compare/v0.23.1...v0.24.0)
+
+> 19 July 2021
+
+- Create landing page, fixes #32 [`#32`](https://github.com/StoneCypher/circular_buffer_js/issues/32)
 
 #### [v0.23.1](https://github.com/StoneCypher/circular_buffer_js/compare/v0.23.0...v0.23.1)
 

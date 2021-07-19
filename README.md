@@ -1,5 +1,11 @@
 # circular_buffer_js
 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/StoneCypher/circular_buffer_js/blob/master/LICENSEs)
+[![GitHub Release](https://img.shields.io/github/release/StoneCypher/circular_buffer_js.svg?style=flat)]()
+[![Github All Releases](https://img.shields.io/github/downloads/StoneCypher/circular_buffer_js/total.svg?style=flat)]()
+[![Issues](https://img.shields.io/github/issues-raw/StoneCypher/circular_buffer_js.svg?maxAge=25000)](https://github.com/StoneCypher/circular_buffer_js/issues)
+[![GitHub contributors](https://img.shields.io/github/contributors/StoneCypher/circular_buffer_js.svg?style=flat)]()
+
 ```
 npm install --save-dev circular_buffer_js
 ```
