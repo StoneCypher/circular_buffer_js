@@ -328,6 +328,43 @@ test('[UNIT] pop/0', () => {
 
 
 
+test('[UNIT] toArray/0', () => {
+
+  const popper = new circular_buffer<number>(3);
+
+  expect( popper.toArray() ).toStrictEqual( [] );
+
+  popper.push(1);
+  expect( popper.toArray() ).toStrictEqual( [1] );
+
+  popper.push(2);
+  expect( popper.toArray() ).toStrictEqual( [1,2] );
+
+  popper.push(3);
+  expect( popper.toArray() ).toStrictEqual( [1,2,3] );
+
+  popper.pop();
+  popper.push(4);
+  expect( popper.toArray() ).toStrictEqual( [2,3,4] );
+
+  popper.pop();
+  popper.push(5);
+  expect( popper.toArray() ).toStrictEqual( [3,4,5] );
+
+  popper.pop();
+  popper.push(6);
+  expect( popper.toArray() ).toStrictEqual( [4,5,6] );
+
+  popper.pop();
+  popper.push(7);
+  expect( popper.toArray() ).toStrictEqual( [5,6,7] );
+
+});
+
+
+
+
+
 test('[UNIT] available getter', () => {
 
   const popper = new circular_buffer<number>(3);

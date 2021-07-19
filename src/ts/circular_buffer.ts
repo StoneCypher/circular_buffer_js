@@ -17,19 +17,20 @@ class circular_buffer<T> {
 
 
   /** The actual dataset.  Not in order as the outside world would expect.  If
-      you want this functionality, use `.toArray()`. */
+      you want this functionality, use {@link toArray | .toArray()} instead. */
   private _values   : T[];
 
 
   /** The current offset in the underlying array.  You should never need
-      this. */
+      this; it is an internal implementation detail. */
   private _cursor   : number;
 
   /** The current used range within the dataset array.  Values outside this
-      range aren't trustworthy.  Use `.length` instead. */
+      range aren't trustworthy.  Use {@link length | .length} instead. */
   private _length   : number;
 
-  /** The current size cap, as a cache.  Use `.capacity` instead. */
+  /** The current size cap, as a cache.  Use {@link capacity | .capacity}
+      instead. */
   private _capacity : number;
 
 
@@ -317,7 +318,6 @@ class circular_buffer<T> {
     }
 
     this._length = i;
-    this._cursor = i;
 
     return this._values;
 
@@ -383,21 +383,16 @@ class circular_buffer<T> {
       throw new RangeError(`Cannot pop, structure is empty`);
     }
 
-    --this._length;
+    let cache = this.at(0);
 
-    // admittedly it's odd to put this here rather than to cache and return the
-    // _cursor increment.  however logically it makes no difference: this could
-    // be unculled entirely, and indeed would be but for the vain hope that
-    // someone would actually use this so long that we'd lose ieee double on
-    // safe ints (lol,) so, whatever, do it here, because in code where we use
-    // modulo we're gonna pretend to care about the efficiency of an allocate
-    //
-    // bridges, $30.  get your bridges right here, $30.
-    if (this._cursor >= this._capacity) {
+    --this._length;  // the container is now one shorter
+    ++this._cursor;  // the cursor moved one forwards
+
+    if (this._cursor >= this._capacity) {  // wrap the cursor if necessary
       this._cursor -= this._capacity;
     }
 
-    return this._values[(this._cursor++) % this._capacity];
+    return cache;
 
   }
 
@@ -438,6 +433,50 @@ class circular_buffer<T> {
     if (i >= this._length)        { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
 
     return this._values[(this._cursor + i) % this._capacity]!;
+
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Returns the complete, ordered contents of the queue, as an array.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.toArray();  // []
+   *
+   *  cb.push(1);    // ok, returns 1
+   *  cb.push(2);    // ok, returns 2
+   *  cb.push(3);    // ok, returns 3
+   *  cb.toArray();  // [1,2,3]
+   *
+   *  cb.pop();      // ok, returns 1
+   *  cb.toArray();  // [2,3]
+   *
+   *  ```
+   *
+   */
+
+  toArray(): T[] {
+
+    let startPoint = this._cursor % this._capacity;
+
+    if (this._capacity > (startPoint + this._length)) {
+      // no need to splice, length doesn't wrap
+      return this._values.slice(startPoint, startPoint+this._length);
+
+    } else {
+
+      // length wraps
+      let base = this._values.slice(startPoint, this._capacity);
+      base.push( ... this._values.slice(0, this.length - (this._capacity - startPoint)) );
+
+      return base;
+
+    }
 
   }
 

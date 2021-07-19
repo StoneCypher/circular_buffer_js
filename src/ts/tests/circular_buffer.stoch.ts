@@ -233,6 +233,48 @@ class ClearCommand implements cb_command {
 
 
 
+class AtCommand implements cb_command {
+
+  toString = () => 'at';
+  check    = (_m: Readonly<CbModel>) => true;  // tests the empty case so run either way
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+
+    if (r.isEmpty) {
+      assert.throws( () => r.at(0) );
+    } else {
+
+      for (let e1=0, eC = r.length; e1 < eC; ++e1) {
+        assert.doesNotThrow( () => r.at(e1) );
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+class ToArrayCommand implements cb_command {
+
+  toString = () => 'to_array';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call to_array
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+    let res = r.toArray();
+    assert.equal(r.length, res.length);
+    assert.equal(m.length, res.length);
+  }
+
+}
+
+
+
+
+
 describe('[STOCH] Bad constructor harassment', () => {
 
   test('Floats', () => {
@@ -362,6 +404,8 @@ describe('[STOCH] Circular buffer', () => {
         Length             = fc.constant( new LengthCommand()    ),
         Available          = fc.constant( new AvailableCommand() ),
         Capacity           = fc.constant( new CapacityCommand()  ),
+        At                 = fc.constant( new AtCommand()        ),
+        ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
         Clear              = fc.constant( new ClearCommand()     ),
         Full               = fc.constant( new FullCommand()      ),
@@ -369,8 +413,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

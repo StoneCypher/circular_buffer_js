@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Fast TS/JS implementation of a circular buffer (aka ring queue, cyclic list, etc.)  Extremely well tested.",
   "main": "dist/circular_buffer.cjs.min.js",
   "module": "dist/circular_buffer.esm.min.js",
@@ -18,8 +18,8 @@
     "minify-iife": "npx terser build/circular_buffer.iife.js > dist/circular_buffer.iife.min.js",
     "minify": "npm run minify-esm && npm run minify-iife && npm run minify-cjs",
     "prep": "npm run clean && npm run version",
-    "make": "npm run typescript && npm run bundle",
-    "finalize": "npm run minify && npm run docs && npm run dist",
+    "make": "npm run typescript && npm run bundle && npm run minify && npm run dist",
+    "finalize": "npm run docs",
     "test": "jest --color --verbose && jest -c jest-stoch.config.js --color --verbose",
     "build": "npm run prep && npm run make && npm run test && npm run finalize",
     "ci": "npm run build && STEP=TEMPORARY node archive_docs_by_version.js"

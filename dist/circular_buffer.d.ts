@@ -17,5 +17,6 @@ declare class circular_buffer<T> {
     clear(): void;
     pop(): T | undefined;
     at(i: number): T;
+    toArray(): T[];
 }
 export { version, circular_buffer };
