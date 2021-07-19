@@ -320,27 +320,17 @@ describe('[STOCH] Circular buffer', () => {
         LargeMaxBufferSize   = 500;
 
   const PushARandomInteger = fc.integer().map(v => new PushCommand(v)),
+        Pop                = fc.constant(new PopCommand()),
+        Length             = fc.constant(new LengthCommand()),
+        Available          = fc.constant(new AvailableCommand()),
+        Capacity           = fc.constant(new CapacityCommand()),
+        Fill               = fc.constant(new FillCommand()),
+        Clear              = fc.constant(new ClearCommand()),
+        Full               = fc.constant(new FullCommand()),
+        Empty              = fc.constant(new EmptyCommand());
 
-        Pop                = new PopCommand(),
-        Length             = new LengthCommand(),
-        Available          = new AvailableCommand(),
-        Capacity           = new CapacityCommand(),
-        Fill               = new FillCommand(),
-        Clear              = new ClearCommand(),
-        Full               = new FullCommand(),
-        Empty              = new EmptyCommand(),
-        ConstableVals      = [Pop, Length, Available, Capacity, Fill, Clear, Full, Empty].map(cmd => fc.constant(cmd));
-        // Pop                = fc.constant(new PopCommand()),
-        // Length             = fc.constant(new LengthCommand()),
-        // Available          = fc.constant(new AvailableCommand()),
-        // Capacity           = fc.constant(new CapacityCommand()),
-        // Fill               = fc.constant(new FillCommand()),
-        // Clear              = fc.constant(new ClearCommand()),
-        // Full               = fc.constant(new FullCommand()),
-        // Empty              = fc.constant(new EmptyCommand());
-
-  const AllCommands        = [ PushARandomInteger, ... ConstableVals ],
-        AllCommandNames    = [ 'Push', ... ConstableVals.map(ec => ec.toString()) ].join(' '),
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Available, Capacity, Fill, Clear, Full, Empty`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

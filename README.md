@@ -34,6 +34,7 @@ cb.push(item);                                // inserts `item` at end of `cb`, 
 cb.pop();                                     // removes and returns first element
 cb.at(location);                              // shows the element at 0-indexed offset `location`
 cb.fill(item);                                // maxes `length` and sets every element to `item`
+cb.clear();                                   // empties the container
 
 cb.full();                                    // returns `true` if no space left, `false` otherwise
 cb.empty();                                   // returns `true` if no space used, `false` otherwise
