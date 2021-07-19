@@ -1,5 +1,12 @@
 # circular_buffer_js
 
+```
+npm install --save-dev circular_buffer_js
+```
+
+* [Documentation](https://stonecypher.github.io/circular_buffer_js/docs/)
+* [Build history](https://github.com/StoneCypher/circular_buffer_js/actions)
+
 `Typescript` implementation of a circular buffer, and JS compiles to a es6
 module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.
 
@@ -18,7 +25,7 @@ module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.
 
 ## API
 
-You should consider viewing the [real documentation](#todo), but:
+You should consider viewing the [real documentation](https://stonecypher.github.io/circular_buffer_js/docs/), but:
 
 ```typescript
 const cb = new circular_buffer<type>(size);   // yields a buffer of fixed size `size`
@@ -26,6 +33,7 @@ const cb = new circular_buffer<type>(size);   // yields a buffer of fixed size `
 cb.push(item);                                // inserts `item` at end of `cb`, then returns `item`
 cb.pop();                                     // removes and returns first element
 cb.at(location);                              // shows the element at 0-indexed offset `location`
+cb.fill(item);                                // maxes `length` and sets every element to `item`
 
 cb.full();                                    // returns `true` if no space left, `false` otherwise
 cb.empty();                                   // returns `true` if no space used, `false` otherwise
