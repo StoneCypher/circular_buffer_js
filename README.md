@@ -28,19 +28,20 @@ module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.
 You should consider viewing the [real documentation](https://stonecypher.github.io/circular_buffer_js/docs/), but:
 
 ```typescript
-const cb = new circular_buffer<type>(size);   // yields a buffer of fixed size `size`
+// yields a buffer of fixed size `size`
+const cb = new circular_buffer(size);
 
-cb.push(item);                                // inserts `item` at end of `cb`, then returns `item`
-cb.pop();                                     // removes and returns first element
-cb.at(location);                              // shows the element at 0-indexed offset `location`
-cb.fill(item);                                // maxes `length` and sets every element to `item`
-cb.clear();                                   // empties the container
+cb.push(item);     // inserts `item` at end of `cb`, then returns `item`
+cb.pop();          // removes and returns first element
+cb.at(location);   // shows the element at 0-indexed offset `location`
+cb.fill(item);     // maxes `length` and sets every element to `item`
+cb.clear();        // empties the container
 
-cb.isFull;                                    // returns `true` if no space left, `false` otherwise
-cb.isEmpty;                                   // returns `true` if no space used, `false` otherwise
-cb.available;                                 // returns the number of spaces remaining currently
-cb.capacity;                                  // returns the total `size` allocated
-cb.length;                                    // returns the amount of space currently used
+cb.isFull;         // returns `true` if no space left, `false` otherwise
+cb.isEmpty;        // returns `true` if no space used, `false` otherwise
+cb.available;      // returns the number of spaces remaining currently
+cb.capacity;       // returns the total `size` allocated
+cb.length;         // returns the amount of space currently used
 ```
 
 
@@ -129,7 +130,9 @@ There're also two `iife` builds - both regular and minified - so that you can us
 
   window.onload = () => {
 
-    console.log(`Using circular buffer version ${circular_buffer.version}`);
+    console.log(
+      `Using circular buffer version ${circular_buffer.version}`
+    );
 
                       // package      // class
     const mybuf = new circular_buffer.circular_buffer(5);
