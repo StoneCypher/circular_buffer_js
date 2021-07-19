@@ -90,7 +90,7 @@ class LengthCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal(m.length, r.length());
+    assert.equal(m.length, r.length);
   }
 
 }
@@ -105,7 +105,7 @@ class AvailableCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call available
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal(m.capacity - m.length, r.available());
+    assert.equal(m.capacity - m.length, r.available);
   }
 
 }
@@ -120,7 +120,7 @@ class FullCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call full
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal(m.length === m.capacity, r.full());
+    assert.equal(m.length === m.capacity, r.isFull);
   }
 
 }
@@ -135,7 +135,7 @@ class EmptyCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call empty
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal(m.length === 0, r.empty());
+    assert.equal(m.length === 0, r.isEmpty);
   }
 
 }
@@ -150,7 +150,7 @@ class CapacityCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal(m.capacity, r.capacity());
+    assert.equal(m.capacity, r.capacity);
   }
 
 }
@@ -166,8 +166,8 @@ class FillCommand implements cb_command {
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     r.fill( whatever() );
-    m.length = r.length();
-    assert.equal(r.length(), r.capacity());
+    m.length = r.length;
+    assert.equal(r.length, r.capacity);
     assert.equal(m.length,   m.capacity);
   }
 
@@ -184,8 +184,8 @@ class ClearCommand implements cb_command {
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     r.clear();
-    m.length = r.length();
-    assert.equal(r.length(), 0);
+    m.length = r.length;
+    assert.equal(r.length, 0);
     assert.equal(m.length,   0);
   }
 

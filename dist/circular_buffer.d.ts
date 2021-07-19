@@ -5,11 +5,11 @@ declare class circular_buffer<T> {
     private _length;
     private _capacity;
     constructor(uCapacity: number);
-    capacity(): number;
-    length(): number;
-    available(): number;
-    empty(): boolean;
-    full(): boolean;
+    get capacity(): number;
+    get length(): number;
+    get available(): number;
+    get isEmpty(): boolean;
+    get isFull(): boolean;
     push(v: T): T;
     fill(x: T): T[];
     clear(): void;

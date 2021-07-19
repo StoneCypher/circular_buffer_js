@@ -42,11 +42,11 @@ class circular_buffer<T> {
 
 
 
-  capacity()  : number  { return this._capacity; }
-  length()    : number  { return this._length; }
-  available() : number  { return this._capacity - this._length; }
-  empty()     : boolean { return this._length === 0; }
-  full()      : boolean { return this._length === this._capacity; }
+  get capacity()  : number  { return this._capacity; }
+  get length()    : number  { return this._length; }
+  get available() : number  { return this._capacity - this._length; }
+  get isEmpty()   : boolean { return this._length === 0; }
+  get isFull()    : boolean { return this._length === this._capacity; }
 
 
 

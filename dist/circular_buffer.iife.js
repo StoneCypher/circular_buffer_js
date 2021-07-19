@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.16.1';
+    const version = '0.17.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -16,11 +16,11 @@ var circular_buffer = (function (exports) {
             this._cursor = 0;
             this._length = 0;
         }
-        capacity() { return this._capacity; }
-        length() { return this._length; }
-        available() { return this._capacity - this._length; }
-        empty() { return this._length === 0; }
-        full() { return this._length === this._capacity; }
+        get capacity() { return this._capacity; }
+        get length() { return this._length; }
+        get available() { return this._capacity - this._length; }
+        get isEmpty() { return this._length === 0; }
+        get isFull() { return this._length === this._capacity; }
         push(v) {
             if (this._length >= this._capacity) {
                 throw new RangeError(`Cannot push, structure is full to capacity`);

@@ -28,19 +28,19 @@ describe('[UNIT] Circular buffer', () => {
 
         let cb = new circular_buffer(size);
 
-        expect(cb.capacity()).toBe(size);
-        expect(cb.length()).toBe(0);
-        expect(cb.available()).toBe(size);
+        expect(cb.capacity).toBe(size);
+        expect(cb.length).toBe(0);
+        expect(cb.available).toBe(size);
 
         expect(cb.push(1)).toBe(1);
-        expect(cb.capacity()).toBe(size);
-        expect(cb.length()).toBe(1);
-        expect(cb.available()).toBe(size-1);
+        expect(cb.capacity).toBe(size);
+        expect(cb.length).toBe(1);
+        expect(cb.available).toBe(size-1);
 
         expect(cb.pop()).toBe(1);
-        expect(cb.capacity()).toBe(size);
-        expect(cb.length()).toBe(0);
-        expect(cb.available()).toBe(size);
+        expect(cb.capacity).toBe(size);
+        expect(cb.length).toBe(0);
+        expect(cb.available).toBe(size);
 
       });
 
@@ -49,8 +49,8 @@ describe('[UNIT] Circular buffer', () => {
         let pf = new circular_buffer(size);
         for (let i=0; i<size; ++i) {
           expect(pf.push(i)).toBe(i);
-          expect(pf.length()).toBe(i+1);
-          expect(pf.available()).toBe((size-i)-1);
+          expect(pf.length).toBe(i+1);
+          expect(pf.available).toBe((size-i)-1);
         }
 
       });
@@ -62,12 +62,12 @@ describe('[UNIT] Circular buffer', () => {
 
         for (let i=0; i<(size*3)+1; ++i) {
           pf.pop();
-          expect(pf.length()).toBe(size-1);
-          expect(pf.available()).toBe(1);
+          expect(pf.length).toBe(size-1);
+          expect(pf.available).toBe(1);
 
           expect(pf.push(i)).toBe(i);
-          expect(pf.length()).toBe(size);
-          expect(pf.available()).toBe(0);
+          expect(pf.length).toBe(size);
+          expect(pf.available).toBe(0);
         }
 
       });
@@ -191,7 +191,7 @@ test('[UNIT] clear/0', () => {
   filler.fill(1);
   filler.clear();
 
-  expect(filler.length()).toEqual(0);
+  expect(filler.length).toEqual(0);
 
 });
 
@@ -289,23 +289,23 @@ test('[UNIT] pop/0', () => {
 
 
 
-test('[UNIT] available/0', () => {
+test('[UNIT] available getter', () => {
 
   const popper = new circular_buffer<number>(3);
 
-  expect( popper.available() ).toBe(3);
+  expect( popper.available ).toBe(3);
 
   popper.push(1);
-  expect( popper.available() ).toBe(2);
+  expect( popper.available ).toBe(2);
 
   popper.push(2);
-  expect( popper.available() ).toBe(1);
+  expect( popper.available ).toBe(1);
 
   popper.push(3);
-  expect( popper.available() ).toBe(0);
+  expect( popper.available ).toBe(0);
 
   popper.pop();
-  expect( popper.available() ).toBe(1);
+  expect( popper.available ).toBe(1);
 
 });
 
@@ -313,16 +313,16 @@ test('[UNIT] available/0', () => {
 
 
 
-test('[UNIT] empty/0', () => {
+test('[UNIT] isEmpty getter', () => {
 
   const popper = new circular_buffer<number>(3);
-  expect( popper.empty() ).toBe(true);
+  expect( popper.isEmpty ).toBe(true);
 
   popper.push(1);
-  expect( popper.empty() ).toBe(false);
+  expect( popper.isEmpty ).toBe(false);
 
   popper.pop();
-  expect( popper.empty() ).toBe(true);
+  expect( popper.isEmpty ).toBe(true);
 
 });
 
@@ -330,16 +330,16 @@ test('[UNIT] empty/0', () => {
 
 
 
-test('[UNIT] empty/0', () => {
+test('[UNIT] isFull getter', () => {
 
   const popper = new circular_buffer<number>(1);
-  expect( popper.full() ).toBe(false);
+  expect( popper.isFull ).toBe(false);
 
   popper.push(1);
-  expect( popper.full() ).toBe(true);
+  expect( popper.isFull ).toBe(true);
 
   popper.pop();
-  expect( popper.full() ).toBe(false);
+  expect( popper.isFull ).toBe(false);
 
 });
 
