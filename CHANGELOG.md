@@ -2,10 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.3...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.22.0...HEAD)
+
+- eslint [`#44`](https://github.com/StoneCypher/circular_buffer_js/pull/44)
+
+#### [v0.22.0](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.3...v0.22.0)
+
+> 19 July 2021
 
 - Write the changelog to disk [`#43`](https://github.com/StoneCypher/circular_buffer_js/pull/43)
 - Add changelog [`#42`](https://github.com/StoneCypher/circular_buffer_js/pull/42)
+- eslint [`1caa887`](https://github.com/StoneCypher/circular_buffer_js/commit/1caa88768b99bddf4615e19aad129fdeae334fc4)
 
 #### [v0.21.3](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.2...v0.21.3)
 

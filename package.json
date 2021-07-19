@@ -21,10 +21,9 @@
     "make": "npm run typescript && npm run bundle && npm run minify && npm run dist",
     "changelog": "auto-changelog --hide-credit --commit-limit false --unreleased",
     "finish": "npm run docs && npm run changelog",
-    "test": "jest --color --verbose && jest -c jest-stoch.config.js --color --verbose",
+    "test": "jest --color --coverage --verbose && jest -c jest-stoch.config.js --color --verbose",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-    "build": "npm run prep && npm run make && npm run lint && npm run test && npm run finish",
-    "ci": "npm run build && STEP=TEMPORARY node archive_docs_by_version.js"
+    "build": "npm run prep && npm run make && npm run lint && npm run test && npm run finish"
   },
   "repository": {
     "type": "git",
