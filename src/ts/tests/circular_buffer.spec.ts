@@ -173,6 +173,26 @@ test('[UNIT] fill/5', () => {
 
   // can accept five items
   expect(filler.fill(1)).toEqual([1,1,1,1,1]);
+
+  // can overwrite five items
+  expect(filler.fill(2)).toEqual([2,2,2,2,2]);
+
+});
+
+
+
+
+
+test('[UNIT] clear/0', () => {
+
+  // declare a five item cb
+  const filler = new circular_buffer<number>(5);
+
+  filler.fill(1);
+  filler.clear();
+
+  expect(filler.length()).toEqual(0);
+
 });
 
 
@@ -187,7 +207,7 @@ test('[UNIT] fill/full/5', () => {
   filler.push(1);
   filler.push(1);
   filler.push(1);
-  filler.push(1); 
+  filler.push(1);
   /*we're full*/
 
   expect(filler.at(0)).toEqual(1);
@@ -219,7 +239,7 @@ test('[UNIT] fill/partial/3', () => {
 
   filler.fill(2);
   /*fill() will overwrite*/
-  
+
   expect(filler.at(0)).toEqual(2);
   expect(filler.at(1)).toEqual(2);
   expect(filler.at(2)).toEqual(2);

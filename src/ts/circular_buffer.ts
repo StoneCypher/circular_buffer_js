@@ -82,6 +82,18 @@ class circular_buffer<T> {
 
 
 
+
+  clear(): void {
+
+    this._length = 0;
+    return;
+
+  }
+
+
+
+
+
   pop(): T | undefined {
 
     if (this._length <= 0) {
