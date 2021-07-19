@@ -97,6 +97,8 @@
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">fill</span><span style="color: #000000">(</span><span style="color: #001080">item</span><span style="color: #000000">);     </span><span style="color: #008000">// maxes `length` and sets every element to `item`</span>
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();        </span><span style="color: #008000">// empties the container</span>
 
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">first</span><span style="color: #000000">;          </span><span style="color: #008000">// returns the first value in the queue; throws when empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;           </span><span style="color: #008000">// returns the last value in the queue; throws when empty</span>
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isFull</span><span style="color: #000000">;         </span><span style="color: #008000">// returns `true` if no space left, `false` otherwise</span>
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isEmpty</span><span style="color: #000000">;        </span><span style="color: #008000">// returns `true` if no space used, `false` otherwise</span>
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;      </span><span style="color: #008000">// returns the number of spaces remaining currently</span>
@@ -124,6 +126,8 @@
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">); </span><span style="color: #008000">// ok: [1,2,3]</span>
 
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">); </span><span style="color: #008000">// 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">first</span><span style="color: #000000">; </span><span style="color: #008000">// 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;  </span><span style="color: #008000">// 3</span>
 
 <span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">); </span><span style="color: #008000">// throws - full! ; [1,2,3]</span>
 
