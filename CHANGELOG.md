@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.2...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.3...HEAD)
 
+- Write the changelog to disk [`#43`](https://github.com/StoneCypher/circular_buffer_js/pull/43)
+- Add changelog [`#42`](https://github.com/StoneCypher/circular_buffer_js/pull/42)
+
+#### [v0.21.3](https://github.com/StoneCypher/circular_buffer_js/compare/v0.21.2...v0.21.3)
+
+> 19 July 2021
+
+- Write the changelog to disk [`2d035c2`](https://github.com/StoneCypher/circular_buffer_js/commit/2d035c24cfc9db52656c9294be86ca9645e043fa)
 - Okay changelogs are semi-automated now [`1e54733`](https://github.com/StoneCypher/circular_buffer_js/commit/1e547331e509d22d184225418d107bf5425805cf)
 - Okay, NPM standard doesn't work here [`1ad912b`](https://github.com/StoneCypher/circular_buffer_js/commit/1ad912b2bc7c5d6c674a85e4b2cb5dd761bf9251)
 

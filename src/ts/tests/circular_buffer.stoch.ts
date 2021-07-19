@@ -38,7 +38,7 @@ function whatever(): unknown {
 
 class PushCommand implements cb_command {
 
-  constructor(readonly value: number) {}
+  constructor(readonly value: number) {}    // eslint-disable-line no-unused-vars
 
   check = (_m: Readonly<CbModel>): boolean => true;  // allowed to push into a full cb because we test overflows
 
@@ -270,7 +270,7 @@ class ToArrayCommand implements cb_command {
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call to_array
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
-    let res = r.toArray();
+    const res = r.toArray();
     assert.equal(r.length, res.length);
     assert.equal(m.length, res.length);
   }

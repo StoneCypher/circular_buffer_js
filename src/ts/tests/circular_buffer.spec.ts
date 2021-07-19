@@ -26,7 +26,7 @@ describe('[UNIT] Circular buffer', () => {
 
       test('lifecycle', () => {
 
-        let cb = new circular_buffer(size);
+        const cb = new circular_buffer(size);
 
         expect(cb.capacity).toBe(size);
         expect(cb.length).toBe(0);
@@ -52,7 +52,7 @@ describe('[UNIT] Circular buffer', () => {
 
       test(`* push fill ${size.toLocaleString()}`, () => {
 
-        let pf = new circular_buffer(size);
+        const pf = new circular_buffer(size);
         for (let i=0; i<size; ++i) {
           expect(pf.push(i)).toBe(i);
           expect(pf.length).toBe(i+1);
@@ -63,7 +63,7 @@ describe('[UNIT] Circular buffer', () => {
 
       test(`  pop/push cycle 3x ${size.toLocaleString()} +1`, () => {
 
-        let pf = new circular_buffer(size);
+        const pf = new circular_buffer(size);
         for (let k=0; k<size; ++k) { pf.push(k); }
 
         for (let i=0; i<(size*3)+1; ++i) {
@@ -92,7 +92,7 @@ describe('[UNIT] Circular buffer', () => {
 
 test('[UNIT] first and last', () => {
 
-  let cb = new circular_buffer(5);
+  const cb = new circular_buffer(5);
 
   expect(cb.capacity).toBe(5);
   expect(cb.length).toBe(0);
@@ -436,9 +436,9 @@ describe('[UNIT] Error cases', () => {
     describe('Overflow', () => {
       test(`* push overfill on precisely ${size.toLocaleString()}`, () => {
 
-        let pf = new circular_buffer(size);
+        const pf = new circular_buffer(size);
 
-        expect(() => { for (var i=0; i<size; ++i) { pf.push(i); } }).not.toThrow();
+        expect(() => { for (let i=0; i<size; ++i) { pf.push(i); } }).not.toThrow();
         expect(() => pf.push(size)).toThrow();
 
       });
