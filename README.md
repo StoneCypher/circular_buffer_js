@@ -56,49 +56,86 @@ to use had a native buggy implementation, so I provided something more trustwort
 A circular buffer is a fixed size buffer that allows you to push and pop forever, as a first in first
 out queue-like structure.  Circular buffers are more efficient than queues, but can overflow.
 
+
+
+<br/>
+
+### Basic usage
+
 ```javascript
 import { circular_buffer } from 'circular_buffer_js';
 
-const cb = new circular_buffer(3);
+const cb = new circular_buffer(3);  // [ , , ]
 
-cb.push(1); // ok
-cb.push(2); // ok
-cb.push(3); // ok
+cb.push(1); // ok: [1, , ]
+cb.push(2); // ok: [1,2, ]
+cb.push(3); // ok: [1,2,3]
 
 cb.at(0); // 1
 
-cb.push(4); // throws - full!
+cb.push(4); // throws - full! ; [1,2,3]
 
-cb.pop(); // 1
-cb.at(0); // 2
+cb.pop(); // 1: [2,3, ]
+cb.at(0); // 2: [2,3, ]
 
-cb.push(4); // ok
-cb.push(5); // throws - full!
+cb.push(4); // ok: [2,3,4]
+cb.push(5); // throws - full! ; [2,3,4]
 
-cb.pop(); // 2
-cb.pop(); // 3
-cb.pop(); // 4
+cb.pop(); // 2: [3,4, ]
+cb.pop(); // 3: [4, , ]
+cb.pop(); // 4: [ , , ]
 
-cb.pop(); // throws - empty!
+cb.pop(); // throws - empty! ; [ , , ]
 ```
+
+
+
+<br/>
+
+### Typescript
 
 It's typescript, so you can also
 
 ```typescript
+import { circular_buffer } from 'circular_buffer_js';
 const cb = new circular_buffer<number>(3);
 ```
 
-And there's a commonjs build, so you can
+
+
+<br/>
+
+### Node CommonJS
+
+And there's a CommonJS build, so you can
 
 ```javascript
 const cbuf            = require('circular_buffer_js'),
-      circular_buffer = cbuf.circular_buffer;
+      circular_buffer = new cbuf.circular_buffer;
 ```
 
-There're also two `iife` builds - both regular and minified - so that you can use this in older browsers.
+
+
+<br/>
+
+### Browser &lt;script&gt;
+
+There're also two `iife` builds - both regular and minified - so that you can use this in older browsers, or from CDN.
 
 ```html
-<script type="text/javascript" src="circular_buffer_js.min.js"></script>
+<script defer type="text/javascript" src="circular_buffer_js.min.js"></script>
+<script defer type="text/javascript">
+
+  window.onload = () => {
+
+    console.log(`Using circular buffer version ${circular_buffer.version}`);
+
+                      // package      // class
+    const mybuf = new circular_buffer.circular_buffer(5);
+
+  };
+
+</script>
 ```
 
 
