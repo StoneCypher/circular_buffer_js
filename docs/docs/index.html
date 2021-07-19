@@ -1,0 +1,239 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>circular_buffer_js</title>
+	<meta name="description" content="Documentation for circular_buffer_js">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">circular_buffer_js</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>circular_buffer_js</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#circular_buffer_js" id="circular_buffer_js" style="color: inherit; text-decoration: none;">
+					<h1>circular_buffer_js</h1>
+				</a>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> --</span><span style="color: #001080">save</span><span style="color: #000000">-</span><span style="color: #001080">dev</span><span style="color: #000000"> </span><span style="color: #001080">circular_buffer_js</span>
+</code></pre>
+				<ul>
+					<li><a href="https://stonecypher.github.io/circular_buffer_js/docs/">Documentation</a></li>
+					<li><a href="https://github.com/StoneCypher/circular_buffer_js/actions">Build history</a></li>
+				</ul>
+				<p><code>Typescript</code> implementation of a circular buffer, and JS compiles to a es6
+				module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.</p>
+				<ol>
+					<li>Well tested.<ul>
+							<li>100% coverage, 100% property coverage.</li>
+						</ul>
+					</li>
+					<li>Tiny.<ul>
+							<li>The <code>es6</code> minified module build is currently 1.4k.</li>
+						</ul>
+					</li>
+					<li>Dependency-free.<ul>
+							<li>Only dev-time deps like <code>typescript</code> are involved.</li>
+						</ul>
+					</li>
+				</ol>
+				<p><br/><br/></p>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<p>You should consider viewing the <a href="https://stonecypher.github.io/circular_buffer_js/docs/">real documentation</a>, but:</p>
+				<pre><code class="language-typescript"><span style="color: #008000">// yields a buffer of fixed size `size`</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #001080">size</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #001080">item</span><span style="color: #000000">);     </span><span style="color: #008000">// inserts `item` at end of `cb`, then returns `item`</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();          </span><span style="color: #008000">// removes and returns first element</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #001080">location</span><span style="color: #000000">);   </span><span style="color: #008000">// shows the element at 0-indexed offset `location`</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">fill</span><span style="color: #000000">(</span><span style="color: #001080">item</span><span style="color: #000000">);     </span><span style="color: #008000">// maxes `length` and sets every element to `item`</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();        </span><span style="color: #008000">// empties the container</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isFull</span><span style="color: #000000">;         </span><span style="color: #008000">// returns `true` if no space left, `false` otherwise</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isEmpty</span><span style="color: #000000">;        </span><span style="color: #008000">// returns `true` if no space used, `false` otherwise</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;      </span><span style="color: #008000">// returns the number of spaces remaining currently</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;       </span><span style="color: #008000">// returns the total `size` allocated</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;         </span><span style="color: #008000">// returns the amount of space currently used</span>
+</code></pre>
+				<p><br/><br/></p>
+				<a href="#what-is-this" id="what-is-this" style="color: inherit; text-decoration: none;">
+					<h2>What is this?</h2>
+				</a>
+				<p>This is a circular buffer (or ring buffer, ring queue, etc.)  It was written because a library I wanted
+				to use had a native buggy implementation, so I provided something more trustworthy.</p>
+				<p>A circular buffer is a fixed size buffer that allows you to push and pop forever, as a first in first
+				out queue-like structure.  Circular buffers are more efficient than queues, but can overflow.</p>
+				<br/>
+				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+					<h3>Basic usage</h3>
+				</a>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">circular_buffer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;circular_buffer_js&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// [ , , ]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">); </span><span style="color: #008000">// ok: [1, , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">); </span><span style="color: #008000">// ok: [1,2, ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">); </span><span style="color: #008000">// ok: [1,2,3]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">); </span><span style="color: #008000">// 1</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">); </span><span style="color: #008000">// throws - full! ; [1,2,3]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(); </span><span style="color: #008000">// 1: [2,3, ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">); </span><span style="color: #008000">// 2: [2,3, ]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">); </span><span style="color: #008000">// ok: [2,3,4]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">5</span><span style="color: #000000">); </span><span style="color: #008000">// throws - full! ; [2,3,4]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(); </span><span style="color: #008000">// 2: [3,4, ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(); </span><span style="color: #008000">// 3: [4, , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(); </span><span style="color: #008000">// 4: [ , , ]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(); </span><span style="color: #008000">// throws - empty! ; [ , , ]</span>
+</code></pre>
+				<br/>
+				<a href="#typescript" id="typescript" style="color: inherit; text-decoration: none;">
+					<h3>Typescript</h3>
+				</a>
+				<p>It&#39;s typescript, so you can also</p>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">circular_buffer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;circular_buffer_js&#039;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">&lt;</span><span style="color: #267F99">number</span><span style="color: #000000">&gt;(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+</code></pre>
+				<br/>
+				<a href="#node-commonjs" id="node-commonjs" style="color: inherit; text-decoration: none;">
+					<h3>Node CommonJS</h3>
+				</a>
+				<p>And there&#39;s a CommonJS build, so you can</p>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cbuf</span><span style="color: #000000">            = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;circular_buffer_js&#039;</span><span style="color: #000000">),</span>
+<span style="color: #000000">      </span><span style="color: #0070C1">circular_buffer</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">cbuf</span><span style="color: #000000">.</span><span style="color: #001080">circular_buffer</span><span style="color: #000000">;</span>
+</code></pre>
+				<br/>
+				<a href="#browser-ltscriptgt" id="browser-ltscriptgt" style="color: inherit; text-decoration: none;">
+					<h3>Browser &lt;script&gt;</h3>
+				</a>
+				<p>There&#39;re also two <code>iife</code> builds - both regular and minified - so that you can use this in older browsers, or from CDN.</p>
+				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">defer</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;text/javascript&quot;</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;circular_buffer_js.min.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+<span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">defer</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;text/javascript&quot;</span><span style="color: #800000">&gt;</span>
+
+<span style="color: #000000FF">  </span><span style="color: #001080">window</span><span style="color: #000000FF">.</span><span style="color: #795E26">onload</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> {</span>
+
+<span style="color: #000000FF">    </span><span style="color: #001080">console</span><span style="color: #000000FF">.</span><span style="color: #795E26">log</span><span style="color: #000000FF">(</span>
+<span style="color: #000000FF">      </span><span style="color: #A31515">`Using circular buffer version </span><span style="color: #0000FF">${</span><span style="color: #001080">circular_buffer</span><span style="color: #000000FF">.</span><span style="color: #001080">version</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span>
+<span style="color: #000000FF">    );</span>
+
+<span style="color: #000000FF">                      </span><span style="color: #008000">// package      // class</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">const</span><span style="color: #000000FF"> </span><span style="color: #0070C1">mybuf</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #0000FF">new</span><span style="color: #000000FF"> </span><span style="color: #001080">circular_buffer</span><span style="color: #000000FF">.</span><span style="color: #795E26">circular_buffer</span><span style="color: #000000FF">(</span><span style="color: #098658">5</span><span style="color: #000000FF">);</span>
+
+<span style="color: #000000FF">  };</span>
+
+<span style="color: #800000">&lt;/script&gt;</span>
+</code></pre>
+				<p><br/><br/></p>
+				<a href="#alternatives" id="alternatives" style="color: inherit; text-decoration: none;">
+					<h2>Alternatives</h2>
+				</a>
+				<p>If this doesn&#39;t meet your needs, please try:</p>
+				<ul>
+					<li><a href="https://www.npmjs.com/package/ring-buffer-ts">ring-buffer-ts</a></li>
+					<li><a href="https://www.npmjs.com/package/CBuffer">CBuffer</a></li>
+					<li><a href="https://www.npmjs.com/package/ringbufferjs">ringbuffer.js</a></li>
+					<li><a href="https://www.npmjs.com/package/qlist">qlist</a></li>
+					<li><a href="https://www.npmjs.com/package/fixed-size-list">fixed-size-list</a></li>
+					<li><a href="https://www.npmjs.com/package/circular-buffer">circular-buffer</a></li>
+					<li><a href="https://www.npmjs.com/package/cyclist">cyclist</a></li>
+					<li><a href="https://www.npmjs.com/package/cyclic-buffer">cyclic-buffer</a></li>
+					<li><a href="https://www.npmjs.com/package/bsh-circular-buffer">bsh-circular-buffer</a></li>
+					<li><a href="https://www.npmjs.com/package/cbarrick-circular-buffer">cbarrick-circular-buffer</a></li>
+					<li><a href="https://www.npmjs.com/package/limited-cache">limited-cache</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/circular_buffer.html">circular_<wbr>buffer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/generated_package_version.html">generated/package_<wbr>version</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
