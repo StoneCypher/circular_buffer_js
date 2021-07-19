@@ -1,0 +1,10 @@
+
+node_modules
+dist
+build
+.github
+coverage
+docs
+src/html
+src/ts/generated
+rollup.config.js

@@ -313,11 +313,11 @@ class circular_buffer<T> {
 
   fill(x:T): T[] {
 
-    for (var i = 0; i < this._capacity; i++) {
+    for (let i = 0; i < this._capacity; i++) {
       this._values[i] = x;
     }
 
-    this._length = i;
+    this._length = this._capacity;
 
     return this._values;
 
@@ -349,7 +349,7 @@ class circular_buffer<T> {
 
   clear(): T[] {
 
-    let old      = this.toArray();
+    const old    = this.toArray();
     this._length = 0;
 
     return old;
@@ -385,7 +385,7 @@ class circular_buffer<T> {
       throw new RangeError(`Cannot pop, structure is empty`);
     }
 
-    let cache = this.at(0);
+    const cache = this.at(0);
 
     --this._length;  // the container is now one shorter
     ++this._cursor;  // the cursor moved one forwards
@@ -434,7 +434,7 @@ class circular_buffer<T> {
     if (i >= this._capacity)      { throw new RangeError(`Requested cell ${i} exceeds container permanent capacity`); }
     if (i >= this._length)        { throw new RangeError(`Requested cell ${i} exceeds container current length`); }
 
-    return this._values[(this._cursor + i) % this._capacity]!;
+    return this._values[(this._cursor + i) % this._capacity]!;  // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
   }
 
@@ -464,7 +464,7 @@ class circular_buffer<T> {
 
   toArray(): T[] {
 
-    let startPoint = this._cursor % this._capacity;
+    const startPoint = this._cursor % this._capacity;
 
     if (this._capacity > (startPoint + this._length)) {
       // no need to splice, length doesn't wrap
@@ -473,7 +473,7 @@ class circular_buffer<T> {
     } else {
 
       // length wraps
-      let base = this._values.slice(startPoint, this._capacity);
+      const base = this._values.slice(startPoint, this._capacity);
       base.push( ... this._values.slice(0, this.length - (this._capacity - startPoint)) );
 
       return base;

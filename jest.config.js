@@ -1,5 +1,5 @@
 
-module.exports = {
+module.exports = {    // eslint-disable-line no-undef
 
   testEnvironment            : 'node',
 

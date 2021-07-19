@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.21.3';
+    const version = '0.22.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -51,14 +51,14 @@ var circular_buffer = (function (exports) {
             return v;
         }
         fill(x) {
-            for (var i = 0; i < this._capacity; i++) {
+            for (let i = 0; i < this._capacity; i++) {
                 this._values[i] = x;
             }
-            this._length = i;
+            this._length = this._capacity;
             return this._values;
         }
         clear() {
-            let old = this.toArray();
+            const old = this.toArray();
             this._length = 0;
             return old;
         }
@@ -66,7 +66,7 @@ var circular_buffer = (function (exports) {
             if (this._length <= 0) {
                 throw new RangeError(`Cannot pop, structure is empty`);
             }
-            let cache = this.at(0);
+            const cache = this.at(0);
             --this._length;
             ++this._cursor;
             if (this._cursor >= this._capacity) {
@@ -90,12 +90,12 @@ var circular_buffer = (function (exports) {
             return this._values[(this._cursor + i) % this._capacity];
         }
         toArray() {
-            let startPoint = this._cursor % this._capacity;
+            const startPoint = this._cursor % this._capacity;
             if (this._capacity > (startPoint + this._length)) {
                 return this._values.slice(startPoint, startPoint + this._length);
             }
             else {
-                let base = this._values.slice(startPoint, this._capacity);
+                const base = this._values.slice(startPoint, this._capacity);
                 base.push(...this._values.slice(0, this.length - (this._capacity - startPoint)));
                 return base;
             }

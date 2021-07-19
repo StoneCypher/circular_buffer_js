@@ -1,7 +1,7 @@
 
-const baseConfig = require('./jest.config.js');
+const baseConfig = require('./jest.config.js');  // eslint-disable-line no-undef,@typescript-eslint/no-var-requires
 
-module.exports = {
+module.exports = {                               // eslint-disable-line no-undef
 
   ... baseConfig,
 
