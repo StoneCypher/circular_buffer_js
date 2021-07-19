@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '0.18.1';
+    const version = '0.19.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -16,11 +16,21 @@ var circular_buffer = (function (exports) {
             this._cursor = 0;
             this._length = 0;
         }
-        get capacity() { return this._capacity; }
-        get length() { return this._length; }
-        get available() { return this._capacity - this._length; }
-        get isEmpty() { return this._length === 0; }
-        get isFull() { return this._length === this._capacity; }
+        get capacity() {
+            return this._capacity;
+        }
+        get length() {
+            return this._length;
+        }
+        get available() {
+            return this._capacity - this._length;
+        }
+        get isEmpty() {
+            return this._length === 0;
+        }
+        get isFull() {
+            return this._length === this._capacity;
+        }
         get first() {
             if (this.isEmpty) {
                 throw new RangeError('Cannot return first element of an empty container');

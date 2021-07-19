@@ -16,15 +16,42 @@ class circular_buffer<T> {
 
 
 
+  /** The actual dataset.  Not in order as the outside world would expect.  If
+      you want this functionality, use `.toArray()`. */
   private _values   : T[];
 
+
+  /** The current offset in the underlying array.  You should never need
+      this. */
   private _cursor   : number;
+
+  /** The current used range within the dataset array.  Values outside this
+      range aren't trustworthy.  Use `.length` instead. */
   private _length   : number;
+
+  /** The current size cap, as a cache.  Use `.capacity` instead. */
   private _capacity : number;
 
 
 
 
+
+  /*********
+   *
+   *  Create a circular queue of the size of the argument, `uCapacity`.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.capacity;   // 3
+   *  ```
+   *
+   *  Queues may be, but do not have to be, typed.  If they are, all methods
+   *  will also be appropriately typed, both in arguments and return values.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer<string>(2);
+   *  ```
+   */
 
   constructor(uCapacity: number) {
 
@@ -42,15 +69,153 @@ class circular_buffer<T> {
 
 
 
-  get capacity()  : number  { return this._capacity; }
-  get length()    : number  { return this._length; }
-  get available() : number  { return this._capacity - this._length; }
-  get isEmpty()   : boolean { return this._length === 0; }
-  get isFull()    : boolean { return this._length === this._capacity; }
+  /*********
+   *
+   *  The number of spaces offered, total, regardless of what's currently used.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.capacity;   // 3
+   *  cb.push(1);    // ok, returns 1
+   *  cb.capacity;   // 3
+   *  cb.pop();      // ok, returns 1, container now empty
+   *  cb.capacity;   // 3
+   *  ```
+   */
+
+  get capacity(): number {
+    return this._capacity;
+  }
 
 
 
 
+
+  /*********
+   *
+   *  The number of spaces currently filled.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.length;     // 0
+   *  cb.push(1);    // ok, returns 1
+   *  cb.length;     // 1
+   *  cb.pop();      // ok, returns 1, container now empty
+   *  cb.length;     // 0
+   *  cb.fill(3);    // [3,3,3]
+   *  cb.length;     // 3
+   *  cb.clear();    // [ , , ]
+   *  cb.length;     // 0
+   *  ```
+   */
+
+  get length(): number {
+    return this._length;
+  }
+
+
+
+
+
+  /*********
+   *
+   *  The number of spaces available to be filled (ie, `.capacity - .length`.)
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.available;  // 3
+   *  cb.push(1);    // ok, returns 1
+   *  cb.available;  // 2
+   *  cb.pop();      // ok, returns 1, container now empty
+   *  cb.available;  // 3
+   *  cb.fill(3);    // [3,3,3]
+   *  cb.available;  // 0
+   *  cb.clear();    // [ , , ]
+   *  cb.available;  // 3
+   *  ```
+   */
+
+  get available(): number {
+    return this._capacity - this._length;
+  }
+
+
+
+
+
+  /*********
+   *
+   *  `true` when the container has no contents (ie, `.length === 0`); `false`
+   *  otherwise.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.isEmpty;  // true
+   *  cb.push(1);  // ok, returns 1
+   *  cb.isEmpty;  // false
+   *  cb.clear();  // ok, container now empty
+   *  cb.isEmpty;  // true
+   *  ```
+   */
+
+  get isEmpty(): boolean {
+    return this._length === 0;
+  }
+
+
+
+
+
+  /*********
+   *
+   *  `true` when the container has no space left (ie, `.length === .capacity`);
+   *  `false` otherwise.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.isFull;   // false
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.push(3);  // ok, returns 3
+   *
+   *  cb.isFull;   // true
+   *
+   *  cb.clear();  // ok, container now empty
+   *  cb.isFull;   // false
+   *  ```
+   */
+
+  get isFull(): boolean {
+    return this._length === this._capacity;
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Gets the first element of the queue; throws RangeError if the queue is
+   *  empty.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.push(3);  // ok, returns 3
+   *
+   *  cb.first;    // 1
+   *
+   *  cb.clear();  // ok, container now empty
+   *  cb.first;    // throws RangeError, because the container is empty
+   *  ```
+   */
 
   get first() : T {
 
@@ -66,6 +231,25 @@ class circular_buffer<T> {
 
 
 
+  /*********
+   *
+   *  Gets the last element of the queue; throws RangeError if the queue is
+   *  empty.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.push(3);  // ok, returns 3
+   *
+   *  cb.last;     // 3
+   *
+   *  cb.clear();  // ok, container now empty
+   *  cb.last;     // throws RangeError, because the container is empty
+   *  ```
+   */
+
   get last() : T {
 
     if (this.isEmpty) {
@@ -80,6 +264,22 @@ class circular_buffer<T> {
 
 
 
+  /*********
+   *
+   *  Pushes a value onto the end of the container; throws `RangeError` if the
+   *  container is already full.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.push(3);  // ok, returns 3
+   *
+   *  cb.push(4);  // throws RangeError, container only has 3 spots
+   *  ```
+   */
+
   push(v: T): T {
 
     if (this._length >= this._capacity) { throw new RangeError(`Cannot push, structure is full to capacity`); }
@@ -93,6 +293,22 @@ class circular_buffer<T> {
 
 
 
+
+  /*********
+   *
+   *  Fills a container with a repeated value.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.length;       // 0
+   *  cb.at(2);        // throws RangeError
+   *
+   *  cb.fill('Bob');  // ['Bob', 'Bob', 'Bob']
+   *  cb.length;       // 3
+   *  cb.at(2);        // 'Bob'
+   *  ```
+   */
 
   fill(x:T): T[] {
 
@@ -111,6 +327,26 @@ class circular_buffer<T> {
 
 
 
+  /*********
+   *
+   *  Empties a container.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(10);  // ok, returns 10
+   *  cb.push(20);  // ok, returns 20
+   *  cb.push(30);  // ok, returns 30
+   *
+   *  cb.last;      // 30
+   *  cb.length;    // 3
+   *
+   *  cb.clear();   // ok, container now empty
+   *  cb.last;      // throws RangeError, because the container is empty
+   *  cb.length;    // 0
+   *  ```
+   */
+
   clear(): void {
 
     this._length = 0;
@@ -121,6 +357,25 @@ class circular_buffer<T> {
 
 
 
+
+  /*********
+   *
+   *  Pops a value from the front of the container, by returning it and removing
+   *  it from the container; throws `RangeError` if the container is already
+   *  empty.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.pop();    // ok, returns 1
+   *  cb.pop();    // ok, returns 2
+   *
+   *  cb.pop();    // throws RangeError, container has nothing to pop out
+   *  ```
+   *
+   */
 
   pop(): T | undefined {
 
@@ -149,6 +404,30 @@ class circular_buffer<T> {
 
 
 
+
+  /*********
+   *
+   *  Returns the value at a given index, or throws RangeError if that value
+   *  does not exist (container too small or nonsensical index.)
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(1);  // ok, returns 1
+   *  cb.push(2);  // ok, returns 2
+   *  cb.push(3);  // ok, returns 3
+   *
+   *  cb.at(0);    // ok, returns 1
+   *  cb.at(2);    // ok, returns 3
+   *
+   *  cb.at(4);    // throws RangeError, larger than the container
+   *
+   *  cb.at(-1);   // throws RangeError, nonsense index
+   *  cb.at(0.5);  // throws RangeError, nonsense index
+   *  cb.at("Z");  // throws RangeError, nonsense index
+   *  ```
+   *
+   */
 
   at(i: number): T {
 

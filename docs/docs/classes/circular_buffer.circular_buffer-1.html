@@ -147,9 +147,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L29">circular_buffer.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L56">circular_buffer.ts:56</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Create a circular queue of the size of the argument, <code>uCapacity</code>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3</span>
+</code></pre>
+								<p> Queues may be, but do not have to be, typed.  If they are, all methods
+								will also be appropriately typed, both in arguments and return values.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">&gt;(</span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -175,9 +187,14 @@
 					<div class="tsd-signature tsd-kind-icon">_capacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L23">circular_buffer.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L33">circular_buffer.ts:33</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current size cap, as a cache.  Use <code>.capacity</code> instead.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_cursor" class="tsd-anchor"></a>
@@ -185,9 +202,15 @@
 					<div class="tsd-signature tsd-kind-icon">_cursor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L21">circular_buffer.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L26">circular_buffer.ts:26</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current offset in the underlying array.  You should never need
+							this.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_length" class="tsd-anchor"></a>
@@ -195,9 +218,15 @@
 					<div class="tsd-signature tsd-kind-icon">_length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L22">circular_buffer.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L30">circular_buffer.ts:30</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current used range within the dataset array.  Values outside this
+							range aren&#39;t trustworthy.  Use <code>.length</code> instead.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_values" class="tsd-anchor"></a>
@@ -205,9 +234,15 @@
 					<div class="tsd-signature tsd-kind-icon">_values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L19">circular_buffer.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L21">circular_buffer.ts:21</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The actual dataset.  Not in order as the outside world would expect.  If
+							you want this functionality, use <code>.toArray()</code>.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -222,9 +257,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L47">circular_buffer.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L140">circular_buffer.ts:140</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> The number of spaces available to be filled (ie, <code>.capacity - .length</code>.)</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;  </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;  </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// ok, returns 1, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;  </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">fill</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);    </span><span style="color: #008000">// [3,3,3]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;  </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();    </span><span style="color: #008000">// [ , , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">available</span><span style="color: #000000">;  </span><span style="color: #008000">// 3</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -239,9 +291,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L45">circular_buffer.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L86">circular_buffer.ts:86</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> The number of spaces offered, total, regardless of what&#39;s currently used.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// ok, returns 1, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -256,9 +320,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L55">circular_buffer.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L220">circular_buffer.ts:220</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Gets the first element of the queue; throws RangeError if the queue is
+									empty.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">first</span><span style="color: #000000">;    </span><span style="color: #008000">// 1</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();  </span><span style="color: #008000">// ok, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">first</span><span style="color: #000000">;    </span><span style="color: #008000">// throws RangeError, because the container is empty</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
@@ -273,9 +354,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L48">circular_buffer.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L164">circular_buffer.ts:164</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> <code>true</code> when the container has no contents (ie, <code>.length === 0</code>); <code>false</code>
+									otherwise.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isEmpty</span><span style="color: #000000">;  </span><span style="color: #008000">// true</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isEmpty</span><span style="color: #000000">;  </span><span style="color: #008000">// false</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();  </span><span style="color: #008000">// ok, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isEmpty</span><span style="color: #000000">;  </span><span style="color: #008000">// true</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -290,9 +385,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L49">circular_buffer.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L193">circular_buffer.ts:193</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> <code>true</code> when the container has no space left (ie, <code>.length === .capacity</code>);
+									<code>false</code> otherwise.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isFull</span><span style="color: #000000">;   </span><span style="color: #008000">// false</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isFull</span><span style="color: #000000">;   </span><span style="color: #008000">// true</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();  </span><span style="color: #008000">// ok, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">isFull</span><span style="color: #000000">;   </span><span style="color: #008000">// false</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -307,9 +421,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L69">circular_buffer.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L253">circular_buffer.ts:253</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Gets the last element of the queue; throws RangeError if the queue is
+									empty.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;     </span><span style="color: #008000">// 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();  </span><span style="color: #008000">// ok, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;     </span><span style="color: #008000">// throws RangeError, because the container is empty</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
@@ -324,9 +455,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L46">circular_buffer.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L113">circular_buffer.ts:113</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> The number of spaces currently filled.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;     </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;     </span><span style="color: #008000">// 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// ok, returns 1, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;     </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">fill</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);    </span><span style="color: #008000">// [3,3,3]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;     </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();    </span><span style="color: #008000">// [ , , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;     </span><span style="color: #008000">// 0</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -344,9 +492,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L153">circular_buffer.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L432">circular_buffer.ts:432</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Returns the value at a given index, or throws RangeError if that value
+									does not exist (container too small or nonsensical index.)</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);    </span><span style="color: #008000">// throws RangeError, larger than the container</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(-</span><span style="color: #098658">1</span><span style="color: #000000">);   </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0.5</span><span style="color: #000000">);  </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Z&quot;</span><span style="color: #000000">);  </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -367,9 +536,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L114">circular_buffer.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L350">circular_buffer.ts:350</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Empties a container.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 10</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">20</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">30</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 30</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;      </span><span style="color: #008000">// 30</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;    </span><span style="color: #008000">// 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();   </span><span style="color: #008000">// ok, container now empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">last</span><span style="color: #000000">;      </span><span style="color: #008000">// throws RangeError, because the container is empty</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;    </span><span style="color: #008000">// 0</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -384,9 +571,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L97">circular_buffer.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L313">circular_buffer.ts:313</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Fills a container with a repeated value.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;       </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);        </span><span style="color: #008000">// throws RangeError</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">fill</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Bob&#039;</span><span style="color: #000000">);  </span><span style="color: #008000">// [&#039;Bob&#039;, &#039;Bob&#039;, &#039;Bob&#039;]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;       </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);        </span><span style="color: #008000">// &#039;Bob&#039;</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -407,9 +608,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L125">circular_buffer.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L380">circular_buffer.ts:380</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Pops a value from the front of the container, by returning it and removing
+										it from the container; throws <code>RangeError</code> if the container is already
+									empty.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();    </span><span style="color: #008000">// ok, returns 2</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();    </span><span style="color: #008000">// throws RangeError, container has nothing to pop out</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
@@ -424,9 +641,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/85bf3f4/src/ts/circular_buffer.ts#L83">circular_buffer.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a35ae5b/src/ts/circular_buffer.ts#L283">circular_buffer.ts:283</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Pushes a value onto the end of the container; throws <code>RangeError</code> if the
+									container is already full.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);  </span><span style="color: #008000">// ok, returns 3</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);  </span><span style="color: #008000">// throws RangeError, container only has 3 spots</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>

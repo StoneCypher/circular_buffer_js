@@ -5,6 +5,7 @@ npm install --save-dev circular_buffer_js
 ```
 
 * [Documentation](https://stonecypher.github.io/circular_buffer_js/docs/)
+    * [Main functional documentation](https://stonecypher.github.io/circular_buffer_js/docs/classes/circular_buffer.circular_buffer-1.html)
 * [Build history](https://github.com/StoneCypher/circular_buffer_js/actions)
 
 `Typescript` implementation of a circular buffer, and JS compiles to a es6
