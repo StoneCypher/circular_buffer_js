@@ -1,2 +1,2 @@
-declare const version = "0.20.1", packagename = "circular_buffer_js";
+declare const version = "0.21.2", packagename = "circular_buffer_js";
 export { version, packagename };
