@@ -37,6 +37,8 @@ cb.at(location);   // shows the element at 0-indexed offset `location`
 cb.fill(item);     // maxes `length` and sets every element to `item`
 cb.clear();        // empties the container
 
+cb.first;          // returns the first value in the queue; throws when empty
+cb.last;           // returns the last value in the queue; throws when empty
 cb.isFull;         // returns `true` if no space left, `false` otherwise
 cb.isEmpty;        // returns `true` if no space used, `false` otherwise
 cb.available;      // returns the number of spaces remaining currently
@@ -74,6 +76,8 @@ cb.push(2); // ok: [1,2, ]
 cb.push(3); // ok: [1,2,3]
 
 cb.at(0); // 1
+cb.first; // 1
+cb.last;  // 3
 
 cb.push(4); // throws - full! ; [1,2,3]
 
