@@ -36,7 +36,8 @@ You should consider viewing the [real documentation](https://stonecypher.github.
 
 ```typescript
 // yields a buffer of fixed size `size`
-const cb = new circular_buffer(size);
+const cb  = new circular_buffer(size),
+      cb2 = circular_buffer.from([1,2,3]);
 
 cb.push(item);     // inserts `item` at end of `cb`, then returns `item`
 cb.pop();          // removes and returns first element

@@ -18,16 +18,16 @@ class circular_buffer<T> {
 
   /** The actual dataset.  Not in order as the outside world would expect.  If
       you want this functionality, use {@link toArray | .toArray()} instead. */
-  private _values   : T[];
+  private _values : T[];
 
 
   /** The current offset in the underlying array.  You should never need
       this; it is an internal implementation detail. */
-  private _cursor   : number;
+  private _cursor : number;
 
   /** The current used range within the dataset array.  Values outside this
       range aren't trustworthy.  Use {@link length | .length} instead. */
-  private _length   : number;
+  private _length : number;
 
   /** The current size cap, as a cache.  Use {@link capacity | .capacity}
       instead. */
@@ -57,7 +57,7 @@ class circular_buffer<T> {
   constructor(uCapacity: number) {
 
     if (!( Number.isInteger(uCapacity) )) { throw new RangeError(`Capacity must be an integer, received ${uCapacity}`); }
-    if (uCapacity < 1)                    { throw new RangeError(`Capacity must be a positive integer, received ${uCapacity}`); }
+    if (uCapacity < 0)                    { throw new RangeError(`Capacity must be a non-negative integer, received ${uCapacity}`); }
 
     this._values   = new Array(uCapacity);
     this._capacity = uCapacity;
@@ -258,6 +258,43 @@ class circular_buffer<T> {
     }
 
     return this.at(this.length - 1);
+
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Creates a circular buffer from an `ArrayLike` or an `Iterable`, with a
+   *  matching capacity.  Static method, and as such should not be called from
+   *  an instance (so, do not call using `new`.)
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,3]);
+   *
+   *  cb.pop();  // ok, returns 1
+   *  cb.pop();  // ok, returns 2
+   *  cb.pop();  // ok, returns 3
+   *
+   *  cb.pop();  // throws RangeError, empty
+   *  ```
+   */
+
+  static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T> {
+
+    const new_array: T[] = map_fn
+      ? Array.from(i, map_fn, t)
+      : Array.from(i);
+
+    const target_length = new_array.length;
+
+    const ncb = new circular_buffer<T>(target_length);
+    ncb._values = new_array;
+    ncb._length = target_length;
+
+    return ncb;
 
   }
 

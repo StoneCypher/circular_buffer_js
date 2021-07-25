@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.0.0...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.0.1...HEAD)
+
+#### [v1.0.1](https://github.com/StoneCypher/circular_buffer_js/compare/v1.0.0...v1.0.1)
+
+> 19 July 2021
+
+- Fix badges [`7e19481`](https://github.com/StoneCypher/circular_buffer_js/commit/7e19481a6671949a2ee8a1d768e2e02b5eb6cd37)
 
 ### [v1.0.0](https://github.com/StoneCypher/circular_buffer_js/compare/v0.25.0...v1.0.0)
 

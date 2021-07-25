@@ -12,6 +12,7 @@ declare class circular_buffer<T> {
     get isFull(): boolean;
     get first(): T;
     get last(): T;
+    static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T>;
     push(v: T): T;
     fill(x: T): T[];
     clear(): T[];

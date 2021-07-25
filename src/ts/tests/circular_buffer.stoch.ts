@@ -19,7 +19,72 @@ type cb_command = fc.Command<CbModel, num_cb>;
 
 
 
-function whatever(): unknown {
+// from/1,2 don't really make sense in the command model
+
+test('[STOCH] simple from/1', () => {
+
+  fc.assert(
+    fc.property(
+
+      fc.array(whatever()),
+
+      (source: unknown[]) => {
+
+        const cb = circular_buffer.from(source);
+        expect(cb.length).toBe(source.length);
+
+        const cbl = cb.length;
+        for (let i=0; i<cbl; ++i) {
+          expect(cb.pop()).toBe(source[i]);
+        }
+
+        expect(() => cb.pop()).toThrow();
+
+      }
+
+    )
+  );
+
+});
+
+
+
+
+
+// from/1,2 don't really make sense in the command model
+
+test('[STOCH] functor from/2', () => {
+
+  fc.assert(
+    fc.property(
+
+      fc.array(fc.float()),
+
+      (source: number[]) => {
+
+        const cb = circular_buffer.from(source, (n: number) => n*10);
+        expect(cb.length).toBe(source.length);
+
+        const cbl = cb.length;
+        for (let i=0; i<cbl; ++i) {
+          expect(cb.pop()).toBe((source[i] || 0) * 10);
+        }
+
+        expect(() => cb.pop()).toThrow();
+
+      }
+
+    )
+  );
+
+});
+
+
+
+
+
+function whatever(): fc.Arbitrary<unknown> {
+
   return fc.anything({
     withBigInt        : true,
     withBoxedValues   : true,
@@ -30,6 +95,7 @@ function whatever(): unknown {
     withSet           : true,
     withTypedArray    : true
   });
+
 }
 
 
@@ -299,16 +365,15 @@ describe('[STOCH] Bad constructor harassment', () => {
       fc.property(
         fc.nat(),
         sz => {
-          assert.throws( () => new circular_buffer( sz * -1 ) );
+          assert.throws( () => new circular_buffer( sz === 0? -2 : sz * -1 ) );
         }
       )
     );
   });
 
-  test('Inf, NInf, 0, NaN', () => {
+  test('Inf, NInf, NaN', () => {
     assert.throws( () => new circular_buffer( Number.POSITIVE_INFINITY ) );
     assert.throws( () => new circular_buffer( Number.NEGATIVE_INFINITY ) );
-    assert.throws( () => new circular_buffer( 0 )                        );
     assert.throws( () => new circular_buffer( NaN )                      );
   });
 

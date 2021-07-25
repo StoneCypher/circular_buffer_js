@@ -1,15 +1,15 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.0.1';
+    const version = '1.1.0';
 
     class circular_buffer {
         constructor(uCapacity) {
             if (!(Number.isInteger(uCapacity))) {
                 throw new RangeError(`Capacity must be an integer, received ${uCapacity}`);
             }
-            if (uCapacity < 1) {
-                throw new RangeError(`Capacity must be a positive integer, received ${uCapacity}`);
+            if (uCapacity < 0) {
+                throw new RangeError(`Capacity must be a non-negative integer, received ${uCapacity}`);
             }
             this._values = new Array(uCapacity);
             this._capacity = uCapacity;
@@ -42,6 +42,16 @@ var circular_buffer = (function (exports) {
                 throw new RangeError('Cannot return last element of an empty container');
             }
             return this.at(this.length - 1);
+        }
+        static from(i, map_fn, t) {
+            const new_array = map_fn
+                ? Array.from(i, map_fn, t)
+                : Array.from(i);
+            const target_length = new_array.length;
+            const ncb = new circular_buffer(target_length);
+            ncb._values = new_array;
+            ncb._length = target_length;
+            return ncb;
         }
         push(v) {
             if (this._length >= this._capacity) {

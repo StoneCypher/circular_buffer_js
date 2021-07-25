@@ -14,6 +14,26 @@ describe('[UNIT] version', () => {
 
 
 
+describe('[UNIT] Zero size', () => {
+
+  const cb = new circular_buffer(0);
+
+  expect( cb.length    ).toBe(0);
+  expect( cb.available ).toBe(0);
+  expect( cb.capacity  ).toBe(0);
+
+  expect( () => cb.first ).toThrow();
+  expect( () => cb.last  ).toThrow();
+
+  expect( () => cb.push(1) ).toThrow();
+  expect( () => cb.pop()   ).toThrow();
+
+});
+
+
+
+
+
 describe('[UNIT] Circular buffer', () => {
 
   const unit = (size: number) => {
@@ -85,6 +105,34 @@ describe('[UNIT] Circular buffer', () => {
   [1, 3, 5, 100, 2_000].map(unit);
 
 
+
+});
+
+
+
+test('[UNIT] simple from/1', () => {
+
+  const cb = circular_buffer.from([1,2,3]);
+
+  expect( cb.pop() ).toBe(1);
+  expect( cb.pop() ).toBe(2);
+  expect( cb.pop() ).toBe(3);
+
+  expect( () => cb.pop() ).toThrow();
+
+});
+
+
+
+test('[UNIT] functor from/2', () => {
+
+  const cb = circular_buffer.from([1,2,3], i => i*10);
+
+  expect( cb.pop() ).toBe(10);
+  expect( cb.pop() ).toBe(20);
+  expect( cb.pop() ).toBe(30);
+
+  expect( () => cb.pop() ).toThrow();
 
 });
 
@@ -449,7 +497,6 @@ describe('[UNIT] Error cases', () => {
   [1, 2, 3, 10, 1_000].map(overflow);
 
   describe('Bad constructors', () => {
-    test('Zero-sized',      () => { expect( () => new circular_buffer(0)                        ).toThrow(); })
     test('Negative-sized',  () => { expect( () => new circular_buffer(-1)                       ).toThrow(); })
     test('Fraction-sized',  () => { expect( () => new circular_buffer(1.5)                      ).toThrow(); })
     test('Infinity-sized',  () => { expect( () => new circular_buffer(Number.POSITIVE_INFINITY) ).toThrow(); })
