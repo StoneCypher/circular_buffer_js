@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.4.1';
+    const version = '1.5.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -66,6 +66,10 @@ var circular_buffer = (function (exports) {
             }
             this._length = this._capacity;
             return this._values;
+        }
+        find(predicate, thisArg) {
+            const items = this.toArray();
+            return items.find(predicate, thisArg);
         }
         every(functor, thisArg) {
             const normalized = this.toArray(), res = normalized.every(functor, thisArg);

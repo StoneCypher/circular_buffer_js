@@ -1,5 +1,5 @@
 
-import { version, circular_buffer } from '../circular_buffer';
+import { version, circular_buffer, TraversalFunctor } from '../circular_buffer';
 
 
 
@@ -477,6 +477,31 @@ test('[UNIT] isFull getter', () => {
 
 
 
+test('[UNIT] find/1', () => {
+
+  const dogs    = ['yorkie', 'beagle', 'poodle'],
+        data    = ['siamese', 'beagle', 'cockatoo'],
+        nums    = ['1', '2', '3'],
+        is_dog: TraversalFunctor<string>  = (animal: string) => dogs.includes(animal),
+        cb      = new circular_buffer<string>(3),
+        cb_none = new circular_buffer<string>(3);
+
+  data.forEach( animal => cb.push(      animal ) );
+  nums.forEach( number => cb_none.push( number ) );
+
+  const old = cb.toArray();
+
+  expect( cb.find( is_dog )      ).toBe( 'beagle' );
+  expect( cb_none.find( is_dog ) ).toBe( undefined );
+
+  expect( cb.toArray() ).toStrictEqual(old);
+
+});
+
+
+
+
+
 test('[UNIT] every/1 immutable', () => {
 
   const cb  = circular_buffer.from([3,2,1]),
@@ -528,16 +553,12 @@ test('[UNIT] some/1', () => {
 
 test('[UNIT] Reverse', () => {
 
-  const cb  = circular_buffer.from([3,2,1]),
-        old = cb.toArray();
-
+  const cb  = circular_buffer.from([3,2,1]);
   cb.reverse();
 
   expect( cb.pop() ).toBe(1);
   expect( cb.pop() ).toBe(2);
   expect( cb.pop() ).toBe(3);
-
-  expect( cb.toArray() ).toStrictEqual(old.reverse());
 
 });
 

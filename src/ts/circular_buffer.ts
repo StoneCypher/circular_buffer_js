@@ -5,7 +5,7 @@ import { version } from './generated/package_version';
 
 
 
-type TraversalFunctor<T> = (_element: T, _index: number, _array: T[]) => unknown;
+type TraversalFunctor<T> = (_element: T, _index?: number, _array?: T[]) => unknown;
 
 
 
@@ -364,6 +364,30 @@ class circular_buffer<T> {
 
     return this._values;
 
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Using an identifier predicate, return either the first matching
+   *  element or `undefined`.
+   *
+   *  ```typescript
+   *  const dogs = ['beagle', 'doberman', 'deputy'];
+   *        is_dog = animal => dogs.includes(animal);
+   *
+   *  const room = ['siamese', 'beagle', 'cockatoo'];
+   *
+   *  console.log(room.find(is_dog));   // prints 'beagle'
+   *  ```
+   */
+
+  find( predicate: TraversalFunctor<T>, thisArg?: unknown ): T | unknown {
+    const items = this.toArray();
+    return items.find(predicate, thisArg);
   }
 
 

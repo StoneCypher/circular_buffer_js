@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. Dates are d
 #### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.3.0...HEAD)
 
 - some/1, fixes #46 [`#46`](https://github.com/StoneCypher/circular_buffer_js/issues/46)
+- Close a fairly gross line-left-behind bug causing unexpected reversals [`c18c0e2`](https://github.com/StoneCypher/circular_buffer_js/commit/c18c0e2c2513b793db29f41b515a79072abd8bee)
 
 #### [v1.3.0](https://github.com/StoneCypher/circular_buffer_js/compare/v1.2.0...v1.3.0)
 
