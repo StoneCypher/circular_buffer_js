@@ -479,10 +479,13 @@ test('[UNIT] isFull getter', () => {
 
 test('[UNIT] every/1 immutable', () => {
 
-  const cb = circular_buffer.from([3,2,1]);
+  const cb  = circular_buffer.from([3,2,1]),
+        old = cb.toArray();
 
   expect( cb.every( i => typeof i === 'number') ).toBe(true);
   expect( cb.every( i => ((i % 2) === 0) ) ).toBe(false);
+
+  expect( cb.toArray() ).toStrictEqual(old);
 
 });
 
@@ -492,10 +495,13 @@ test('[UNIT] every/1 immutable', () => {
 
 test('[UNIT] every/1 mutative', () => {
 
-  const cb = circular_buffer.from([3,2,1]);
+  const cb  = circular_buffer.from([3,2,1]),
+        old = cb.toArray();
 
   expect( cb.every( i => i += 1 ) ).toBe(true);
   expect( cb.every( i => i -= 2 ) ).toBe(false);  // first index hits zero
+
+  expect( cb.toArray() ).toStrictEqual(old);
 
 });
 
@@ -505,11 +511,14 @@ test('[UNIT] every/1 mutative', () => {
 
 test('[UNIT] some/1', () => {
 
-  const cb = circular_buffer.from([3,2,1]);
+  const cb  = circular_buffer.from([3,2,1]),
+        old = cb.toArray();
 
   expect( cb.some( i => typeof i === 'number') ).toBe(true);
   expect( cb.some( i => ((i % 2) === 0)  )     ).toBe(true);
   expect( cb.some( i => ((i % 2) === 29) )     ).toBe(false);
+
+  expect( cb.toArray() ).toStrictEqual(old);
 
 });
 
@@ -519,12 +528,16 @@ test('[UNIT] some/1', () => {
 
 test('[UNIT] Reverse', () => {
 
-  const cb = circular_buffer.from([3,2,1]);
+  const cb  = circular_buffer.from([3,2,1]),
+        old = cb.toArray();
+
   cb.reverse();
 
   expect( cb.pop() ).toBe(1);
   expect( cb.pop() ).toBe(2);
   expect( cb.pop() ).toBe(3);
+
+  expect( cb.toArray() ).toStrictEqual(old.reverse());
 
 });
 

@@ -5,7 +5,7 @@ import { version } from './generated/package_version';
 
 
 
-type EveryFunctor<T> = (_element: T, _index: number, _array: T[]) => unknown;
+type TraversalFunctor<T> = (_element: T, _index: number, _array: T[]) => unknown;
 
 
 
@@ -380,16 +380,16 @@ class circular_buffer<T> {
    *  ```
    */
 
-  every( functor: EveryFunctor<T>, thisArg?: unknown ): boolean {
+  every( functor: TraversalFunctor<T>, thisArg?: unknown ): boolean {
 
     const normalized = this.toArray(),
           res        = normalized.every(functor, thisArg);
 
     // every can mutate, so, store the result, which will usually be nothing
 
-    this._values        = normalized.reverse();  // reverse data
-    this._values.length = this._capacity;        // stack with new empties
-    this._cursor        = 0;                     // accomodate internal rotation
+    this._values        = normalized;
+    this._values.length = this._capacity;   // stack with new empties
+    this._cursor        = 0;                // accomodate internal rotation
 
     return res;
 
@@ -409,16 +409,16 @@ class circular_buffer<T> {
    *  ```
    */
 
-  some( functor: EveryFunctor<T>, thisArg?: unknown ): boolean {
+  some( functor: TraversalFunctor<T>, thisArg?: unknown ): boolean {
 
     const normalized = this.toArray(),
           res        = normalized.some(functor, thisArg);
 
     // every can mutate, so, store the result, which will usually be nothing
 
-    this._values        = normalized.reverse();  // reverse data
-    this._values.length = this._capacity;        // stack with new empties
-    this._cursor        = 0;                     // accomodate internal rotation
+    this._values        = normalized;
+    this._values.length = this._capacity;   // stack with new empties
+    this._cursor        = 0;                // accomodate internal rotation
 
     return res;
 
@@ -626,6 +626,6 @@ export {
   version,
   circular_buffer,
 
-  EveryFunctor
+  TraversalFunctor
 
 };

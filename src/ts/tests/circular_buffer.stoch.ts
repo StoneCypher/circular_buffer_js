@@ -115,6 +115,7 @@ class PushCommand implements cb_command {
     if (m.length < m.capacity) {  // cb isn't full, so should work
       r.push( newValue );
       ++m.length;
+      assert.deepEqual( r.last, newValue );
     } else { // cb _is_ full, so should fail
       assert.throws( () => r.push( newValue ) );
     }
@@ -136,8 +137,14 @@ class PopCommand implements cb_command {
   run(m: CbModel, r: circular_buffer<unknown>): void {
 
     if (m.length > 0) {
-      r.pop();
+
+      const oldFirst = r.first,
+            popped   = r.pop();
+
       --m.length;
+
+      assert.deepEqual( popped, oldFirst );
+
     } else {
       assert.throws( () => r.pop() );
     }
@@ -170,9 +177,14 @@ class EveryCommand implements cb_command {
   toString = () => 'every';
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call every
 
-  // reverse does not impact the model
   run(_m: CbModel, r: circular_buffer<unknown>): void {
+
+    const before = r.toArray();
     assert.equal( r.every( _i => true ), true );
+    const after  = r.toArray();
+
+    assert.deepEqual(before, after);
+
   }
 
 }
@@ -186,9 +198,16 @@ class SomeCommand implements cb_command {
   toString = () => 'some';
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call any
 
-  // reverse does not impact the model
   run(_m: CbModel, r: circular_buffer<unknown>): void {
-    assert.equal( (r.length === 0) || (r.some( (_i: unknown) => true) ), true );
+
+    const before = r.toArray();
+    if (r.length) { assert.equal( r.some( (_i: unknown) => true) , true ); }
+    const after  = r.toArray();
+
+    if ([ before, after ].length !== 2) { true; }
+
+    assert.deepEqual(before, after);
+
   }
 
 }
@@ -202,9 +221,17 @@ class ReverseCommand implements cb_command {
   toString = () => 'reverse';
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call reverse
 
-  // reverse does not impact the model
   run(_m: CbModel, r: circular_buffer<unknown>): void {
+
+    const before   = r.toArray();
+
     r.reverse();
+
+    const after    = r.toArray(),
+          afterRev = after.reverse();
+
+    assert.deepEqual(before, afterRev);
+
   }
 
 }

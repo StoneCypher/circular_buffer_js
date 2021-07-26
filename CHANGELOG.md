@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. Dates are d
 
 #### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.3.0...HEAD)
 
+- some/1, fixes #46 [`#46`](https://github.com/StoneCypher/circular_buffer_js/issues/46)
+
 #### [v1.3.0](https://github.com/StoneCypher/circular_buffer_js/compare/v1.2.0...v1.3.0)
 
 > 25 July 2021
