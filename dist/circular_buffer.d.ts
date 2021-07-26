@@ -1,4 +1,5 @@
 import { version } from './generated/package_version';
+declare type EveryFunctor<T> = (_element: T, _index: number, _array: T[]) => unknown;
 declare class circular_buffer<T> {
     private _values;
     private _cursor;
@@ -15,10 +16,11 @@ declare class circular_buffer<T> {
     static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T>;
     push(v: T): T;
     fill(x: T): T[];
+    every(functor: EveryFunctor<T>, thisArg?: unknown): boolean;
     reverse(): circular_buffer<T>;
     clear(): T[];
     pop(): T | undefined;
     at(i: number): T;
     toArray(): T[];
 }
-export { version, circular_buffer };
+export { version, circular_buffer, EveryFunctor };

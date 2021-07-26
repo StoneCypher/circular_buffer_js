@@ -44,6 +44,7 @@ cb.pop();          // removes and returns first element
 cb.at(location);   // shows the element at 0-indexed offset `location`
 cb.fill(item);     // maxes `length` and sets every element to `item`
 cb.clear();        // empties the container
+cb.reverse();      // reverses the container
 
 cb.first;          // returns the first value in the queue; throws when empty
 cb.last;           // returns the last value in the queue; throws when empty

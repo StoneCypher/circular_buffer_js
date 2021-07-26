@@ -5,6 +5,12 @@ import { version } from './generated/package_version';
 
 
 
+type EveryFunctor<T> = (_element: T, _index: number, _array: T[]) => unknown;
+
+
+
+
+
 /*********
  *
  *  This is a circular queue.
@@ -366,6 +372,35 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Iterates a container with a predicate.
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,'three']);
+   *  cb.every( i => typeof i === 'number' );  // false
+   *  ```
+   */
+
+  every( functor: EveryFunctor<T>, thisArg?: unknown ): boolean {
+
+    const normalized = this.toArray(),
+          res        = normalized.every(functor, thisArg);
+
+    // every can mutate, so, store the result, which will usually be nothing
+
+    this._values        = normalized.reverse();  // reverse data
+    this._values.length = this._capacity;        // stack with new empties
+    this._cursor        = 0;                     // accomodate internal rotation
+
+    return res;
+
+  }
+
+
+
+
+
+  /*********
+   *
    *  Reverses a container.
    *
    *  ```typescript
@@ -380,9 +415,11 @@ class circular_buffer<T> {
 
   reverse(): circular_buffer<T> {
 
-    const normalized: T[] = this.toArray();
-    this._values = normalized.reverse();
-    this._cursor = 0;
+    const normalized: T[] = this.toArray();      // internally rotate to origin and ditch empties
+
+    this._values        = normalized.reverse();  // reverse data
+    this._values.length = this._capacity;        // stack with new empties
+    this._cursor        = 0;                     // accomodate internal rotation
 
     return this;
 
@@ -558,6 +595,8 @@ class circular_buffer<T> {
 export {
 
   version,
-  circular_buffer
+  circular_buffer,
+
+  EveryFunctor
 
 };
