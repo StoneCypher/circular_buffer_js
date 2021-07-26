@@ -42,7 +42,7 @@ const cb  = new circular_buffer(size),
 cb.push(item);     // inserts `item` at end of `cb`, then returns `item`
 cb.pop();          // removes and returns first element
 cb.at(location);   // shows the element at 0-indexed offset `location`
-cb.find(pred);     // return the index of the first match or undefined
+cb.find(pred);     // return the the first match or undefined
 cb.every(pred);    // tests if every queue element satisfies the predicate
 cb.some(pred);     // tests if at least one element satisfies the predicate
 cb.fill(item);     // maxes `length` and sets every element to `item`
