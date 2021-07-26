@@ -206,16 +206,12 @@ class FindCommand implements cb_command {
     const before = r.toArray();
 
     if (r.length) {
-
-      // const which = rand(r.length),
-      //       was   = r.at(which),
-      //       found = r.find( i => i === was );
-
-      // TODO FIXME this should not be just the first element, but coping with
-      // duplicates is gross
-      const at_0 = r.at(0);
-      expect(r.find(i => i === at_0)).toBe(at_0);
-
+      for (let i=0, iC = r.length; i<iC; ++i) {
+        const here = r.at(i);
+        expect(r.find(el => el === here)).toBe(here);  // test that every element may be found
+      }
+    } else {
+      expect(r.find(i => i === 'bob')).toBe(undefined);
     }
 
     const after = r.toArray();
