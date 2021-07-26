@@ -253,6 +253,27 @@ test('[UNIT] at/1', () => {
 
 
 
+test('[UNIT] resize/1', () => {
+
+  const orig = circular_buffer.from([1,2,3,4,5]);
+  expect(orig.toArray()).toStrictEqual([1,2,3,4,5]);
+
+  orig.resize(4);
+  expect(orig.toArray()).toStrictEqual([1,2,3,4]);
+
+  orig.resize(6);
+  expect(orig.toArray()).toStrictEqual([1,2,3,4]);
+
+  orig.push(-5);
+  orig.push(-6);
+  expect(orig.toArray()).toStrictEqual([1,2,3,4,-5,-6]);
+
+});
+
+
+
+
+
 test('[UNIT] fill/5', () => {
 
   // declare a five item cb

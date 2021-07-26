@@ -630,6 +630,43 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Changes the capacity of the queue.  If the new capacity of the
+   *  queue is too small for the prior contents, they are trimmed.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.toArray();  // []
+   *
+   *  cb.push(1);    // ok, returns 1
+   *  cb.push(2);    // ok, returns 2
+   *  cb.push(3);    // ok, returns 3
+   *  cb.toArray();  // [1,2,3]
+   *
+   *  cb.pop();      // ok, returns 1
+   *  cb.toArray();  // [2,3]
+   *  ```
+   *
+   */
+
+  resize(newSize: number): void {
+
+    // first reorganize at zero
+    this._values        = this.toArray();
+    this._cursor        = 0;
+
+    // next update the expected size, and act on it
+    this._capacity      = newSize;
+    this._length        = Math.min(this._length, newSize);
+    this._values.length = newSize;  // either truncate or pad
+
+  }
+
+
+
+
+
+  /*********
+   *
    *  Returns the complete, ordered contents of the queue, as an array.
    *
    *  ```typescript
@@ -643,7 +680,6 @@ class circular_buffer<T> {
    *
    *  cb.pop();      // ok, returns 1
    *  cb.toArray();  // [2,3]
-   *
    *  ```
    *
    */

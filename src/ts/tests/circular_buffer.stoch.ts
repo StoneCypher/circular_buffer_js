@@ -478,6 +478,39 @@ class AtCommand implements cb_command {
 
 
 
+class ResizeCommand implements cb_command {
+
+  toString = () => 'resize';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to resize
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+
+    const newSize = r.length === 15? 12 : 15,  // TODO fixme once we know the answer to https://github.com/dubzzz/fast-check/issues/2136; remember to include empty containers as an option
+          was     = r.toArray(),
+          oldSize = was.length;
+
+    r.resize(newSize);
+    m.capacity = newSize;
+    m.length   = Math.min(m.length, newSize);
+
+    const nowIs = r.toArray();
+
+    assert.equal(r.capacity, newSize);
+    assert.equal(m.capacity, newSize);
+
+
+    for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
+      assert.deepEqual(nowIs[i], was[i]);
+    }
+
+  }
+
+}
+
+
+
+
+
 class ToArrayCommand implements cb_command {
 
   toString = () => 'to_array';
@@ -628,6 +661,7 @@ describe('[STOCH] Circular buffer', () => {
         Available          = fc.constant( new AvailableCommand() ),
         Capacity           = fc.constant( new CapacityCommand()  ),
         At                 = fc.constant( new AtCommand()        ),
+        Resize             = fc.constant( new ResizeCommand()    ),
         ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
         IndexOf            = fc.constant( new IndexOfCommand()   ),
@@ -637,8 +671,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

@@ -24,6 +24,7 @@ declare class circular_buffer<T> {
     clear(): T[];
     pop(): T | undefined;
     at(i: number): T;
+    resize(newSize: number): void;
     toArray(): T[];
 }
 export { version, circular_buffer, TraversalFunctor };

@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.6.0';
+    const version = '1.7.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -126,6 +126,13 @@ var circular_buffer = (function (exports) {
                 throw new RangeError(`Requested cell ${i} exceeds container current length`);
             }
             return this._values[(this._cursor + i) % this._capacity];
+        }
+        resize(newSize) {
+            this._values = this.toArray();
+            this._cursor = 0;
+            this._capacity = newSize;
+            this._length = Math.min(this._length, newSize);
+            this._values.length = newSize;
         }
         toArray() {
             const startPoint = this._cursor % this._capacity;
