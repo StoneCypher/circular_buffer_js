@@ -372,6 +372,38 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Returns the index of the first element matching the search
+   *  element provided, or -1 in the case of no matching elements.
+   *
+   *  ```typescript
+   *  const numbers = circular_buffer.from(['One', 'Two', 'Three']);
+   *
+   *  console.log(`Index of Two: ${numbers.indexOf('Two')}`);   // expects 1
+   *  console.log(`Index of Four: ${numbers.indexOf('Four')}`); // expects -1
+   *  ```
+   *
+   *  You may also pass a starting point, if you want to.
+   *
+   *  ```typescript
+   *  const letters = circular_buffer.from(['a','b','a','b']);
+   *  console.log(`Index of b starting from 2: ${numbers.indexOf('b', 2)}`);   // expects 3
+   *  ```
+   *
+   */
+
+  indexOf( searchElement: T, fromIndex?: number ): number {
+
+    const normalized = this.toArray();
+    return normalized.indexOf(searchElement, fromIndex);
+
+  }
+
+
+
+
+
+  /*********
+   *
    *  Using an identifier predicate, return either the first matching
    *  element or `undefined`.
    *
@@ -386,8 +418,7 @@ class circular_buffer<T> {
    */
 
   find( predicate: TraversalFunctor<T>, thisArg?: unknown ): T | unknown {
-    const items = this.toArray();
-    return items.find(predicate, thisArg);
+    return this.toArray().find(predicate, thisArg);
   }
 
 

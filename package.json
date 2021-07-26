@@ -1,6 +1,6 @@
 {
   "name": "circular_buffer_js",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "Fast TS/JS implementation of a circular buffer (aka ring queue, cyclic list, etc.)  Extremely well tested.",
   "homepage": "https://stonecypher.github.io/circular_buffer_js/",
   "main": "dist/circular_buffer.cjs.min.js",

@@ -359,7 +359,7 @@ class EmptyCommand implements cb_command {
 class CapacityCommand implements cb_command {
 
   toString = () => 'capacity';
-  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call capacity
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.capacity, r.capacity);
@@ -374,13 +374,53 @@ class CapacityCommand implements cb_command {
 class FillCommand implements cb_command {
 
   toString = () => 'fill';
-  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call fill
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     r.fill( whatever() );
     m.length = r.length;
     assert.equal(r.length, r.capacity);
-    assert.equal(m.length,   m.capacity);
+    assert.equal(m.length, m.capacity);
+  }
+
+}
+
+
+
+
+
+class IndexOfCommand implements cb_command {
+
+  toString = () => 'indexOf';
+  check    = (_m: Readonly<CbModel>) => true;  // test the sane and empty cases both
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+
+    const was = r.toArray();
+
+    for (let i=0, iC = r.length; i < iC; ++i) {
+
+      const toMatch = r.at(i),
+            idx     = r.indexOf(toMatch);
+
+      // if they match, the test is already successful
+      // the goal is to find the matching index of whatever's
+      // at the cell
+      //
+      // there is a valid special case: if this is the 2nd or
+      // later amongst repeated values.  then, the first will
+      // be found instead.  if they don't match, see if that's
+      // what's happening.
+
+      if (i !== idx) {
+        assert.deepEqual(r.at(idx), toMatch);
+      }
+
+    }
+
+    const now = r.toArray();
+    assert.deepEqual(was, now);
+
   }
 
 }
@@ -590,14 +630,15 @@ describe('[STOCH] Circular buffer', () => {
         At                 = fc.constant( new AtCommand()        ),
         ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
+        IndexOf            = fc.constant( new IndexOfCommand()   ),
         Clear              = fc.constant( new ClearCommand()     ),
         Full               = fc.constant( new FullCommand()      ),
         Empty              = fc.constant( new EmptyCommand()     ),
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

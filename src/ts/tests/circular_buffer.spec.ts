@@ -270,6 +270,39 @@ test('[UNIT] fill/5', () => {
 
 
 
+test('[UNIT] indexOf/1-2', () => {
+
+  const finder = new circular_buffer<number>(5);
+  [1,2,1,2,1].forEach(i => finder.push(i));
+
+  expect(finder.indexOf(1)).toEqual(0);
+  expect(finder.indexOf(2)).toEqual(1);
+
+  expect(finder.indexOf(1,0)).toEqual(0);
+  expect(finder.indexOf(2,0)).toEqual(1);
+
+  expect(finder.indexOf(1,1)).toEqual(2);
+  expect(finder.indexOf(2,1)).toEqual(1);
+
+  expect(finder.indexOf(1,2)).toEqual(2);
+  expect(finder.indexOf(2,2)).toEqual(3);
+
+  expect(finder.indexOf(1,4)).toEqual(4);
+  expect(finder.indexOf(2,4)).toEqual(-1);
+
+  expect(finder.indexOf(1,6)).toEqual(-1);
+  expect(finder.indexOf(2,6)).toEqual(-1);
+
+  expect(finder.indexOf(3)  ).toEqual(-1);
+  expect(finder.indexOf(3,0)).toEqual(-1);
+  expect(finder.indexOf(3,6)).toEqual(-1);
+
+});
+
+
+
+
+
 test('[UNIT] clear/0', () => {
 
   // declare a five item cb

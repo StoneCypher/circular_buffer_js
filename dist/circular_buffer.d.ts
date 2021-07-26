@@ -16,6 +16,7 @@ declare class circular_buffer<T> {
     static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T>;
     push(v: T): T;
     fill(x: T): T[];
+    indexOf(searchElement: T, fromIndex?: number): number;
     find(predicate: TraversalFunctor<T>, thisArg?: unknown): T | unknown;
     every(functor: TraversalFunctor<T>, thisArg?: unknown): boolean;
     some(functor: TraversalFunctor<T>, thisArg?: unknown): boolean;
