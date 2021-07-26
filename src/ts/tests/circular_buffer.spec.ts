@@ -477,7 +477,7 @@ test('[UNIT] isFull getter', () => {
 
 
 
-test('[UNIT] Every/1 immutable', () => {
+test('[UNIT] every/1 immutable', () => {
 
   const cb = circular_buffer.from([3,2,1]);
 
@@ -490,12 +490,26 @@ test('[UNIT] Every/1 immutable', () => {
 
 
 
-test('[UNIT] Every/1 mutative', () => {
+test('[UNIT] every/1 mutative', () => {
 
   const cb = circular_buffer.from([3,2,1]);
 
   expect( cb.every( i => i += 1 ) ).toBe(true);
   expect( cb.every( i => i -= 2 ) ).toBe(false);  // first index hits zero
+
+});
+
+
+
+
+
+test('[UNIT] some/1', () => {
+
+  const cb = circular_buffer.from([3,2,1]);
+
+  expect( cb.some( i => typeof i === 'number') ).toBe(true);
+  expect( cb.some( i => ((i % 2) === 0)  )     ).toBe(true);
+  expect( cb.some( i => ((i % 2) === 29) )     ).toBe(false);
 
 });
 

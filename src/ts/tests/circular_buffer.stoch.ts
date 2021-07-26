@@ -181,6 +181,22 @@ class EveryCommand implements cb_command {
 
 
 
+class SomeCommand implements cb_command {
+
+  toString = () => 'some';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call any
+
+  // reverse does not impact the model
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+    assert.equal( (r.length === 0) || (r.some( (_i: unknown) => true) ), true );
+  }
+
+}
+
+
+
+
+
 class ReverseCommand implements cb_command {
 
   toString = () => 'reverse';
@@ -506,6 +522,7 @@ describe('[STOCH] Circular buffer', () => {
         Pop                = fc.constant( new PopCommand()       ),
         Length             = fc.constant( new LengthCommand()    ),
         Every              = fc.constant( new EveryCommand()     ),
+        Some               = fc.constant( new SomeCommand()      ),
         Reverse            = fc.constant( new ReverseCommand()   ),
         Available          = fc.constant( new AvailableCommand() ),
         Capacity           = fc.constant( new CapacityCommand()  ),
@@ -518,8 +535,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Some, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Some, Reverse, Available, Capacity, At, ToArray, Fill, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

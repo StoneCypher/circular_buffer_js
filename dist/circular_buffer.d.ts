@@ -17,6 +17,7 @@ declare class circular_buffer<T> {
     push(v: T): T;
     fill(x: T): T[];
     every(functor: EveryFunctor<T>, thisArg?: unknown): boolean;
+    some(functor: EveryFunctor<T>, thisArg?: unknown): boolean;
     reverse(): circular_buffer<T>;
     clear(): T[];
     pop(): T | undefined;

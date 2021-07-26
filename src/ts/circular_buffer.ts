@@ -372,7 +372,7 @@ class circular_buffer<T> {
 
   /*********
    *
-   *  Iterates a container with a predicate.
+   *  Iterates a container with a predicate, testing for all truthy.
    *
    *  ```typescript
    *  const cb = circular_buffer.from([1,2,'three']);
@@ -384,6 +384,35 @@ class circular_buffer<T> {
 
     const normalized = this.toArray(),
           res        = normalized.every(functor, thisArg);
+
+    // every can mutate, so, store the result, which will usually be nothing
+
+    this._values        = normalized.reverse();  // reverse data
+    this._values.length = this._capacity;        // stack with new empties
+    this._cursor        = 0;                     // accomodate internal rotation
+
+    return res;
+
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Iterates a container with a predicate, testing for at least one truthy.
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,'three']);
+   *  cb.some( i => typeof i === 'string' );  // true
+   *  ```
+   */
+
+  some( functor: EveryFunctor<T>, thisArg?: unknown ): boolean {
+
+    const normalized = this.toArray(),
+          res        = normalized.some(functor, thisArg);
 
     // every can mutate, so, store the result, which will usually be nothing
 
