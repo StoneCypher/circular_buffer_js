@@ -477,6 +477,21 @@ test('[UNIT] isFull getter', () => {
 
 
 
+test('[UNIT] Reverse', () => {
+
+  const cb = circular_buffer.from([3,2,1]);
+  cb.reverse();
+
+  expect(cb.pop()).toBe(1);
+  expect(cb.pop()).toBe(2);
+  expect(cb.pop()).toBe(3);
+
+});
+
+
+
+
+
 describe('[UNIT] Error cases', () => {
 
   const overflow = (size: number) => {

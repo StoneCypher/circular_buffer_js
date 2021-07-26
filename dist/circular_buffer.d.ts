@@ -15,6 +15,7 @@ declare class circular_buffer<T> {
     static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T>;
     push(v: T): T;
     fill(x: T): T[];
+    reverse(): circular_buffer<T>;
     clear(): T[];
     pop(): T | undefined;
     at(i: number): T;

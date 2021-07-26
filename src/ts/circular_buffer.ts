@@ -366,6 +366,34 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Reverses a container.
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([3,2,1]);
+   *  cb.reverse();
+   *
+   *  cb.pop();  // ok, returns 1
+   *  cb.pop();  // ok, returns 2
+   *  cb.pop();  // ok, returns 3
+   *  ```
+   */
+
+  reverse(): circular_buffer<T> {
+
+    const normalized: T[] = this.toArray();
+    this._values = normalized.reverse();
+    this._cursor = 0;
+
+    return this;
+
+  }
+
+
+
+
+
+  /*********
+   *
    *  Empties a container.  Returns the previous contents.
    *
    *  ```typescript
