@@ -642,10 +642,21 @@ class circular_buffer<T> {
    *  cb.push(3);    // ok, returns 3
    *  cb.toArray();  // [1,2,3]
    *
-   *  cb.pop();      // ok, returns 1
-   *  cb.toArray();  // [2,3]
-   *  ```
+   *  cb.resize(5);  // ok
+   *  cb.toArray();  // [1,2,3, , ]
    *
+   *  cb.resize(2);  // ok
+   *  cb.toArray();  // [1,2]
+   *
+   *  cb.resize(4);  // ok
+   *  cb.toArray();  // [1,2, , ]
+   *
+   *  cb.resize(0);  // ok
+   *  cb.toArray();  // []
+   *
+   *  cb.resize(4);  // ok
+   *  cb.toArray();  // [ , , , ]
+   *  ```
    */
 
   resize(newSize: number): void {

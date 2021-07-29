@@ -112,3 +112,6 @@ jest*
 rollup*
 src/
 tsconfig.json
+
+.eslintignore
+.eslintrc

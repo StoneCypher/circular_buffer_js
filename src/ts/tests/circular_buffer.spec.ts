@@ -355,19 +355,19 @@ test('[UNIT] fill/full/5', () => {
   filler.push(1);
   filler.push(1);
   filler.push(1);
-  /*we're full*/
+  /* we're full */
 
   expect(filler.at(0)).toEqual(1);
 
   expect(filler.at(4)).toEqual(1);
 
   filler.fill(2);
-  /*fill() will overwrite*/
+  /* fill() will overwrite */
 
   expect(filler.at(0)).toEqual(2);
 
   expect(filler.at(4)).toEqual(2);
-  /*archaic, but tests ok*/
+  /* archaic, but tests ok */
 
 });
 

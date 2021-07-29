@@ -32,7 +32,9 @@ module minified, es6 commonjs minified, es6 iife minified, and es6 iife full.
 
 ## API
 
-You should consider viewing the [real documentation](https://stonecypher.github.io/circular_buffer_js/docs/), but:
+You should consider viewing the
+[real documentation](https://stonecypher.github.io/circular_buffer_js/docs/classes/circular_buffer.circular_buffer-1.html),
+but:
 
 ```typescript
 // yields a buffer of fixed size `size`
@@ -49,6 +51,7 @@ cb.some(pred);     // tests if at least one element satisfies the predicate
 cb.fill(item);     // maxes `length` and sets every element to `item`
 cb.clear();        // empties the container
 cb.reverse();      // reverses the container
+cb.resize(size);   // change capacity to new size, truncating if required
 
 cb.first;          // returns the first value in the queue; throws when empty
 cb.last;           // returns the last value in the queue; throws when empty
@@ -67,11 +70,13 @@ cb.length;         // returns the amount of space currently used
 
 ## What is this?
 
-This is a circular buffer (or ring buffer, ring queue, etc.)  It was written because a library I wanted
-to use had a native buggy implementation, so I provided something more trustworthy.
+This is a circular buffer (or cycle buffer, ring queue, etc.)  It was written
+because a library I wanted to use had a native buggy implementation, so I
+provided something more trustworthy.
 
-A circular buffer is a fixed size buffer that allows you to push and pop forever, as a first in first
-out queue-like structure.  Circular buffers are more efficient than queues, but can overflow.
+A circular buffer is a fixed size buffer that allows you to push and pop
+forever, as a first in first out queue-like structure.  Circular buffers are
+more efficient than queues, but can overflow.
 
 
 
@@ -139,7 +144,8 @@ const cbuf            = require('circular_buffer_js'),
 
 ### Browser &lt;script&gt;
 
-There're also two `iife` builds - both regular and minified - so that you can use this in older browsers, or from CDN.
+There're also two `iife` builds - both regular and minified - so that you can
+use this in older browsers, or from CDN.
 
 ```html
 <script defer type="text/javascript" src="circular_buffer_js.min.js"></script>
