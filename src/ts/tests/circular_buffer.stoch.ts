@@ -160,10 +160,44 @@ class PopCommand implements cb_command {
 
 
 
-class LengthCommand implements cb_command {
+class SetLengthCommand implements cb_command {
 
-  toString = () => 'length';
-  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call length
+  toString = () => 'set_length';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call set length
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+
+    assert.equal(m.length, r.length);
+
+    const newSize = r.length === 15? 12 : 15,  // TODO fixme once we know the answer to https://github.com/dubzzz/fast-check/issues/2136; remember to include empty containers as an option
+          was     = r.toArray(),
+          oldSize = was.length;
+
+    r.length = newSize;
+    m.length = newSize;
+
+    const nowIs = r.toArray();
+
+    assert.equal(r.length, newSize);
+    assert.equal(m.length, newSize);
+
+
+    for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
+      assert.deepEqual(nowIs[i], was[i]);
+    }
+
+  }
+
+}
+
+
+
+
+
+class GetLengthCommand implements cb_command {
+
+  toString = () => 'get_length';
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call get length
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
     assert.equal(m.length, r.length);
@@ -653,7 +687,8 @@ describe('[STOCH] Circular buffer', () => {
 
   const PushARandomInteger = fc.integer().map(v => new PushCommand(v)),
         Pop                = fc.constant( new PopCommand()       ),
-        Length             = fc.constant( new LengthCommand()    ),
+        GetLength          = fc.constant( new GetLengthCommand() ),
+        SetLength          = fc.constant( new SetLengthCommand() ),
         Every              = fc.constant( new EveryCommand()     ),
         Find               = fc.constant( new FindCommand()      ),
         Some               = fc.constant( new SomeCommand()      ),
@@ -671,8 +706,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, Length, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
