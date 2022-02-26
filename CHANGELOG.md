@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.0...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.1...HEAD)
+
+- draft implementations [`0dd5d0f`](https://github.com/StoneCypher/circular_buffer_js/commit/0dd5d0f1c73b7752f22367f62e771978625e79c3)
+- unit tests [`3d2637f`](https://github.com/StoneCypher/circular_buffer_js/commit/3d2637f7548883daccb26328c698d3bace86306e)
+- SetLength test was wrong: it asserted that length matched what was set, which isn't true when setting a higher size [`60c7819`](https://github.com/StoneCypher/circular_buffer_js/commit/60c781994047822fb263c05764f7d7aa19791bbb)
+- SetLength is either a broken test or has found a bug [`172d926`](https://github.com/StoneCypher/circular_buffer_js/commit/172d926e6888bf02b3818971f5441e8667cef6f1)
+
+#### [v1.7.1](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.0...v1.7.1)
+
+> 29 July 2021
+
+- improve docblock [`37706f8`](https://github.com/StoneCypher/circular_buffer_js/commit/37706f8c53f9027d2024446f0aa8ba971a816e13)
 
 #### [v1.7.0](https://github.com/StoneCypher/circular_buffer_js/compare/v1.6.0...v1.7.0)
 

@@ -107,6 +107,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="circular_buffer.circular_buffer-1.html#_capacity" class="tsd-kind-icon">_capacity</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="circular_buffer.circular_buffer-1.html#_cursor" class="tsd-kind-icon">_cursor</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="circular_buffer.circular_buffer-1.html#_length" class="tsd-kind-icon">_length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="circular_buffer.circular_buffer-1.html#_offset" class="tsd-kind-icon">_offset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="circular_buffer.circular_buffer-1.html#_values" class="tsd-kind-icon">_values</a></li>
 							</ul>
 						</section>
@@ -114,12 +115,12 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#available" class="tsd-kind-icon">available</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#capacity" class="tsd-kind-icon">capacity</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#capacity" class="tsd-kind-icon">capacity</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#first" class="tsd-kind-icon">first</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#isEmpty" class="tsd-kind-icon">is<wbr>Empty</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#isFull" class="tsd-kind-icon">is<wbr>Full</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#last" class="tsd-kind-icon">last</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#length" class="tsd-kind-icon">length</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -131,7 +132,9 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#fill" class="tsd-kind-icon">fill</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#find" class="tsd-kind-icon">find</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#indexOf" class="tsd-kind-icon">index<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#offset" class="tsd-kind-icon">offset</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#pop" class="tsd-kind-icon">pop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#pos" class="tsd-kind-icon">pos</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#push" class="tsd-kind-icon">push</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#resize" class="tsd-kind-icon">resize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="circular_buffer.circular_buffer-1.html#reverse" class="tsd-kind-icon">reverse</a></li>
@@ -155,7 +158,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L63">circular_buffer.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L70">circular_buffer.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">_capacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L40">circular_buffer.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L47">circular_buffer.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -211,13 +214,14 @@
 					<div class="tsd-signature tsd-kind-icon">_cursor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L32">circular_buffer.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L33">circular_buffer.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The current offset in the underlying array.  You should never need
-							this; it is an internal implementation detail.</p>
+							<p>The current cursor in the underlying array.  You should never need
+								this; it is an internal implementation detail.  This describes the
+							start position in the storage of the storage mapping.</p>
 						</div>
 					</div>
 				</section>
@@ -227,7 +231,7 @@
 					<div class="tsd-signature tsd-kind-icon">_length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L36">circular_buffer.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L43">circular_buffer.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -238,12 +242,29 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_offset" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _offset</h3>
+					<div class="tsd-signature tsd-kind-icon">_offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L39">circular_buffer.ts:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current offset in the underlying array.  You should never need
+								this; it is an internal implementation detail. This is an eviction
+							count from the datastructure, giving you total queue depth.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_values" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _values</h3>
 					<div class="tsd-signature tsd-kind-icon">_values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L27">circular_buffer.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L27">circular_buffer.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -266,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L147">circular_buffer.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L238">circular_buffer.ts:238</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,17 +311,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
 					<a name="capacity" class="tsd-anchor"></a>
 					<h3>capacity</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> capacity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> capacity<span class="tsd-signature-symbol">(</span>newSize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L93">circular_buffer.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L101">circular_buffer.ts:101</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -317,6 +339,33 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L124">circular_buffer.ts:124</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Setting <code>.capacity</code> resizes the container (and clips contents if
+									necessary.)  Calling this is equivalent to calling [[circular_buffer_js.resize]].</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3 - [ , , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 3 - [1, , ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);  </span><span style="color: #008000">// ok</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000">;   </span><span style="color: #008000">// 4 - [1, , , ]</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>newSize: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
@@ -329,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L227">circular_buffer.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L318">circular_buffer.ts:318</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -363,7 +412,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L171">circular_buffer.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L262">circular_buffer.ts:262</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -394,7 +443,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L200">circular_buffer.ts:200</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L291">circular_buffer.ts:291</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -430,7 +479,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L260">circular_buffer.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L351">circular_buffer.ts:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -454,17 +503,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
 					<a name="length" class="tsd-anchor"></a>
 					<h3>length</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> length<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> length<span class="tsd-signature-symbol">(</span>newLength<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L120">circular_buffer.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L151">circular_buffer.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,6 +536,50 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L193">circular_buffer.ts:193</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Sets the length of the data inside the queue, but does not change the size
+										of the queue itself (if you&#39;d like this, set [[circular_buffer_js.capacity]]
+									or call [[circular_buffer_js.resize]] instead, as you prefer.)</p>
+								</div>
+								<p> As an odd result, setting <code>.length</code> to a length longer than or equal to
+									the <code>.length</code> of the data, but smaller than the <code>.capacity</code> of the
+								container, is a no-op.</p>
+								<p> Attempting to set a <code>.length</code> longer than the <code>.capacity</code> of the container
+								will throw.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #001080">circular_buffer</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">,</span><span style="color: #098658">2</span><span style="color: #000000">,</span><span style="color: #098658">3</span><span style="color: #000000">]);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;        </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();     </span><span style="color: #008000">// [1,2,3]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = </span><span style="color: #098658">2</span><span style="color: #000000">;    </span><span style="color: #008000">// ok, truncates the `3` at end</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;        </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();     </span><span style="color: #008000">// [1,2, ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = </span><span style="color: #098658">3</span><span style="color: #000000">;    </span><span style="color: #008000">// ok, no change</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">;        </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();     </span><span style="color: #008000">// [1,2, ]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = </span><span style="color: #098658">1</span><span style="color: #000000">;    </span><span style="color: #008000">// ok, truncates the `2` at end</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();     </span><span style="color: #008000">// [1, , ]</span>
+<span style="color: #001080">cp</span><span style="color: #000000">.</span><span style="color: #001080">capacity</span><span style="color: #000000"> = </span><span style="color: #098658">1</span><span style="color: #000000">;  </span><span style="color: #008000">// ok, resizes the container</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();     </span><span style="color: #008000">// [1]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = </span><span style="color: #098658">2</span><span style="color: #000000">;    </span><span style="color: #008000">// throws, container too small</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = -</span><span style="color: #098658">2</span><span style="color: #000000">;   </span><span style="color: #008000">// throws, no negative lengths</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> = </span><span style="color: #098658">1.2</span><span style="color: #000000">;  </span><span style="color: #008000">// throws, no fractional lengths</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>newLength: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
 					</ul>
 				</section>
 			</section>
@@ -501,7 +595,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L615">circular_buffer.ts:615</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L710">circular_buffer.ts:710</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -545,7 +639,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L536">circular_buffer.ts:536</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L630">circular_buffer.ts:630</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -580,7 +674,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L438">circular_buffer.ts:438</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L529">circular_buffer.ts:529</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -614,7 +708,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L357">circular_buffer.ts:357</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L448">circular_buffer.ts:448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -651,7 +745,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L420">circular_buffer.ts:420</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L511">circular_buffer.ts:511</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -690,7 +784,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L394">circular_buffer.ts:394</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L485">circular_buffer.ts:485</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -722,6 +816,48 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="offset" class="tsd-anchor"></a>
+					<h3>offset</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L820">circular_buffer.ts:820</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Fetches the current offset (or eviction count) of the container.  This
+										allows a developer to know how deep into an infinite queue they are, and
+									how far back their rollback window reaches if any.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();  </span><span style="color: #008000">// []</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">20</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">30</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">();  </span><span style="color: #008000">// [10,20,30]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">();   </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// 10</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">();   </span><span style="color: #008000">// 1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">();   </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// 30</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">();   </span><span style="color: #008000">// 3</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();      </span><span style="color: #008000">// throws - queue is now empty</span>
+
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="pop" class="tsd-anchor"></a>
 					<h3>pop</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -731,7 +867,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L568">circular_buffer.ts:568</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L662">circular_buffer.ts:662</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -755,6 +891,83 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="pos" class="tsd-anchor"></a>
+					<h3>pos</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">pos<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L784">circular_buffer.ts:784</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Returns the value at a given run position, or throws RangeError if that
+										value does not exist (container too small, too large, or nonsensical
+									index.)</p>
+								</div>
+								<p> The difference between <code>pos/1</code> and <code>at/1</code> is that <code>at/1</code> gives you
+									elements against the current head cursor, whereas <code>pos/1</code> gives you
+									elements against the original queue head.  So, most people will want
+									<code>at/1</code>, since it gives you contents according to what&#39;s currently in
+									the container.  But if you&#39;re trying to get fixed positions in the
+									long term stream, and know that they&#39;re in the current window, like
+									you would have with a lockstep networking library, <code>pos/1</code> is what
+								you&#39;re looking for.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">circular_buffer</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">); </span><span style="color: #008000">// ok, returns 10</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">20</span><span style="color: #000000">); </span><span style="color: #008000">// ok, returns 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #098658">30</span><span style="color: #000000">); </span><span style="color: #008000">// ok, returns 30</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 10</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 10</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 30</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 30</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);   </span><span style="color: #008000">// throws RangeError, larger than the container</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">(); </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();    </span><span style="color: #008000">// 10.  container is now [20, 30, _]</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">offset</span><span style="color: #000000">(); </span><span style="color: #008000">// 1</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 20</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);   </span><span style="color: #008000">// throws, as container is past this location</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 30 - at(1) is head+1</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 20 - pos(1) is original position 1, which is currently head</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);    </span><span style="color: #008000">// throws, past fill</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 30</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">();    </span><span style="color: #008000">// 10.  container is now [20, 30, _]</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);    </span><span style="color: #008000">// ok, returns 30</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);   </span><span style="color: #008000">// throws, as container is past this location</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);    </span><span style="color: #008000">// throws, past fill</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);   </span><span style="color: #008000">// throws, as container is past this location</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);    </span><span style="color: #008000">// throws, past fill</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">pos</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);   </span><span style="color: #008000">// ok, returns 30</span>
+
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(-</span><span style="color: #098658">1</span><span style="color: #000000">);   </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #098658">0.5</span><span style="color: #000000">);  </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+<span style="color: #001080">cb</span><span style="color: #000000">.</span><span style="color: #795E26">at</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Z&quot;</span><span style="color: #000000">);  </span><span style="color: #008000">// throws RangeError, nonsense index</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>i: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="push" class="tsd-anchor"></a>
 					<h3>push</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -764,7 +977,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L327">circular_buffer.ts:327</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L418">circular_buffer.ts:418</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -801,7 +1014,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L662">circular_buffer.ts:662</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L859">circular_buffer.ts:859</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -853,7 +1066,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L500">circular_buffer.ts:500</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L593">circular_buffer.ts:593</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -882,7 +1095,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L467">circular_buffer.ts:467</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L559">circular_buffer.ts:559</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -916,7 +1129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L698">circular_buffer.ts:698</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L896">circular_buffer.ts:896</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -949,7 +1162,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/a4f0b6a/src/ts/circular_buffer.ts#L291">circular_buffer.ts:291</a></li>
+									<li>Defined in <a href="https://github.com/StoneCypher/circular_buffer_js/blob/60c7819/src/ts/circular_buffer.ts#L382">circular_buffer.ts:382</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1049,12 +1262,15 @@
 								<a href="circular_buffer.circular_buffer-1.html#_length" class="tsd-kind-icon">_length</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="circular_buffer.circular_buffer-1.html#_offset" class="tsd-kind-icon">_offset</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="circular_buffer.circular_buffer-1.html#_values" class="tsd-kind-icon">_values</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#available" class="tsd-kind-icon">available</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#capacity" class="tsd-kind-icon">capacity</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -1069,7 +1285,7 @@
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#last" class="tsd-kind-icon">last</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#length" class="tsd-kind-icon">length</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -1091,7 +1307,13 @@
 								<a href="circular_buffer.circular_buffer-1.html#indexOf" class="tsd-kind-icon">index<wbr>Of</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="circular_buffer.circular_buffer-1.html#offset" class="tsd-kind-icon">offset</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#pop" class="tsd-kind-icon">pop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="circular_buffer.circular_buffer-1.html#pos" class="tsd-kind-icon">pos</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="circular_buffer.circular_buffer-1.html#push" class="tsd-kind-icon">push</a>
@@ -1128,12 +1350,13 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
