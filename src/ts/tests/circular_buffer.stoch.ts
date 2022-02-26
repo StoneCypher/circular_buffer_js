@@ -9,7 +9,8 @@ import { version, circular_buffer } from '../circular_buffer';
 
 type CbModel = {
   length   : number,
-  capacity : number
+  capacity : number,
+  offset   : number
 };
 
 type num_cb     = circular_buffer<unknown>;
@@ -145,6 +146,7 @@ class PopCommand implements cb_command {
             popped   = r.pop();
 
       --m.length;
+      ++m.offset;
 
       assert.deepEqual( popped, oldFirst );
 
@@ -599,6 +601,34 @@ class AtCommand implements cb_command {
 
 
 
+class PosCommand implements cb_command {
+
+  toString = () => 'pos';
+  check    = (_m: Readonly<CbModel>) => true;  // tests the empty case so run either way
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+
+    if (r.isEmpty) {
+      assert.throws( () => r.at(0) );
+    } else {
+
+      const ofs = r.offset();
+
+      for (let e1=0, eC = r.length; e1 < eC; ++e1) {
+        assert.doesNotThrow( () => r.pos(e1 + ofs) );  // can be looked up
+        assert.equal( r.pos(e1 + ofs), r.at(e1) );     // matches what .at() says
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
 class ToArrayCommand implements cb_command {
 
   toString = () => 'to_array';
@@ -775,6 +805,7 @@ describe('[STOCH] Circular buffer', () => {
         Available          = fc.constant( new AvailableCommand() ),
         Capacity           = fc.constant( new CapacityCommand()  ),
         At                 = fc.constant( new AtCommand()        ),
+        Pos                = fc.constant( new PosCommand()       ),
         ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
         IndexOf            = fc.constant( new IndexOfCommand()   ),
@@ -784,8 +815,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
@@ -808,7 +839,7 @@ describe('[STOCH] Circular buffer', () => {
   const CommandInstance = (sz: number, cmds: Iterable<cb_command>) => {
 
     const s = () =>
-      ({ model : { length: 0, capacity: sz },
+      ({ model : { length: 0, offset: 0, capacity: sz },
          real  : new circular_buffer(sz) }
       );
 
