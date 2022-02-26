@@ -27,9 +27,16 @@ class circular_buffer<T> {
   private _values : T[];
 
 
-  /** The current offset in the underlying array.  You should never need
-      this; it is an internal implementation detail. */
+  /** The current cursor in the underlying array.  You should never need
+      this; it is an internal implementation detail.  This describes the
+      start position in the storage of the storage mapping. */
   private _cursor : number;
+
+
+  /** The current offset in the underlying array.  You should never need
+      this; it is an internal implementation detail. This is an eviction
+      count from the datastructure, giving you total queue depth. */
+  private _offset : number;
 
   /** The current used range within the dataset array.  Values outside this
       range aren't trustworthy.  Use {@link length | .length} instead. */
@@ -68,6 +75,7 @@ class circular_buffer<T> {
     this._values   = new Array(uCapacity);
     this._capacity = uCapacity;
     this._cursor   = 0;
+    this._offset   = 0;
     this._length   = 0;
 
   }
@@ -100,6 +108,29 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Setting `.capacity` resizes the container (and clips contents if
+   *  necessary.)  Calling this is equivalent to calling [[circular_buffer_js.resize]].
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.capacity;   // 3 - [ , , ]
+   *  cb.push(1);    // ok, returns 1
+   *  cb.capacity;   // 3 - [1, , ]
+   *  cb.resize(4);  // ok
+   *  cb.capacity;   // 4 - [1, , , ]
+   *  ```
+   */
+
+  set capacity(newSize: number) {
+    this.resize(newSize);
+  }
+
+
+
+
+
+  /*********
+   *
    *  The number of spaces currently filled.
    *
    *  ```typescript
@@ -119,6 +150,66 @@ class circular_buffer<T> {
 
   get length(): number {
     return this._length;
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Sets the length of the data inside the queue, but does not change the size
+   *  of the queue itself (if you'd like this, set [[circular_buffer_js.capacity]]
+   *  or call [[circular_buffer_js.resize]] instead, as you prefer.)
+   *
+   *  As an odd result, setting `.length` to a length longer than or equal to
+   *  the `.length` of the data, but smaller than the `.capacity` of the
+   *  container, is a no-op.
+   *
+   *  Attempting to set a `.length` longer than the `.capacity` of the container
+   *  will throw.
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,3]);
+   *
+   *  cb.length;        // 3
+   *  cb.toArray();     // [1,2,3]
+   *  cb.length = 2;    // ok, truncates the `3` at end
+   *  cb.length;        // 2
+   *  cb.toArray();     // [1,2, ]
+   *  cb.length = 3;    // ok, no change
+   *  cb.length;        // 2
+   *  cb.toArray();     // [1,2, ]
+   *  cb.length = 1;    // ok, truncates the `2` at end
+   *  cb.toArray();     // [1, , ]
+   *  cp.capacity = 1;  // ok, resizes the container
+   *  cb.toArray();     // [1]
+   *  cb.length = 2;    // throws, container too small
+   *  cb.length = -2;   // throws, no negative lengths
+   *  cb.length = 1.2;  // throws, no fractional lengths
+   *  ```
+   */
+
+  set length(newLength: number) {
+
+    if (newLength > this._capacity) {
+      throw new RangeError(`Requested new length [${newLength}] exceeds container capacity [${this._capacity}]`);
+    }
+
+    if (newLength < 0) {
+      throw new RangeError(`Requested new length [${newLength}] cannot be negative`);
+    }
+
+    if (!(Number.isInteger(newLength))) {
+      throw new RangeError(`Requested new length [${newLength}] must be an integer`);
+    }
+
+    // resizing up or 0, but within container capacity, is a no-op
+    if (this._length <= newLength) { return; }
+
+    // resizing down just means decrementing the valid length
+    this._length = newLength;
+
   }
 
 
@@ -445,6 +536,7 @@ class circular_buffer<T> {
     this._values        = normalized;
     this._values.length = this._capacity;   // stack with new empties
     this._cursor        = 0;                // accomodate internal rotation
+    // do not mutate this._offset; it doesn't change
 
     return res;
 
@@ -474,6 +566,7 @@ class circular_buffer<T> {
     this._values        = normalized;
     this._values.length = this._capacity;   // stack with new empties
     this._cursor        = 0;                // accomodate internal rotation
+    // do not mutate _this.offset; it doesn't change
 
     return res;
 
@@ -504,6 +597,7 @@ class circular_buffer<T> {
     this._values        = normalized.reverse();  // reverse data
     this._values.length = this._capacity;        // stack with new empties
     this._cursor        = 0;                     // accomodate internal rotation
+    // do not mutate _this.offset; it doesn't change
 
     return this;
 
@@ -574,6 +668,7 @@ class circular_buffer<T> {
     const cache = this.at(0);
 
     --this._length;  // the container is now one shorter
+    ++this._offset;  // the offset moved one forwards
     ++this._cursor;  // the cursor moved one forwards
 
     if (this._cursor >= this._capacity) {  // wrap the cursor if necessary
@@ -630,6 +725,108 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Returns the value at a given run position, or throws RangeError if that
+   *  value does not exist (container too small, too large, or nonsensical
+   *  index.)
+   *
+   *  The difference between `pos/1` and `at/1` is that `at/1` gives you
+   *  elements against the current head cursor, whereas `pos/1` gives you
+   *  elements against the original queue head.  So, most people will want
+   *  `at/1`, since it gives you contents according to what's currently in
+   *  the container.  But if you're trying to get fixed positions in the
+   *  long term stream, and know that they're in the current window, like
+   *  you would have with a lockstep networking library, `pos/1` is what
+   *  you're looking for.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.push(10); // ok, returns 10
+   *  cb.push(20); // ok, returns 20
+   *  cb.push(30); // ok, returns 30
+   *
+   *  cb.at(0);    // ok, returns 10
+   *  cb.pos(0);   // ok, returns 10
+   *  cb.at(1);    // ok, returns 20
+   *  cb.pos(1);   // ok, returns 20
+   *  cb.at(2);    // ok, returns 30
+   *  cb.pos(2);   // ok, returns 30
+   *
+   *  cb.pos(4);   // throws RangeError, larger than the container
+   *
+   *  cb.offset(); // 0
+   *  cb.pop();    // 10.  container is now [20, 30, _]
+   *  cb.offset(); // 1
+   *
+   *  cb.at(0);    // ok, returns 20
+   *  cb.pos(0);   // throws, as container is past this location
+   *  cb.at(1);    // ok, returns 30 - at(1) is head+1
+   *  cb.pos(1);   // ok, returns 20 - pos(1) is original position 1, which is currently head
+   *  cb.at(2);    // throws, past fill
+   *  cb.pos(2);   // ok, returns 30
+   *
+   *  cb.pop();    // 10.  container is now [20, 30, _]
+   *
+   *  cb.at(0);    // ok, returns 30
+   *  cb.pos(0);   // throws, as container is past this location
+   *  cb.at(1);    // throws, past fill
+   *  cb.pos(1);   // throws, as container is past this location
+   *  cb.at(2);    // throws, past fill
+   *  cb.pos(2);   // ok, returns 30
+   *
+   *  cb.at(-1);   // throws RangeError, nonsense index
+   *  cb.at(0.5);  // throws RangeError, nonsense index
+   *  cb.at("Z");  // throws RangeError, nonsense index
+   *  ```
+   *
+   */
+
+  pos(i: number): T {
+    // no need to test anything - at/1 already throws wherever needed
+    return this.at( i - this.offset() );
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Fetches the current offset (or eviction count) of the container.  This
+   *  allows a developer to know how deep into an infinite queue they are, and
+   *  how far back their rollback window reaches if any.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *  cb.toArray();  // []
+   *
+   *  cb.push(10);   // ok, returns 1
+   *  cb.push(20);   // ok, returns 2
+   *  cb.push(30);   // ok, returns 3
+   *  cb.toArray();  // [10,20,30]
+   *
+   *  cb.offset();   // 0
+   *  cb.pop();      // 10
+   *  cb.offset();   // 1
+   *  cb.pop();      // 20
+   *  cb.offset();   // 2
+   *  cb.pop();      // 30
+   *  cb.offset();   // 3
+   *  cb.pop();      // throws - queue is now empty
+   *
+   *  ```
+   */
+
+  offset(): number {
+    return this._offset;
+  }
+
+
+
+
+
+  /*********
+   *
    *  Changes the capacity of the queue.  If the new capacity of the
    *  queue is too small for the prior contents, they are trimmed.
    *
@@ -664,6 +861,7 @@ class circular_buffer<T> {
     // first reorganize at zero
     this._values        = this.toArray();
     this._cursor        = 0;
+    // do not mutate _this.offset; it doesn't change
 
     // next update the expected size, and act on it
     this._capacity      = newSize;

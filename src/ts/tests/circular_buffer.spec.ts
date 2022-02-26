@@ -34,6 +34,107 @@ describe('[UNIT] Zero size', () => {
 
 
 
+describe('[UNIT] capacity setter', () => {
+
+  // start with an empty 3-cap
+
+  const cb = new circular_buffer(3);
+
+  expect( cb.length    ).toBe(0);
+  expect( cb.available ).toBe(3);
+  expect( cb.capacity  ).toBe(3);
+
+  // up cap to 5; still empty
+
+  cb.capacity = 5;
+
+  expect( cb.length    ).toBe(0);
+  expect( cb.available ).toBe(5);
+  expect( cb.capacity  ).toBe(5);
+
+  // fill it
+
+  cb.push(1);
+  cb.push(2);
+  cb.push(3);
+  cb.push(4);
+  cb.push(5);
+
+  expect( cb.toArray() ).toEqual( [1,2,3,4,5] );
+
+  // truncate by two; assert common sense
+
+  cb.capacity = 3;
+
+  expect( cb.toArray() ).toEqual( [1,2,3] );
+
+  expect( cb.length    ).toBe(3);
+  expect( cb.available ).toBe(0);
+  expect( cb.capacity  ).toBe(3);
+
+});
+
+
+
+
+
+describe('[UNIT] length setter', () => {
+
+  // start with an empty 3-cap
+
+  const cb = new circular_buffer(3);
+
+  expect( cb.length    ).toBe(0);
+  expect( cb.available ).toBe(3);
+  expect( cb.capacity  ).toBe(3);
+
+  // up cap to 5; still empty
+
+  cb.capacity = 5;
+
+  expect( cb.length    ).toBe(0);
+  expect( cb.available ).toBe(5);
+  expect( cb.capacity  ).toBe(5);
+
+  // fill it
+
+  cb.push(1);
+  cb.push(2);
+  cb.push(3);
+  cb.push(4);
+  cb.push(5);
+
+  expect( cb.toArray() ).toEqual( [1,2,3,4,5] );
+
+  // truncate by two using length; assert common sense
+
+  cb.length = 3;
+
+  expect( cb.toArray() ).toEqual( [1,2,3] );
+
+  expect( cb.length    ).toBe(3);
+  expect( cb.available ).toBe(2);
+  expect( cb.capacity  ).toBe(5);
+
+  // test that the no-op catch for resize under capacity is reached
+  cb.length = 4;
+  expect( cb.toArray() ).toEqual( [1,2,3] );
+
+  // cannot re-length to over capacity
+  expect( () => cb.length = 6 ).toThrow();
+
+  // cannot re-length to negative
+  expect( () => cb.length = -1 ).toThrow();
+
+  // cannot re-length to fraction
+  expect( () => cb.length = 2.5 ).toThrow();
+
+});
+
+
+
+
+
 describe('[UNIT] Circular buffer', () => {
 
   const unit = (size: number) => {
@@ -246,6 +347,45 @@ test('[UNIT] at/1', () => {
   // pushing works after an empty
   at_ir.push(4);
   expect( at_ir.at(0) ).toBe(4);
+
+});
+
+
+
+
+
+test('[UNIT] pos/1', () => {
+
+  const at_ir = new circular_buffer<number>(3);
+
+  // can accept and check a first item
+  at_ir.push(1);
+  expect( at_ir.pos(0) ).toBe(1);
+
+  // can accept a second item; both first and second work
+  at_ir.push(2);
+  expect( at_ir.pos(0) ).toBe(1);
+  expect( at_ir.pos(1) ).toBe(2);
+
+  // after popping, pos(0) no longer exists; pos(1) should still be 2
+  at_ir.pop();
+  expect( () => at_ir.pos(0) ).toThrow();
+  expect( at_ir.pos(1) ).toBe(2);
+
+  // pushing still does what's expected after a pop
+  at_ir.push(3);
+  expect( at_ir.pos(1) ).toBe(2);
+  expect( at_ir.pos(2) ).toBe(3);
+
+  // double popping does what's expected
+  at_ir.pop();
+  at_ir.pop();
+  expect( () => at_ir.at(0) ).toThrow();
+  expect( () => at_ir.at(2) ).toThrow();
+
+  // pushing works after an empty
+  at_ir.push(4);
+  expect( at_ir.pos(3) ).toBe(4);
 
 });
 

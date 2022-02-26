@@ -44,6 +44,8 @@ const cb  = new circular_buffer(size),
 cb.push(item);     // inserts `item` at end of `cb`, then returns `item`
 cb.pop();          // removes and returns first element
 cb.at(location);   // shows the element at 0-indexed offset `location`
+cb.pos(location);  // shows the element at run-indexed offset `location`
+cb.offset();       // shows the delta from 0-indexed to head
 cb.indexOf(item);  // returns the index of the first `item`, or -1
 cb.find(pred);     // return the the first match or undefined
 cb.every(pred);    // tests if every queue element satisfies the predicate

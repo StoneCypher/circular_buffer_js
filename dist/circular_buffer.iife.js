@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.7.1';
+    const version = '1.8.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -14,13 +14,32 @@ var circular_buffer = (function (exports) {
             this._values = new Array(uCapacity);
             this._capacity = uCapacity;
             this._cursor = 0;
+            this._offset = 0;
             this._length = 0;
         }
         get capacity() {
             return this._capacity;
         }
+        set capacity(newSize) {
+            this.resize(newSize);
+        }
         get length() {
             return this._length;
+        }
+        set length(newLength) {
+            if (newLength > this._capacity) {
+                throw new RangeError(`Requested new length [${newLength}] exceeds container capacity [${this._capacity}]`);
+            }
+            if (newLength < 0) {
+                throw new RangeError(`Requested new length [${newLength}] cannot be negative`);
+            }
+            if (!(Number.isInteger(newLength))) {
+                throw new RangeError(`Requested new length [${newLength}] must be an integer`);
+            }
+            if (this._length <= newLength) {
+                return;
+            }
+            this._length = newLength;
         }
         get available() {
             return this._capacity - this._length;
@@ -106,6 +125,7 @@ var circular_buffer = (function (exports) {
             }
             const cache = this.at(0);
             --this._length;
+            ++this._offset;
             ++this._cursor;
             if (this._cursor >= this._capacity) {
                 this._cursor -= this._capacity;
@@ -126,6 +146,12 @@ var circular_buffer = (function (exports) {
                 throw new RangeError(`Requested cell ${i} exceeds container current length`);
             }
             return this._values[(this._cursor + i) % this._capacity];
+        }
+        pos(i) {
+            return this.at(i - this.offset());
+        }
+        offset() {
+            return this._offset;
         }
         resize(newSize) {
             this._values = this.toArray();

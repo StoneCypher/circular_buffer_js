@@ -3,11 +3,14 @@ declare type TraversalFunctor<T> = (_element: T, _index?: number, _array?: T[]) 
 declare class circular_buffer<T> {
     private _values;
     private _cursor;
+    private _offset;
     private _length;
     private _capacity;
     constructor(uCapacity: number);
     get capacity(): number;
+    set capacity(newSize: number);
     get length(): number;
+    set length(newLength: number);
     get available(): number;
     get isEmpty(): boolean;
     get isFull(): boolean;
@@ -24,6 +27,8 @@ declare class circular_buffer<T> {
     clear(): T[];
     pop(): T | undefined;
     at(i: number): T;
+    pos(i: number): T;
+    offset(): number;
     resize(newSize: number): void;
     toArray(): T[];
 }
