@@ -629,6 +629,24 @@ class PosCommand implements cb_command {
 
 
 
+class OffsetCommand implements cb_command {
+
+  toString = () => 'offset';
+  check    = (_m: Readonly<CbModel>) => true;  // tests the empty case so run either way
+
+  run(_m: CbModel, r: circular_buffer<unknown>): void {
+    assert.doesNotThrow( () => r.offset() );     // can be looked up
+    if (r.length) {
+      assert.equal( r.pos(r.offset()), r.at(0) );  // offset matches head
+    }
+  }
+
+}
+
+
+
+
+
 class ToArrayCommand implements cb_command {
 
   toString = () => 'to_array';
@@ -806,6 +824,7 @@ describe('[STOCH] Circular buffer', () => {
         Capacity           = fc.constant( new CapacityCommand()  ),
         At                 = fc.constant( new AtCommand()        ),
         Pos                = fc.constant( new PosCommand()       ),
+        Offset             = fc.constant( new OffsetCommand()    ),
         ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
         IndexOf            = fc.constant( new IndexOfCommand()   ),
@@ -815,8 +834,8 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 #### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.1...HEAD)
 
+- stoch test in for .pos, fixes #50 .pos implemented, fixes #51 .pos tested [`#50`](https://github.com/StoneCypher/circular_buffer_js/issues/50) [`#51`](https://github.com/StoneCypher/circular_buffer_js/issues/51)
 - Add tests for set .capacity, fixes #49 [`#49`](https://github.com/StoneCypher/circular_buffer_js/issues/49)
 - draft implementations [`0dd5d0f`](https://github.com/StoneCypher/circular_buffer_js/commit/0dd5d0f1c73b7752f22367f62e771978625e79c3)
 - unit tests [`3d2637f`](https://github.com/StoneCypher/circular_buffer_js/commit/3d2637f7548883daccb26328c698d3bace86306e)
