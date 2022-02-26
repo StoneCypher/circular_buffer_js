@@ -160,35 +160,39 @@ class PopCommand implements cb_command {
 
 
 
-class SetLengthCommand implements cb_command {
+// class SetLengthCommand implements cb_command {
 
-  toString = () => 'set_length';
-  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call set length
+//   _sizeSeed: number;
 
-  run(m: CbModel, r: circular_buffer<unknown>): void {
+//   constructor(readonly sizeSeed: number) { this._sizeSeed = sizeSeed; }  // see https://github.com/dubzzz/fast-check/issues/2136
 
-    assert.equal(m.length, r.length);
+//   toString = () => 'set_length';
+//   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to call set length
 
-    const newSize = r.length === 15? 12 : 15,  // TODO fixme once we know the answer to https://github.com/dubzzz/fast-check/issues/2136; remember to include empty containers as an option
-          was     = r.toArray(),
-          oldSize = was.length;
+//   run(m: CbModel, r: circular_buffer<unknown>): void {
 
-    r.length = newSize;
-    m.length = newSize;
+//     assert.equal(m.length, r.length);
 
-    const nowIs = r.toArray();
+//     const newSize = (m.capacity === 0)? 0 : this._sizeSeed % m.capacity,
+//           was     = r.toArray(),
+//           oldSize = was.length;
 
-    assert.equal(r.length, newSize);
-    assert.equal(m.length, newSize);
+//     r.length = newSize;
+//     m.length = newSize;
+
+//     const nowIs = r.toArray();
+
+//     assert.equal(r.length, newSize);
+//     assert.equal(m.length, newSize);
 
 
-    for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
-      assert.deepEqual(nowIs[i], was[i]);
-    }
+//     for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
+//       assert.deepEqual(nowIs[i], was[i]);
+//     }
 
-  }
+//   }
 
-}
+// }
 
 
 
@@ -514,12 +518,16 @@ class AtCommand implements cb_command {
 
 class ResizeCommand implements cb_command {
 
+  _sizeSeed: number;
+
+  constructor(readonly sizeSeed: number) { this._sizeSeed = sizeSeed; }  // see https://github.com/dubzzz/fast-check/issues/2136
+
   toString = () => 'resize';
   check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to resize
 
   run(m: CbModel, r: circular_buffer<unknown>): void {
 
-    const newSize = r.length === 15? 12 : 15,  // TODO fixme once we know the answer to https://github.com/dubzzz/fast-check/issues/2136; remember to include empty containers as an option
+    const newSize = (m.capacity === 0)? 0 : this._sizeSeed % m.capacity,
           was     = r.toArray(),
           oldSize = was.length;
 
@@ -670,6 +678,29 @@ describe('[STOCH] at/1 bad calls', () => {
 
 
 
+// describe('[STOCH] pos/1 good calls', () => {
+//   test('Check position <=5000 in container size <= 5000', () => {
+
+//     fc.assert(
+//       fc.property(
+//         fc.integer(1, 5000),
+//         fc.integer(0, 5000),
+//         (sz, at) => {
+//           const cb = new circular_buffer<number>(sz);
+//           for (let i=0; i<sz; ++i) { cb.push(i); }
+
+//           assert.equal(cb.pos(Math.min(sz-1,at)), Math.min(sz-1,at));
+//         }
+//       )
+//     );
+
+//   });
+// });
+
+
+
+
+
 describe('[STOCH] Circular buffer', () => {
 
   const MaxCommandCount      = 100,
@@ -685,10 +716,11 @@ describe('[STOCH] Circular buffer', () => {
         RegularMaxBufferSize = 50,
         LargeMaxBufferSize   = 500;
 
-  const PushARandomInteger = fc.integer().map(v => new PushCommand(v)),
-        Pop                = fc.constant( new PopCommand()       ),
+  const PushARandomInteger = fc.integer().map(v => new PushCommand(v)      ),
+        Resize             = fc.nat().map(    v => new ResizeCommand(v)    ),
+        // SetLength          = fc.nat().map(    v => new SetLengthCommand(v) ),
         GetLength          = fc.constant( new GetLengthCommand() ),
-        SetLength          = fc.constant( new SetLengthCommand() ),
+        Pop                = fc.constant( new PopCommand()       ),
         Every              = fc.constant( new EveryCommand()     ),
         Find               = fc.constant( new FindCommand()      ),
         Some               = fc.constant( new SomeCommand()      ),
@@ -696,7 +728,6 @@ describe('[STOCH] Circular buffer', () => {
         Available          = fc.constant( new AvailableCommand() ),
         Capacity           = fc.constant( new CapacityCommand()  ),
         At                 = fc.constant( new AtCommand()        ),
-        Resize             = fc.constant( new ResizeCommand()    ),
         ToArray            = fc.constant( new ToArrayCommand()   ),
         Fill               = fc.constant( new FillCommand()      ),
         IndexOf            = fc.constant( new IndexOfCommand()   ),
@@ -706,7 +737,7 @@ describe('[STOCH] Circular buffer', () => {
         First              = fc.constant( new FirstCommand()     ),
         Last               = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+  const AllCommands        = [ PushARandomInteger, Pop, GetLength, /* SetLength, */ Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
         AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, Every, Find, Some, Reverse, Available, Capacity, At, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
 

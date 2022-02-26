@@ -193,15 +193,15 @@ class circular_buffer<T> {
   set length(newLength: number) {
 
     if (newLength > this._capacity) {
-      throw new RangeError('Requested new length exceeds container capacity');
+      throw new RangeError(`Requested new length [${newLength}] exceeds container capacity [${this._capacity}]`);
     }
 
     if (newLength < 0) {
-      throw new RangeError('Requested new length cannot be negative');
+      throw new RangeError(`Requested new length [${newLength}] cannot be negative`);
     }
 
     if (!(Number.isInteger(newLength))) {
-      throw new RangeError('Requested new length must be an integer');
+      throw new RangeError(`Requested new length [${newLength}] must be an integer`);
     }
 
     // resizing up or 0, but within container capacity, is a no-op

@@ -28,13 +28,13 @@ var circular_buffer = (function (exports) {
         }
         set length(newLength) {
             if (newLength > this._capacity) {
-                throw new RangeError('Requested new length exceeds container capacity');
+                throw new RangeError(`Requested new length [${newLength}] exceeds container capacity [${this._capacity}]`);
             }
             if (newLength < 0) {
-                throw new RangeError('Requested new length cannot be negative');
+                throw new RangeError(`Requested new length [${newLength}] cannot be negative`);
             }
             if (!(Number.isInteger(newLength))) {
-                throw new RangeError('Requested new length must be an integer');
+                throw new RangeError(`Requested new length [${newLength}] must be an integer`);
             }
             if (this._length <= newLength) {
                 return;
