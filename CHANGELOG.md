@@ -2,8 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.1...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.0...HEAD)
 
+#### [v1.8.0](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.1...v1.8.0)
+
+> 26 February 2022
+
+- Add offset and pos [`#54`](https://github.com/StoneCypher/circular_buffer_js/pull/54)
+- stoch test in for .offset, fixes #52 .offset implemented, fixes #53 .offset tested [`#52`](https://github.com/StoneCypher/circular_buffer_js/issues/52) [`#53`](https://github.com/StoneCypher/circular_buffer_js/issues/53)
 - stoch test in for .pos, fixes #50 .pos implemented, fixes #51 .pos tested [`#50`](https://github.com/StoneCypher/circular_buffer_js/issues/50) [`#51`](https://github.com/StoneCypher/circular_buffer_js/issues/51)
 - Add tests for set .capacity, fixes #49 [`#49`](https://github.com/StoneCypher/circular_buffer_js/issues/49)
 - draft implementations [`0dd5d0f`](https://github.com/StoneCypher/circular_buffer_js/commit/0dd5d0f1c73b7752f22367f62e771978625e79c3)

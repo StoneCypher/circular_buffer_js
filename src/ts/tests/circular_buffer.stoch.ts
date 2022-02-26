@@ -700,6 +700,65 @@ describe('[STOCH] Bad constructor harassment', () => {
 
 
 
+describe('[STOCH] Bad resize harassment', () => {
+
+  test('Floats', () => {
+    fc.assert(
+      fc.property(
+        fc.float(),
+        sz => assert.throws(
+          () => {
+            const cb  = new circular_buffer(1);
+            if (Number.isInteger(sz)) {
+              cb.length = sz + 0.1;
+            } else {
+              cb.length = sz;
+            }
+          }
+        )
+      )
+    );
+  });
+
+  test('Non-positive', () => {
+    fc.assert(
+      fc.property(
+        fc.nat(),
+        sz => assert.throws(
+          () => {
+            const cb  = new circular_buffer(1);
+            cb.length = sz === 0? -2 : sz * -1;
+          }
+        )
+      )
+    );
+  });
+
+  test('Inf, NInf, NaN', () => {
+
+    assert.throws( () => {
+      const cb  = new circular_buffer(0);
+      cb.length = Number.POSITIVE_INFINITY;
+    });
+
+    assert.throws( () => {
+      const cb  = new circular_buffer(0);
+      cb.length = Number.NEGATIVE_INFINITY;
+    });
+
+    assert.throws( () => {
+      const cb  = new circular_buffer(0);
+      cb.length = NaN;
+    });
+
+  });
+
+});
+
+
+
+
+
 describe('[STOCH] at/1 good calls', () => {
   test('Check position <=5000 in container size <= 5000', () => {
 
