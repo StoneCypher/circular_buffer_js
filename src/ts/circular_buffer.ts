@@ -782,6 +782,7 @@ class circular_buffer<T> {
    */
 
   pos(i: number): T {
+    // no need to test anything - at/1 already throws wherever needed
     return this.at( i - this.offset() );
   }
 
