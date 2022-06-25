@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.8.2';
+    const version = '1.9.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -73,11 +73,22 @@ var circular_buffer = (function (exports) {
             return ncb;
         }
         push(v) {
-            if (this._length >= this._capacity) {
+            if (this.isFull) {
                 throw new RangeError(`Cannot push, structure is full to capacity`);
             }
             this._values[(this._cursor + this._length++) % this._capacity] = v;
             return v;
+        }
+        shove(v) {
+            let shoved;
+            if (this._capacity === 0) {
+                throw new RangeError(`Cannot shove, structure is zero-capacity`);
+            }
+            if (this.isFull) {
+                shoved = this.pop();
+            }
+            this.push(v);
+            return shoved;
         }
         fill(x) {
             for (let i = 0; i < this._capacity; i++) {

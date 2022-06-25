@@ -18,6 +18,7 @@ declare class circular_buffer<T> {
     get last(): T;
     static from<T>(i: Iterable<T> | ArrayLike<T>, map_fn?: (_k: T, _i: number) => T, t?: unknown): circular_buffer<T>;
     push(v: T): T;
+    shove(v: T): T | undefined;
     fill(x: T): T[];
     indexOf(searchElement: T, fromIndex?: number): number;
     find(predicate: TraversalFunctor<T>, thisArg?: unknown): T | unknown;

@@ -315,6 +315,35 @@ test('[UNIT] push/1', () => {
 
 
 
+test('[UNIT] shove/1', () => {
+
+  // declare a three item cb
+  const pu_ir = new circular_buffer<number>(3);
+
+  // can accept three items
+  pu_ir.shove(1);
+  pu_ir.shove(2);
+  pu_ir.shove(3);
+
+  expect( pu_ir.shove(4) ).toBe(1);
+  expect( pu_ir.shove(5) ).toBe(2);
+  expect( pu_ir.shove(6) ).toBe(3);
+  expect( pu_ir.shove(7) ).toBe(4);
+
+});
+
+
+
+test('[UNIT] shove/1 on empty', () => {
+
+  // declare a zero item cb
+  const pu_ir = new circular_buffer<number>(0);
+
+  // cannot accept a shove, no space
+  expect( () => pu_ir.shove(4) ).toThrow();
+
+});
+
 
 
 test('[UNIT] at/1', () => {

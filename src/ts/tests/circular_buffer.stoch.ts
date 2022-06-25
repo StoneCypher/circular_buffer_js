@@ -133,6 +133,37 @@ class PushCommand implements cb_command {
 
 
 
+
+class ShoveCommand implements cb_command {
+
+  constructor(readonly value: number) {}    // eslint-disable-line no-unused-vars
+
+  check = (_m: Readonly<CbModel>): boolean => true;  // allowed to push into a full cb because we test overflows
+
+  run(m: CbModel, r: num_cb): void {
+
+    const newValue = whatever();
+
+    if (m.length < m.capacity) {  // cb isn't full, so should increase size
+      r.shove( newValue );
+      ++m.length;
+      assert.deepEqual( r.last, newValue );
+    } else if (m.capacity === 0) { // special case: cb is zero-sized
+      assert.throws( () => r.shove( newValue ) );  // nowhere to shove
+    } else { // cb is full, so shouldn't increase size
+      r.shove( newValue );
+      assert.deepEqual( r.last, newValue );
+    }
+
+  }
+
+  toString = () => `shove(${this.value})`;
+
+}
+
+
+
+
 class PopCommand implements cb_command {
 
   toString = () => 'pop';
@@ -869,33 +900,34 @@ describe('[STOCH] Circular buffer', () => {
         RegularMaxBufferSize = 50,
         LargeMaxBufferSize   = 500;
 
-  const PushARandomInteger = fc.integer().map(v => new PushCommand(v)        ),
-        Resize             = fc.nat().map(    v => new ResizeCommand(v)      ),
-        SetCapacity        = fc.nat().map(    v => new SetCapacityCommand(v) ),
-        SetLength          = fc.nat().map(    v => new SetLengthCommand(v)   ),
-        GetLength          = fc.constant( new GetLengthCommand() ),
-        Pop                = fc.constant( new PopCommand()       ),
-        Every              = fc.constant( new EveryCommand()     ),
-        Find               = fc.constant( new FindCommand()      ),
-        Some               = fc.constant( new SomeCommand()      ),
-        Reverse            = fc.constant( new ReverseCommand()   ),
-        Available          = fc.constant( new AvailableCommand() ),
-        Capacity           = fc.constant( new CapacityCommand()  ),
-        At                 = fc.constant( new AtCommand()        ),
-        Pos                = fc.constant( new PosCommand()       ),
-        Offset             = fc.constant( new OffsetCommand()    ),
-        ToArray            = fc.constant( new ToArrayCommand()   ),
-        Fill               = fc.constant( new FillCommand()      ),
-        IndexOf            = fc.constant( new IndexOfCommand()   ),
-        Clear              = fc.constant( new ClearCommand()     ),
-        Full               = fc.constant( new FullCommand()      ),
-        Empty              = fc.constant( new EmptyCommand()     ),
-        First              = fc.constant( new FirstCommand()     ),
-        Last               = fc.constant( new LastCommand()      );
+  const PushARandomInteger   = fc.integer().map(v => new PushCommand(v)        ),
+        ShoveARandomInteger  = fc.integer().map(v => new ShoveCommand(v)       ),
+        Resize               = fc.nat().map(    v => new ResizeCommand(v)      ),
+        SetCapacity          = fc.nat().map(    v => new SetCapacityCommand(v) ),
+        SetLength            = fc.nat().map(    v => new SetLengthCommand(v)   ),
+        GetLength            = fc.constant( new GetLengthCommand() ),
+        Pop                  = fc.constant( new PopCommand()       ),
+        Every                = fc.constant( new EveryCommand()     ),
+        Find                 = fc.constant( new FindCommand()      ),
+        Some                 = fc.constant( new SomeCommand()      ),
+        Reverse              = fc.constant( new ReverseCommand()   ),
+        Available            = fc.constant( new AvailableCommand() ),
+        Capacity             = fc.constant( new CapacityCommand()  ),
+        At                   = fc.constant( new AtCommand()        ),
+        Pos                  = fc.constant( new PosCommand()       ),
+        Offset               = fc.constant( new OffsetCommand()    ),
+        ToArray              = fc.constant( new ToArrayCommand()   ),
+        Fill                 = fc.constant( new FillCommand()      ),
+        IndexOf              = fc.constant( new IndexOfCommand()   ),
+        Clear                = fc.constant( new ClearCommand()     ),
+        Full                 = fc.constant( new FullCommand()      ),
+        Empty                = fc.constant( new EmptyCommand()     ),
+        First                = fc.constant( new FirstCommand()     ),
+        Last                 = fc.constant( new LastCommand()      );
 
-  const AllCommands        = [ PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames    =  `PushARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
-        CommandGenerator   = fc.commands(AllCommands, MaxCommandCount);
+  const AllCommands          = [ PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames      =  `PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+        CommandGenerator     = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs
 

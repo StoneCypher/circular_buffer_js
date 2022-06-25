@@ -417,11 +417,57 @@ class circular_buffer<T> {
 
   push(v: T): T {
 
-    if (this._length >= this._capacity) { throw new RangeError(`Cannot push, structure is full to capacity`); }
+    if (this.isFull) {
+      throw new RangeError(`Cannot push, structure is full to capacity`);
+    }
 
     this._values[(this._cursor + this._length++) % this._capacity] = v;
 
     return v;
+
+  }
+
+
+
+
+
+  /*********
+   *
+   *  Pushes a value onto the end of the container; removes front to make space
+   *  if necessary.  Throws `RangeError` if the container is zero-size.
+   *
+   *  Returns the value shoved out, if any.
+   *
+   *  ```typescript
+   *  const cb = new circular_buffer(3);
+   *
+   *  cb.shove(1);  // ok, returns undefined
+   *  cb.shove(2);  // ok, returns undefined
+   *  cb.shove(3);  // ok, returns undefined
+   *
+   *  cb.toArray(); // [1,2,3]
+   *
+   *  cb.push(4);   // ok, returns 1
+   *
+   *  cb.toArray(); // [2,3,4]
+   *  ```
+   */
+
+  shove(v: T): T | undefined {
+
+    let shoved: T | undefined;
+
+    if (this._capacity === 0) {
+      throw new RangeError(`Cannot shove, structure is zero-capacity`);
+    }
+
+    if (this.isFull) {
+      shoved = this.pop();
+    }
+
+    this.push(v);
+
+    return shoved;
 
   }
 

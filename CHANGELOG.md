@@ -2,9 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.0...HEAD)
+#### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.2...HEAD)
 
 - Add release process.  Re-achieve 100% double-coverage [`bb822c2`](https://github.com/StoneCypher/circular_buffer_js/commit/bb822c298fed01c8284188c65dfaa479c5dc96b9)
+- Minor improvements to the release process [`c789600`](https://github.com/StoneCypher/circular_buffer_js/commit/c789600d2edd17dbc400e5b3d4a4b3f9f93c2ba2)
+
+#### [v1.8.2](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.1...v1.8.2)
+
+> 26 February 2022
+
+#### [v1.8.1](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.0...v1.8.1)
+
+> 26 February 2022
 
 #### [v1.8.0](https://github.com/StoneCypher/circular_buffer_js/compare/v1.7.1...v1.8.0)
 
