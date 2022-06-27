@@ -23,6 +23,31 @@ type cb_command = fc.Command<CbModel, num_cb>;
 
 
 
+test('Resizing never throws', () => {
+
+  const testq = new circular_buffer<number>(2);
+
+  fc.assert(
+    fc.property(
+
+      fc.boolean(),
+      fc.integer({ min: 0, max: 500 }),
+      fc.double(),
+
+      (shouldFromEnd: boolean, newSize: number, newContent: number) => {
+        testq.resize(newSize, shouldFromEnd);
+        testq.fill(newContent);
+      }
+
+    )
+  );
+
+});
+
+
+
+
+
 // from/1,2 don't really make sense in the command model
 
 test('[STOCH] simple from/1', () => {
@@ -255,15 +280,60 @@ class ResizeCommand implements cb_command {
     m.capacity = newSize;
     m.length   = Math.min(m.length, newSize);
 
+    assert.equal(r.capacity, newSize, "datastructure size and expected new size match");
+    assert.equal(m.capacity, newSize, "model size and expected new size match");
+
+
     const nowIs = r.toArray();
 
-    assert.equal(r.capacity, newSize);
-    assert.equal(m.capacity, newSize);
-
-
     for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
-      assert.deepEqual(nowIs[i], was[i]);
+      assert.deepEqual(nowIs[i], was[i], "item-wise comparison matches");
     }
+
+  }
+
+}
+
+
+
+
+
+class ResizeEndCommand implements cb_command {
+
+  _sizeSeed  : number;
+  _calcSize? : number;
+
+  constructor(readonly sizeSeed: number) { this._sizeSeed = sizeSeed; }  // see https://github.com/dubzzz/fast-check/issues/2136
+
+  toString = () => `resize_end(${this._calcSize ?? 'no size!'},true)`;
+  check    = (_m: Readonly<CbModel>) => true;  // you should always be allowed to resize
+
+  run(m: CbModel, r: circular_buffer<unknown>): void {
+
+    this._calcSize = (m.capacity === 0)? 0 : this._sizeSeed % m.capacity;
+
+    const newSize = this._calcSize,
+          was     = r.toArray(),
+          oldSize = was.length;
+
+    r.resize(newSize);
+    m.capacity = newSize;
+    m.length   = Math.min(m.length, newSize);
+
+    const dir = (oldSize < newSize)? 'gr' : 'sh';
+
+    assert.equal(r.capacity, newSize, `(end ${dir}) datastructure size and expected new size match`);
+    assert.equal(m.capacity, newSize, `(end ${dir}) model size and expected new size match`);
+
+
+    // if it grew or stayed still, offset should be zero
+    // if it shrank, offset should be positive to the degree of the shrinkage
+    // const offset = Math.max(0, (oldSize - newSize));
+    // const nowIs = r.toArray();
+
+    // for (let i=0, iC=Math.min(oldSize, newSize); i<iC; ++i) {
+    //   assert.deepEqual(nowIs[i], was[i+offset], `(end ${dir}) item-wise comparison matches at idx ${i} [${oldSize},${newSize}]`);
+    // }
 
   }
 
@@ -903,6 +973,7 @@ describe('[STOCH] Circular buffer', () => {
   const PushARandomInteger   = fc.integer().map(v => new PushCommand(v)        ),
         ShoveARandomInteger  = fc.integer().map(v => new ShoveCommand(v)       ),
         Resize               = fc.nat().map(    v => new ResizeCommand(v)      ),
+        ResizeEnd            = fc.nat().map(    v => new ResizeEndCommand(v)   ),
         SetCapacity          = fc.nat().map(    v => new SetCapacityCommand(v) ),
         SetLength            = fc.nat().map(    v => new SetLengthCommand(v)   ),
         GetLength            = fc.constant( new GetLengthCommand() ),
@@ -925,8 +996,8 @@ describe('[STOCH] Circular buffer', () => {
         First                = fc.constant( new FirstCommand()     ),
         Last                 = fc.constant( new LastCommand()      );
 
-  const AllCommands          = [ PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
-        AllCommandNames      =  `PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
+  const AllCommands          = [ PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ResizeEnd, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last ],
+        AllCommandNames      =  `PushARandomInteger, ShoveARandomInteger, Pop, GetLength, SetLength, SetCapacity, Every, Find, Some, Reverse, Available, Capacity, At, Pos, Offset, Resize, ResizeEnd, ToArray, Fill, IndexOf, Clear, Full, Empty, First, Last`,
         CommandGenerator     = fc.commands(AllCommands, MaxCommandCount);
 
     // define the possible commands and their inputs

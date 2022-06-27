@@ -443,6 +443,36 @@ test('[UNIT] resize/1', () => {
 
 
 
+test('[UNIT] resize prefers end/1', () => {
+
+  const orig = circular_buffer.from([1,2,3,4,5]);
+  expect(orig.toArray()).toStrictEqual([1,2,3,4,5]);
+
+  orig.resize(4, true);
+  expect(orig.toArray()).toStrictEqual([2,3,4,5]);
+
+  orig.resize(6, true);
+  expect(orig.toArray()).toStrictEqual([2,3,4,5]);
+
+  orig.push(-6);
+  orig.push(-7);
+  expect(orig.toArray()).toStrictEqual([2,3,4,5,-6,-7]);
+
+  orig.resize(6, true);
+  expect(orig.toArray()).toStrictEqual([2,3,4,5,-6,-7]);
+  orig.resize(4, true);
+  expect(orig.toArray()).toStrictEqual([4,5,-6,-7]);
+  orig.resize(6, true);
+  expect(orig.toArray()).toStrictEqual([4,5,-6,-7]);
+  orig.resize(4, true);
+  expect(orig.toArray()).toStrictEqual([4,5,-6,-7]);
+
+});
+
+
+
+
+
 test('[UNIT] fill/5', () => {
 
   // declare a five item cb

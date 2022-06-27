@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.9.0';
+    const version = '1.10.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -164,12 +164,24 @@ var circular_buffer = (function (exports) {
         offset() {
             return this._offset;
         }
-        resize(newSize) {
+        resize(newSize, preferEnd = false) {
             this._values = this.toArray();
             this._cursor = 0;
-            this._capacity = newSize;
+            const oldSize = this._length;
             this._length = Math.min(this._length, newSize);
-            this._values.length = newSize;
+            this._capacity = newSize;
+            if (newSize >= oldSize) {
+                this._values.length = newSize;
+            }
+            else {
+                if (preferEnd) {
+                    const tmp = this._values.slice(oldSize - newSize);
+                    this._values = tmp;
+                }
+                else {
+                    this._values.length = newSize;
+                }
+            }
         }
         toArray() {
             const startPoint = this._cursor % this._capacity;

@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 #### [Unreleased](https://github.com/StoneCypher/circular_buffer_js/compare/v1.8.2...HEAD)
 
+- 1.9.0 implement shove/1, fixes #55 [`#55`](https://github.com/StoneCypher/circular_buffer_js/issues/55)
 - Add release process.  Re-achieve 100% double-coverage [`bb822c2`](https://github.com/StoneCypher/circular_buffer_js/commit/bb822c298fed01c8284188c65dfaa479c5dc96b9)
 - Minor improvements to the release process [`c789600`](https://github.com/StoneCypher/circular_buffer_js/commit/c789600d2edd17dbc400e5b3d4a4b3f9f93c2ba2)
 

@@ -873,8 +873,10 @@ class circular_buffer<T> {
 
   /*********
    *
-   *  Changes the capacity of the queue.  If the new capacity of the
-   *  queue is too small for the prior contents, they are trimmed.
+   *  Changes the capacity of the queue.  If the new capacity of the queue is
+   *  too small for the prior contents, they are trimmed.  The second argument,
+   *  `preferEnd`, an optional boolean that defaults false, will cause removals
+   *  to be taken from the front instead of the back.
    *
    *  ```typescript
    *  const cb = new circular_buffer(3);
@@ -899,20 +901,41 @@ class circular_buffer<T> {
    *
    *  cb.resize(4);  // ok
    *  cb.toArray();  // [ , , , ]
+   *
+   *  cb.push(1);    // ok, returns 1
+   *  cb.push(2);    // ok, returns 2
+   *  cb.push(3);    // ok, returns 3
+   *  cb.push(4);    // ok, returns 4
+   *  cb.toArray();  // [1,2,3,4]
+   *
+   *  cb.resize(2);  // ok
+   *  cb.toArray();  // [3,4]
    *  ```
    */
 
-  resize(newSize: number): void {
+  resize(newSize: number, preferEnd = false): void {
 
     // first reorganize at zero
     this._values        = this.toArray();
     this._cursor        = 0;
     // do not mutate _this.offset; it doesn't change
 
+    const oldSize       = this._length;
+    this._length        = Math.min(this._length, newSize);
+
     // next update the expected size, and act on it
     this._capacity      = newSize;
-    this._length        = Math.min(this._length, newSize);
-    this._values.length = newSize;  // either truncate or pad
+
+    if (newSize >= oldSize) {
+      this._values.length = newSize;  // pad
+    } else {
+      if (preferEnd) {
+        const tmp    = this._values.slice(oldSize - newSize);
+        this._values = tmp;
+      } else {
+        this._values.length = newSize;  // truncate
+      }
+    }
 
   }
 

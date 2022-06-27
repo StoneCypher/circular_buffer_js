@@ -30,7 +30,7 @@ declare class circular_buffer<T> {
     at(i: number): T;
     pos(i: number): T;
     offset(): number;
-    resize(newSize: number): void;
+    resize(newSize: number, preferEnd?: boolean): void;
     toArray(): T[];
 }
 export { version, circular_buffer, TraversalFunctor };
