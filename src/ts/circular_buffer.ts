@@ -498,6 +498,7 @@ class circular_buffer<T> {
     }
 
     this._length = this._capacity;
+    this._cursor = 0;
 
     return this._values;
 
@@ -607,12 +608,12 @@ class circular_buffer<T> {
     const normalized = this.toArray(),
           res        = normalized.some(functor, thisArg);
 
-    // every can mutate, so, store the result, which will usually be nothing
+    // some can mutate, so, store the result, which will usually be nothing
 
     this._values        = normalized;
     this._values.length = this._capacity;   // stack with new empties
     this._cursor        = 0;                // accomodate internal rotation
-    // do not mutate _this.offset; it doesn't change
+    // do not mutate this._offset; it doesn't change
 
     return res;
 
@@ -705,7 +706,7 @@ class circular_buffer<T> {
    *
    */
 
-  pop(): T | undefined {
+  pop(): T {
 
     if (this._length <= 0) {
       throw new RangeError(`Cannot pop, structure is empty`);
