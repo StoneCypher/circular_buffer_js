@@ -1,7 +1,7 @@
 var circular_buffer = (function (exports) {
     'use strict';
 
-    const version = '1.10.0';
+    const version = '1.11.0';
 
     class circular_buffer {
         constructor(uCapacity) {
@@ -95,6 +95,7 @@ var circular_buffer = (function (exports) {
                 this._values[i] = x;
             }
             this._length = this._capacity;
+            this._cursor = 0;
             return this._values;
         }
         indexOf(searchElement, fromIndex) {
@@ -121,6 +122,30 @@ var circular_buffer = (function (exports) {
         reverse() {
             const normalized = this.toArray();
             this._values = normalized.reverse();
+            this._values.length = this._capacity;
+            this._cursor = 0;
+            return this;
+        }
+        rotateRight(positions = 1) {
+            if (!Number.isInteger(positions)) {
+                throw new RangeError(`Rotate positions must be an integer, received ${positions}`);
+            }
+            if (positions < 0) {
+                throw new RangeError(`Rotate positions must be non-negative, received ${positions}`);
+            }
+            if (this._length === 0 || positions === 0) {
+                return this;
+            }
+            const normalizedPositions = positions % this._length;
+            if (normalizedPositions === 0) {
+                return this;
+            }
+            const normalized = this.toArray();
+            const rotated = [
+                ...normalized.slice(-normalizedPositions),
+                ...normalized.slice(0, -normalizedPositions)
+            ];
+            this._values = rotated;
             this._values.length = this._capacity;
             this._cursor = 0;
             return this;

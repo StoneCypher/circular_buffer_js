@@ -25,8 +25,9 @@ declare class circular_buffer<T> {
     every(functor: TraversalFunctor<T>, thisArg?: unknown): boolean;
     some(functor: TraversalFunctor<T>, thisArg?: unknown): boolean;
     reverse(): circular_buffer<T>;
+    rotateRight(positions?: number): circular_buffer<T>;
     clear(): T[];
-    pop(): T | undefined;
+    pop(): T;
     at(i: number): T;
     pos(i: number): T;
     offset(): number;

@@ -54,6 +54,7 @@ cb.some(pred);       // tests if at least one element satisfies the predicate
 cb.fill(item);       // maxes `length` and sets every element to `item`
 cb.clear();          // empties the container
 cb.reverse();        // reverses the container
+cb.rotateRight(n);   // rotates the container right by n positions (default 1)
 cb.resize(size,pE);  // change to new size, truncating if required; pE to prefer end
 cb.toArray();        // return an array of the current contents of the queue
 

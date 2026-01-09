@@ -819,6 +819,90 @@ test('[UNIT] Reverse', () => {
 
 
 
+describe('[UNIT] Rotate Right', () => {
+
+  test('Rotate right by 1', () => {
+    const cb = circular_buffer.from([1, 2, 3, 4]);
+    cb.rotateRight(1);
+    expect(cb.toArray()).toEqual([4, 1, 2, 3]);
+  });
+
+  test('Rotate right by 2', () => {
+    const cb = circular_buffer.from([1, 2, 3, 4, 5]);
+    cb.rotateRight(2);
+    expect(cb.toArray()).toEqual([4, 5, 1, 2, 3]);
+  });
+
+  test('Rotate right by length (no-op)', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    cb.rotateRight(3);
+    expect(cb.toArray()).toEqual([1, 2, 3]);
+  });
+
+  test('Rotate right by more than length', () => {
+    const cb = circular_buffer.from([1, 2, 3, 4]);
+    cb.rotateRight(5); // Same as rotating by 1
+    expect(cb.toArray()).toEqual([4, 1, 2, 3]);
+  });
+
+  test('Rotate right by 0 (no-op)', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    cb.rotateRight(0);
+    expect(cb.toArray()).toEqual([1, 2, 3]);
+  });
+
+  test('Rotate right on empty buffer (no-op)', () => {
+    const cb = new circular_buffer<number>(5);
+    cb.rotateRight(2);
+    expect(cb.toArray()).toEqual([]);
+  });
+
+  test('Rotate right with default parameter', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    cb.rotateRight();
+    expect(cb.toArray()).toEqual([3, 1, 2]);
+  });
+
+  test('Rotate right returns this for chaining', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    const result = cb.rotateRight(1);
+    expect(result).toBe(cb);
+  });
+
+  test('Rotate right with partial buffer', () => {
+    const cb = new circular_buffer<number>(5);
+    cb.push(1);
+    cb.push(2);
+    cb.push(3);
+    cb.rotateRight(1);
+    expect(cb.toArray()).toEqual([3, 1, 2]);
+  });
+
+  test('Rotate right after pop operations', () => {
+    const cb = circular_buffer.from([1, 2, 3, 4, 5]);
+    cb.pop(); // Remove 1
+    cb.pop(); // Remove 2
+    // Now buffer is [3, 4, 5]
+    cb.rotateRight(1);
+    expect(cb.toArray()).toEqual([5, 3, 4]);
+  });
+
+  test('Rotate right throws on negative positions', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    expect(() => cb.rotateRight(-1)).toThrow(RangeError);
+  });
+
+  test('Rotate right throws on non-integer positions', () => {
+    const cb = circular_buffer.from([1, 2, 3]);
+    expect(() => cb.rotateRight(1.5)).toThrow(RangeError);
+  });
+
+});
+
+
+
+
+
 describe('[UNIT] Error cases', () => {
 
   const overflow = (size: number) => {

@@ -656,6 +656,76 @@ class circular_buffer<T> {
 
   /*********
    *
+   *  Rotates the container to the right by the specified number of positions.
+   *  Elements that are rotated off the end wrap around to the beginning.
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,3,4]);
+   *  cb.rotateRight(1);
+   *
+   *  cb.pop();  // ok, returns 4
+   *  cb.pop();  // ok, returns 1
+   *  cb.pop();  // ok, returns 2
+   *  cb.pop();  // ok, returns 3
+   *  ```
+   *
+   *  You can also rotate by multiple positions:
+   *
+   *  ```typescript
+   *  const cb = circular_buffer.from([1,2,3,4,5]);
+   *  cb.rotateRight(2);
+   *
+   *  cb.toArray();  // [4,5,1,2,3]
+   *  ```
+   */
+
+  rotateRight(positions = 1): circular_buffer<T> {
+
+    if (!Number.isInteger(positions)) {
+      throw new RangeError(`Rotate positions must be an integer, received ${positions}`);
+    }
+
+    if (positions < 0) {
+      throw new RangeError(`Rotate positions must be non-negative, received ${positions}`);
+    }
+
+    // Empty buffer or zero rotation is a no-op
+    if (this._length === 0 || positions === 0) {
+      return this;
+    }
+
+    // Normalize positions to be within the length (rotating by length is a no-op)
+    const normalizedPositions = positions % this._length;
+
+    if (normalizedPositions === 0) {
+      return this;
+    }
+
+    // Get current contents in order
+    const normalized: T[] = this.toArray();
+
+    // Perform rotation: take last N elements and move to front
+    const rotated = [
+      ...normalized.slice(-normalizedPositions),
+      ...normalized.slice(0, -normalizedPositions)
+    ];
+
+    // Update internal state
+    this._values = rotated;
+    this._values.length = this._capacity;  // pad with empties
+    this._cursor = 0;                      // reset cursor
+    // do not mutate this._offset; it doesn't change
+
+    return this;
+
+  }
+
+
+
+
+
+  /*********
+   *
    *  Empties a container.  Returns the previous contents.
    *
    *  ```typescript
